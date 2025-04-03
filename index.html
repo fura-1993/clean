@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフェッショナル清掃サービス | 高圧洗浄・タイル洗浄・絨毯清掃</title>
+    <meta name="description" content="高圧洗浄、タイル洗浄、絨毯清掃のプロフェッショナルサービス。品質と信頼のクリーニングで、あなたの空間を清潔に保ちます。">
+    <!-- CSS読み込み -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- フォント -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header id="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="#"><img src="photo/JTロゴ.png" alt="JTロゴ"></a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#services">サービス</a></li>
+                    <li><a href="#features">特徴</a></li>
+                    <li><a href="#testimonials">お客様の声</a></li>
+                    <li><a href="#faq">よくある質問</a></li>
+                    <li><a href="#contact" class="nav-contact-btn">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-nav">
+            <ul>
+                <li><a href="#services">サービス</a></li>
+                <li><a href="#features">特徴</a></li>
+                <li><a href="#testimonials">お客様の声</a></li>
+                <li><a href="#faq">よくある質問</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ヒーローセクション -->
+        <section id="hero">
+            <!-- 背景用要素 -->
+            <div class="hero-bg-wrapper rellax" data-rellax-speed="7">
+                <div class="hero-bg-slice left"></div>
+                <div class="hero-bg-slice middle"></div>
+                <div class="hero-bg-slice right"></div>
+            </div>
+            <!-- hero-containerがコンテンツ本体 -->
+            <div class="hero-container">
+                <div class="hero-content" data-aos="fade-in" data-aos-delay="200">
+                    <h1>プロフェッショナルな<br>清掃サービス</h1>
+                    <p>高圧洗浄・タイル洗浄・絨毯清掃のスペシャリスト</p>
+                    <div class="hero-btns">
+                        <a href="#contact" class="btn primary-btn">無料見積もり依頼</a>
+                        <a href="#services" class="btn secondary-btn">サービスを見る</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- サービス紹介 -->
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>提供サービス</h2>
+                    <p>様々な場所に対応した清掃サービスをご提供します</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <!-- 背景回転用 -->
+                        <div class="service-card-bg-rotator">
+                            <div class="service-card-bg-front"></div>
+                            <div class="service-card-bg-back"></div>
+                        </div>
+                        <!-- コンテンツ表示用 -->
+                        <div class="service-card-content-front">
+                            <div class="service-icon">
+                                <i class="fas fa-shower"></i>
+                            </div>
+                            <h3>高圧洗浄</h3>
+                            <p class="service-short-desc">外壁や駐車場などの頑固な汚れを除去</p>
+                        </div>
+                        <div class="service-card-content-back">
+                            <h3>高圧洗浄 詳細</h3>
+                            <p>外壁、駐車場、庭のテラスなど、強力な高圧洗浄機で頑固な汚れも徹底的に除去します。</p>
+                            <ul class="service-features">
+                                <li>・外壁洗浄</li>
+                                <li>・駐車場洗浄</li>
+                                <li>・テラス・デッキ洗浄</li>
+                                <li>・雨どい清掃</li>
+                            </ul>
+                            <a href="#contact" class="btn outline-btn">お問い合わせ</a>
+                        </div>
+                    </div>
+                    <div class="service-card" id="tile-cleaning-card" data-aos="fade-up" data-aos-delay="200">
+                        <!-- 背景回転用 -->
+                        <div class="service-card-bg-rotator">
+                            <div class="service-card-bg-front"></div>
+                            <div class="service-card-bg-back"></div>
+                        </div>
+                        <!-- コンテンツ表示用 -->
+                        <div class="service-card-content-front">
+                            <div class="service-icon">
+                                <i class="fas fa-border-all"></i>
+                            </div>
+                            <h3>タイル洗浄</h3>
+                            <p class="service-short-desc">床・壁タイルの美観を復元、目地も綺麗に</p>
+                        </div>
+                        <div class="service-card-content-back">
+                            <h3>タイル洗浄 詳細</h3>
+                            <p>専用の洗剤と機材を使用し、タイルの美観を復元。目地の汚れもしっかり除去します。</p>
+                            <ul class="service-features">
+                                <li>・床タイル洗浄</li>
+                                <li>・浴室タイル洗浄</li>
+                                <li>・キッチンタイル洗浄</li>
+                                <li>・目地洗浄・補修</li>
+                            </ul>
+                            <a href="#contact" class="btn outline-btn">お問い合わせ</a>
+                        </div>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <!-- 背景回転用 -->
+                        <div class="service-card-bg-rotator">
+                            <div class="service-card-bg-front"></div>
+                            <div class="service-card-bg-back"></div>
+                        </div>
+                        <!-- コンテンツ表示用 -->
+                        <div class="service-card-content-front">
+                            <div class="service-icon">
+                                <i class="fas fa-couch"></i>
+                            </div>
+                            <h3>絨毯清掃</h3>
+                            <p class="service-short-desc">カーペットのホコリ・汚れ・シミを除去</p>
+                        </div>
+                        <div class="service-card-content-back">
+                            <h3>絨毯清掃 詳細</h3>
+                            <p>最新の洗浄機でカーペットの奥に溜まったホコリや汚れを取り除き、清潔で快適な空間に。</p>
+                            <ul class="service-features">
+                                <li>・オフィスカーペット清掃</li>
+                                <li>・ホテル・旅館カーペット清掃</li>
+                                <li>・住宅カーペット清掃</li>
+                                <li>・シミ・匂い除去</li>
+                            </ul>
+                            <a href="#contact" class="btn outline-btn">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特徴 -->
+        <section id="features" class="section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>選ばれる理由</h2>
+                    <p>お客様に安心と満足をお届けするための取り組み</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-right">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>プロの技術</h3>
+                            <p>熟練スタッフによる高品質な清掃サービスをご提供。徹底した研修で技術力を維持しています。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>環境に優しい</h3>
+                            <p>環境に配慮した洗剤を使用し、水の使用量も最小限に抑えた持続可能な清掃を実施しています。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-right">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>迅速な対応</h3>
+                            <p>お問い合わせから24時間以内にご連絡。緊急の場合は当日対応も可能です。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left">
+                        <div class="feature-icon">
+                            <i class="fas fa-yen-sign"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>明確な料金</h3>
+                            <p>追加料金なしの明確な料金体系。事前に詳細なお見積りをご提示します。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-right">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>安心の保証</h3>
+                            <p>万が一の時も安心の損害保険完備。清掃後の品質保証も行っています。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>実績多数</h3>
+                            <p>多くのお客様にご利用いただき、高い満足度をいただいております。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="cta" class="section">
+            <div class="cta-container" data-aos="zoom-in">
+                <div class="cta-content">
+                    <h2>今なら初回限定10%オフ</h2>
+                    <p>まずはお気軽にお問い合わせください。<br>現地調査・お見積りは無料で承ります。</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn primary-btn">無料見積もりを依頼する</a>
+                        <a href="tel:0120-123-456" class="btn secondary-btn"><i class="fas fa-phone"></i> 0120-123-456</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お客様の声 -->
+        <section id="testimonials" class="section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>お客様の声</h2>
+                    <p>実際にご利用いただいたお客様からのご感想</p>
+                </div>
+                <div class="testimonials-slider">
+                    <div class="testimonial-item">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>「長年使用してきたタイルの目地が黒ずんでいて諦めていましたが、プロの技術で見違えるように綺麗になりました。定期的にお願いしたいと思います。」</p>
+                            <div class="testimonial-author">
+                                <span class="author-name">鈴木様 - 東京都</span>
+                                <span class="service-type">タイル洗浄</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>「オフィスの絨毯清掃をお願いしました。長年の汚れがしっかり落ちて、社員からも好評です。対応も丁寧で、次回もぜひお願いしたいと思います。」</p>
+                            <div class="testimonial-author">
+                                <span class="author-name">田中様 - 大阪府</span>
+                                <span class="service-type">絨毯清掃</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p>「外壁の高圧洗浄をお願いしました。年季の入った汚れも見事に落として、新築のような外観に戻りました。近所の方からも好評で、おすすめです。」</p>
+                            <div class="testimonial-author">
+                                <span class="author-name">佐藤様 - 愛知県</span>
+                                <span class="service-type">高圧洗浄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <div class="testimonial-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- よくある質問 -->
+        <section id="faq" class="section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>よくある質問</h2>
+                    <p>お客様からよくいただくご質問にお答えします</p>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question">
+                            <h3>料金はどのように決まりますか？</h3>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>清掃する面積、汚れの状態、作業の難易度などを考慮して料金を算出しています。現地調査後に詳細なお見積りをご提示します。追加料金は一切発生しませんのでご安心ください。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <h3>どのくらいの頻度で清掃するべきですか？</h3>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>場所や用途によって異なりますが、一般的には外壁・タイルは1〜2年に1回、絨毯は半年〜1年に1回の清掃をおすすめしています。定期的なメンテナンスで美観を保ち、寿命も延ばせます。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question">
+                            <h3>清掃時に立ち会う必要はありますか？</h3>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>作業開始時と完了時のご確認をお願いしていますが、作業中は必ずしも立ち会う必要はありません。鍵のお預かりも可能です。セキュリティ面も万全を期しておりますのでご安心ください。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question">
+                            <h3>予約から作業実施までどれくらいかかりますか？</h3>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>通常、お問い合わせから1週間程度でご対応可能です。繁忙期は多少お時間をいただく場合もありますが、緊急の場合は可能な限り早急に対応いたします。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="faq-question">
+                            <h3>使用する洗剤は安全ですか？</h3>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>環境に配慮した安全性の高い洗剤を使用しています。お子様やペットがいるご家庭でも安心してご利用いただけます。特別なご要望がある場合は、事前にご相談ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お問い合わせ -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>お問い合わせ</h2>
+                    <p>無料見積りのご依頼・ご質問はこちらから</p>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info" data-aos="fade-left">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>お電話でのお問い合わせ</h3>
+                                <p>0120-123-456</p>
+                                <p>受付時間：平日9:00〜18:00</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>メールでのお問い合わせ</h3>
+                                <p>info@cleaning-pro.jp</p>
+                                <p>24時間受付中</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>会社所在地</h3>
+                                <p>〒123-4567</p>
+                                <p>東京都千代田区〇〇町1-2-3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form" data-aos="fade-right">
+                        <form id="inquiry-form">
+                            <div class="form-group">
+                                <label for="name">お名前 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">メールアドレス <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">電話番号 <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service">ご希望のサービス <span class="required">*</span></label>
+                                <select id="service" name="service" required>
+                                    <option value="">選択してください</option>
+                                    <option value="高圧洗浄">高圧洗浄</option>
+                                    <option value="タイル洗浄">タイル洗浄</option>
+                                    <option value="絨毯清掃">絨毯清掃</option>
+                                    <option value="その他">その他</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">住所</label>
+                                <input type="text" id="address" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">お問い合わせ内容 <span class="required">*</span></label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="privacy-check">
+                                    <input type="checkbox" id="privacy" name="privacy" required>
+                                    <label for="privacy"><a href="#">プライバシーポリシー</a>に同意する <span class="required">*</span></label>
+                                </div>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn primary-btn">送信する</button>
+                            </div>
+                        </form>
+                        <div id="form-success" class="form-message-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>送信完了</h3>
+                            <p>お問い合わせありがとうございます。担当者より24時間以内にご連絡いたします。</p>
+                        </div>
+                        <div id="form-error" class="form-message-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h3>送信エラー</h3>
+                            <p>送信中にエラーが発生しました。再度お試しいただくか、お電話でお問い合わせください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="images/logo-white.png" alt="クリーニングプロ">
+                    </div>
+                    <p>高圧洗浄・タイル洗浄・絨毯清掃のプロフェッショナル</p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-phone"></i> 0120-123-456</p>
+                        <p><i class="fas fa-envelope"></i> info@cleaning-pro.jp</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 東京都千代田区〇〇町1-2-3</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>サービス</h3>
+                        <ul>
+                            <li><a href="#services">高圧洗浄</a></li>
+                            <li><a href="#services">タイル洗浄</a></li>
+                            <li><a href="#services">絨毯清掃</a></li>
+                            <li><a href="#services">定期メンテナンス</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>会社情報</h3>
+                        <ul>
+                            <li><a href="#">会社概要</a></li>
+                            <li><a href="#">スタッフ紹介</a></li>
+                            <li><a href="#">採用情報</a></li>
+                            <li><a href="#">ブログ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>お役立ち情報</h3>
+                        <ul>
+                            <li><a href="#faq">よくある質問</a></li>
+                            <li><a href="#">清掃コラム</a></li>
+                            <li><a href="#">お手入れ方法</a></li>
+                            <li><a href="#">用語集</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h3>SNSでフォロー</h3>
+                    <div class="social-icons">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">特定商取引法に基づく表記</a></li>
+                        <li><a href="#">サイトマップ</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <p>© 2025 クリーニングプロ All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript読み込み -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
