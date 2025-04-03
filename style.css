@@ -234,6 +234,36 @@ input, textarea, select {
   }
 }
 
+/* ロゴ用アニメーション */
+@-webkit-keyframes scale-up-tl {
+  0% {
+    -webkit-transform: scale(.5);
+            transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+  }
+}
+@keyframes scale-up-tl {
+  0% {
+    -webkit-transform: scale(.5);
+            transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+  }
+}
+
 /* Header Styles */
 #header {
     position: fixed;
@@ -273,12 +303,14 @@ input, textarea, select {
     display: inline-block;
     padding: 0.5rem;
     margin: -0.5rem;
-    transition: transform 0.3s ease;
+    /* アニメーションはホバー時に適用 */
 }
 
-/* ロゴリンクのホバー効果を追加 */
+/* ロゴリンクのホバー効果を変更 */
 .logo a:hover {
-    transform: scale(1.4);
+    /* transform: scale(1.4); 削除 */
+    -webkit-animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .logo a::before {
@@ -305,11 +337,6 @@ input, textarea, select {
     position: relative;
     z-index: 1;
 }
-
-/* ロゴホバー時に拡大 */
-/* .logo img:hover {
-    transform: scale(1.4);
-} */
 
 /* main-nav を常に非表示に */
 .main-nav {
