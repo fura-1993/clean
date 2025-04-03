@@ -279,7 +279,7 @@ input, textarea, select {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: var(--white);
     border-radius: 6px;
     z-index: -1;
     opacity: 1;
