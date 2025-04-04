@@ -106,6 +106,7 @@ export default function Header() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             aria-label="メニュー"
+            whileHover={{ scale: 1.05 }}
           >
             <motion.div
               className="w-8 h-[2px] bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full origin-left"
@@ -113,21 +114,37 @@ export default function Header() {
                 rotate: isOpen ? 45 : 0,
                 y: isOpen ? -3 : 0,
                 width: isHovered ? "32px" : "24px",
-                opacity: 1
+                opacity: 1,
+                x: !isOpen && !isHovered ? [-2, 2, -2] : 0
               }}
               initial={{ width: "24px" }}
-              transition={{ duration: 0.3 }}
+              transition={{
+                duration: 0.3,
+                x: {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
             />
             <motion.div
               className="w-6 h-[2px] bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full"
               animate={{
                 scale: isOpen ? 0 : 1,
-                x: isHovered ? "4px" : "0px",
+                x: isHovered ? "4px" : !isOpen ? [-3, 3, -3] : 0,
                 width: isHovered ? "28px" : "20px",
                 opacity: isOpen ? 0 : 1
               }}
               initial={{ width: "20px" }}
-              transition={{ duration: 0.3 }}
+              transition={{
+                duration: 0.3,
+                x: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.2
+                }
+              }}
             />
             <motion.div
               className="w-8 h-[2px] bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full origin-left"
@@ -135,18 +152,32 @@ export default function Header() {
                 rotate: isOpen ? -45 : 0,
                 y: isOpen ? 3 : 0,
                 width: isHovered ? "32px" : "28px",
-                opacity: 1
+                opacity: 1,
+                x: !isOpen && !isHovered ? [2, -2, 2] : 0
               }}
               initial={{ width: "28px" }}
-              transition={{ duration: 0.3 }}
+              transition={{
+                duration: 0.3,
+                x: {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.4
+                }
+              }}
             />
             <motion.div
               className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
               animate={{
-                scale: isHovered ? 1.1 : 1,
-                rotate: isHovered ? 180 : 0
+                scale: [1, 1.1, 1],
+                rotate: [0, 180, 360],
+                opacity: isHovered ? 0.8 : 0.4
               }}
-              transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
             />
           </motion.button>
         </div>
@@ -154,32 +185,60 @@ export default function Header() {
 
       {/* フルスクリーンメニュー */}
       <AnimatePresence>
-        {isMenuOpen && (
+        {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-blue-950/95 backdrop-blur-lg z-40"
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
+            className="fixed inset-0 bg-gradient-to-br from-blue-950/98 via-blue-900/95 to-blue-800/98 backdrop-blur-lg z-40"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           >
             <div className="container h-full flex items-center justify-center">
               <nav className="flex flex-col items-center space-y-8">
                 {menuItems.map((item, i) => (
                   <motion.div
                     key={item.href}
-                    custom={i}
-                    variants={menuItemVariants}
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
+                    initial={{ opacity: 0, y: 50, scale: 0.5 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0, 
+                      scale: 1,
+                      transition: {
+                        duration: 0.6,
+                        delay: i * 0.15,
+                        ease: [0.2, 0.65, 0.3, 0.9]
+                      }
+                    }}
+                    exit={{ 
+                      opacity: 0, 
+                      y: -30,
+                      scale: 0.9,
+                      transition: {
+                        duration: 0.2,
+                        delay: (menuItems.length - i - 1) * 0.1
+                      }
+                    }}
                   >
                     <Link
                       href={item.href}
-                      className="text-3xl font-bold text-white hover:text-yellow-400 transition-colors relative group"
-                      onClick={() => setIsMenuOpen(false)}
+                      className="text-4xl font-bold text-white hover:text-yellow-400 transition-all duration-300 relative group flex items-center"
+                      onClick={() => setIsOpen(false)}
                     >
+                      <motion.span
+                        className="absolute -left-8 opacity-0 group-hover:opacity-100 text-yellow-400"
+                        initial={{ x: -10 }}
+                        animate={{ x: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        ⟫
+                      </motion.span>
                       {item.label}
-                      <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                      <motion.div
+                        className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-yellow-400 to-yellow-300"
+                        initial={{ width: 0 }}
+                        whileHover={{ width: "100%" }}
+                        transition={{ duration: 0.3 }}
+                      />
                     </Link>
                   </motion.div>
                 ))}
