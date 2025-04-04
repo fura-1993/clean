@@ -35,7 +35,7 @@ export default function Hero() {
   }, [controls])
 
   return (
-    <section className="relative h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white overflow-hidden pt-12">
       {/* 背景の装飾 */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
@@ -76,7 +76,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
           {/* 左側のコンテンツ */}
           <motion.div
-            className="relative z-10 px-6 lg:px-12"
+            className="relative z-10 px-6 lg:px-12 pt-8"
             initial={{ opacity: 0, x: -50 }}
             animate={controls}
           >
