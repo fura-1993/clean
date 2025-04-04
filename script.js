@@ -23,25 +23,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ヘッダー初期化
 function initHeader() {
-    // ハンバーガーメニューの動作
-    const hamburger = document.querySelector('.hamburger');
-    const mobileNav = document.querySelector('.mobile-nav');
-    
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
+    // Menu functionality
+    const menuButton = document.querySelector('.menu-button');
+    const expandedNav = document.querySelector('.expanded-nav');
+    let isMenuOpen = false;
+
+    menuButton.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        menuButton.classList.toggle('active');
+        expandedNav.classList.toggle('active');
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    });
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            isMenuOpen = false;
+            menuButton.classList.remove('active');
+            expandedNav.classList.remove('active');
+            document.body.style.overflow = '';
         });
-    }
-    
-    // スクロール時のヘッダースタイル変更
-    window.addEventListener('scroll', function() {
-        const header = document.getElementById('header');
-        if (window.scrollY > 100) {
+    });
+
+    // Header scroll effect
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
             header.classList.add('header-scrolled');
         } else {
             header.classList.remove('header-scrolled');
         }
+        
+        lastScroll = currentScroll;
     });
     
     // ナビゲーションリンクのスムーススクロール
@@ -60,9 +77,9 @@ function initHeader() {
                 
                 if (targetElement) {
                     // モバイルメニューが開いていれば閉じる
-                    if (hamburger && mobileNav && hamburger.classList.contains('active')) {
-                        hamburger.classList.remove('active');
-                        mobileNav.classList.remove('active');
+                    if (menuButton && expandedNav && menuButton.classList.contains('active')) {
+                        menuButton.classList.remove('active');
+                        expandedNav.classList.remove('active');
                     }
                     
                     // ターゲット要素までスクロール
