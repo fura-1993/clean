@@ -25,53 +25,81 @@ const services = [
 
 export default function Hero() {
   return (
-    <section className="relative h-screen bg-gradient-to-b from-blue-900 to-blue-800 text-white overflow-hidden">
+    <section className="relative h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white overflow-hidden">
       {/* 背景の装飾 */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1)_0%,transparent_60%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.1)_0%,transparent_60%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0" style={{ background: 'url(/images/葉っぱ.png) repeat', opacity: 0.03 }}></div>
 
       <div className="container relative h-full flex flex-col justify-center">
         <motion.div
-          className="text-center max-w-4xl mx-auto mb-8"
+          className="text-center max-w-5xl mx-auto mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            プロフェッショナルな<br />
-            <span className="text-yellow-400">清掃サービス</span>
-          </h1>
-          <p className="text-lg md:text-xl text-blue-100 mb-8">
+          <motion.h1 
+            className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <span className="inline-block">プロフェッショナル</span>
+            <span className="inline-block">な</span>
+            <br />
+            <span className="relative inline-block">
+              <span className="relative z-10 text-yellow-400">清掃サービス</span>
+              <motion.span 
+                className="absolute -bottom-2 left-0 w-full h-3 bg-yellow-400/20 -skew-x-6"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 0.8, delay: 1 }}
+              ></motion.span>
+            </span>
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row justify-center gap-6 mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             <motion.a
               href="#contact"
-              className="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold text-lg hover:bg-yellow-300 transition-colors shadow-lg hover:shadow-xl"
+              className="group bg-yellow-400 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              無料見積もりを依頼
+              <span className="relative z-10">無料見積もりを依頼</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </motion.a>
             <motion.a
               href="#services"
-              className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg font-bold text-lg hover:bg-white/20 transition-colors"
+              className="group bg-white/10 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/20 transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               サービスの詳細を見る
+              <i className="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
             </motion.a>
-          </div>
+          </motion.div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative px-4 -mt-4">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              className="group relative rounded-xl overflow-hidden shadow-2xl h-[280px]"
+              className="group relative rounded-2xl overflow-hidden shadow-2xl h-[260px] transform hover:-translate-y-1 transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              transition={{ duration: 0.8, delay: index * 0.2 + 0.8 }}
             >
               <Image
                 src={service.image}
@@ -83,17 +111,25 @@ export default function Hero() {
                 quality={90}
                 loading="eager"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-blue-900/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-yellow-400/20 rounded-full flex items-center justify-center">
-                    <i className={`${service.icon} text-yellow-400 text-xl`}></i>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-yellow-400/20 rounded-xl flex items-center justify-center backdrop-blur-sm transform -rotate-6 group-hover:rotate-0 transition-transform">
+                    <i className={`${service.icon} text-yellow-400 text-2xl`}></i>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-1">{service.title}</h3>
-                    <p className="text-sm text-blue-100">{service.description}</p>
+                    <h3 className="text-2xl font-bold mb-1 group-hover:text-yellow-400 transition-colors">{service.title}</h3>
+                    <p className="text-sm text-blue-100/90">{service.description}</p>
                   </div>
                 </div>
+              </div>
+              <div className="absolute top-4 right-4">
+                <motion.div
+                  className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <i className="fas fa-arrow-right text-sm text-white/70"></i>
+                </motion.div>
               </div>
             </motion.div>
           ))}
@@ -101,17 +137,18 @@ export default function Hero() {
 
         {/* 実績バッジ */}
         <motion.div
-          className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 flex items-center space-x-2"
+          className="absolute top-6 right-6 bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center space-x-3 border border-white/10"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          whileHover={{ scale: 1.02 }}
         >
-          <div className="bg-yellow-400 rounded-full p-1.5">
-            <span className="text-blue-900 font-bold text-sm">12</span>
+          <div className="bg-yellow-400 rounded-xl p-2 transform -rotate-6">
+            <span className="text-blue-900 font-bold">12</span>
           </div>
           <div>
-            <div className="text-xs opacity-75">年間施工実績</div>
-            <div className="text-sm font-bold">10,000件以上</div>
+            <div className="text-xs text-blue-100/70">年間施工実績</div>
+            <div className="font-bold text-white">10,000件以上</div>
           </div>
         </motion.div>
       </div>
