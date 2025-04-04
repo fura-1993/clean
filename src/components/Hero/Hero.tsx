@@ -90,7 +90,8 @@ export default function Hero() {
                 className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full blur opacity-30"
                 animate={{
                   scale: [1, 1.1, 1],
-                  opacity: [0.3, 0.5, 0.3]
+                  opacity: [0.3, 0.5, 0.3],
+                  rotate: [0, 5, 0]
                 }}
                 transition={{
                   duration: 3,
@@ -99,7 +100,20 @@ export default function Hero() {
                 }}
               />
               <div className="relative bg-blue-950/50 backdrop-blur-sm px-8 py-3 rounded-full border border-white/10">
-                <span className="text-lg font-medium text-yellow-400">Professional Cleaning Service</span>
+                <motion.span 
+                  className="text-lg font-medium bg-gradient-to-r from-yellow-300 to-yellow-400 bg-clip-text text-transparent"
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{ backgroundSize: "200% 100%" }}
+                >
+                  Professional Cleaning Service
+                </motion.span>
               </div>
             </motion.div>
 
@@ -109,36 +123,114 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <span className="inline-block mb-2">プロフェッショナル</span>
-              <span className="inline-block">な</span>
+              <motion.span 
+                className="inline-block mb-2"
+                animate={{
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                プロフェッショナル
+              </motion.span>
+              <motion.span 
+                className="inline-block"
+                animate={{
+                  y: [0, -3, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.3,
+                }}
+              >
+                な
+              </motion.span>
               <br />
-              <span className="relative inline-block">
+              <motion.span 
+                className="relative inline-block"
+                animate={{
+                  y: [0, -4, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.6,
+                }}
+              >
                 <motion.span 
-                  className="relative z-10 bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.8 }}
+                  className="relative z-10 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent"
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{ backgroundSize: "200% 100%" }}
                 >
                   清掃サービス
                 </motion.span>
                 <motion.span 
-                  className="absolute -bottom-2 left-0 w-full h-3 bg-yellow-400/20 -skew-x-6"
+                  className="absolute -bottom-2 left-0 w-full h-3 bg-gradient-to-r from-yellow-400/20 via-yellow-300/30 to-yellow-400/20"
                   initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 1, delay: 1.2 }}
+                  animate={{ 
+                    width: "100%",
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    width: { duration: 1, delay: 1.2 },
+                    backgroundPosition: {
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }
+                  }}
+                  style={{ backgroundSize: "200% 100%" }}
                 />
-              </span>
+              </motion.span>
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium"
+              className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              最新の技術と熟練の技で、あらゆる空間を
+              <motion.span
+                className="inline-block"
+                animate={{
+                  y: [0, -2, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                最新の技術と熟練の技で、あらゆる空間を
+              </motion.span>
               <br className="hidden md:block" />
-              清潔で快適な環境に
+              <motion.span
+                className="inline-block"
+                animate={{
+                  y: [0, -2, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+              >
+                清潔で快適な環境に
+              </motion.span>
             </motion.p>
 
             <motion.div 
@@ -149,9 +241,20 @@ export default function Hero() {
             >
               <motion.a
                 href="#contact"
-                className="group bg-gradient-to-r from-yellow-400 to-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
+                className="group bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                style={{ backgroundSize: "200% 100%" }}
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  backgroundPosition: {
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }
+                }}
               >
                 <motion.span 
                   className="absolute inset-0 bg-white"
@@ -161,23 +264,49 @@ export default function Hero() {
                   style={{ mixBlendMode: "difference" }}
                 />
                 <span className="relative z-10 flex items-center justify-center">
-                  <i className="fas fa-paper-plane mr-2" />
+                  <motion.i 
+                    className="fas fa-paper-plane mr-2"
+                    animate={{
+                      x: [0, 3, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
                   無料見積もりを依頼
                 </span>
               </motion.a>
               <motion.a
                 href="#services"
-                className="group bg-white/5 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/10 transition-colors"
+                className="group bg-white/5 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/10 transition-colors relative overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="flex items-center justify-center">
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-yellow-300/10"
+                  animate={{
+                    x: ["-100%", "100%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                <span className="relative z-10 flex items-center justify-center">
                   サービスの詳細を見る
                   <motion.i 
                     className="fas fa-arrow-right ml-2"
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
+                    animate={{
+                      x: [0, 4, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
                   />
                 </span>
               </motion.a>
