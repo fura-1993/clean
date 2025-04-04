@@ -1,12 +1,15 @@
 'use client'
 
+import React from 'react'
 import { useEffect } from 'react'
 import AOS from 'aos'
 import Rellax from 'rellax'
 import Header from '@/components/Header/Header'
 import Hero from '@/components/Hero/Hero'
-// import Services from '@/components/Services/Services'
-// import Features from '@/components/Features/Features'
+import Services from '@/components/Services/Services'
+import Features from '@/components/Features/Features'
+import Contact from '@/components/Contact/Contact'
+import Footer from '@/components/Footer/Footer'
 // import Testimonials from '@/components/Testimonials/TestimonialSlider'
 // import FAQ from '@/components/FAQ/FAQAccordion'
 // import Contact from '@/components/Contact/ContactForm'
@@ -33,11 +36,12 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        {/* <Services />
+        <Services />
         <Features />
-        <Testimonials />
-        <FAQ />
-        <Contact /> */}
+        <Contact />
+        <Footer />
+        {/* <Testimonials />
+        <FAQ /> */}
       </main>
     </>
   )
