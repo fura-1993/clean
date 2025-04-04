@@ -28,11 +28,13 @@ export default function Header() {
             <Link href="/" className="flex items-center">
               <div className="relative w-40 h-12">
                 <Image
-                  src={isScrolled ? '/images/logo-dark.png' : '/images/logo-light.png'}
+                  src={isScrolled ? '/images/JTロゴ.png' : '/images/JTロゴ.png'}
                   alt="清掃サービス"
                   fill
                   className="object-contain transition-opacity duration-300"
                   priority
+                  quality={90}
+                  loading="eager"
                 />
               </div>
             </Link>

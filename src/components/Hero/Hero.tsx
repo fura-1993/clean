@@ -7,21 +7,21 @@ const services = [
     icon: 'fas fa-couch',
     title: '絨毯清掃',
     description: '最新の技術で頑固な汚れも除去',
-    image: '/images/carpet.jpg',
+    image: '/images/絨毯清掃作業風景.png',
     features: ['シミ・汚れの徹底除去', '消臭・抗菌処理', '定期メンテナンス']
   },
   {
     icon: 'fas fa-shower',
     title: '高圧洗浄',
     description: '外壁・駐車場の汚れを徹底洗浄',
-    image: '/images/pressure.jpg',
+    image: '/images/高圧洗浄作業風景.png',
     features: ['外壁クリーニング', '駐車場清掃', 'テラス洗浄']
   },
   {
     icon: 'fas fa-border-all',
     title: 'タイル洗浄',
     description: '美観を復元し清潔な空間に',
-    image: '/images/tile.jpg',
+    image: '/images/タイル洗浄作業風景.png',
     features: ['床タイル洗浄', '浴室清掃', '目地の補修']
   }
 ]
@@ -83,6 +83,8 @@ export default function Hero() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 768px) 100vw, 33vw"
                 priority={index === 0}
+                quality={90}
+                loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-900/70 to-transparent"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8">
