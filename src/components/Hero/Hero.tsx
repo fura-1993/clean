@@ -1,22 +1,22 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect } from 'react'
+import { motion, useAnimation } from 'framer-motion'
 import Image from 'next/image'
 
 const services = [
   {
-    icon: 'fas fa-couch',
+    icon: 'fas fa-sparkles',
     title: '絨毯清掃',
     description: '最新の技術で頑固な汚れも除去',
     image: '/images/絨毯清掃作業風景.png',
   },
   {
-    icon: 'fas fa-shower',
+    icon: 'fas fa-droplet',
     title: '高圧洗浄',
     description: '外壁・駐車場の汚れを徹底洗浄',
     image: '/images/高圧洗浄作業風景.png',
   },
   {
-    icon: 'fas fa-border-all',
+    icon: 'fas fa-stars',
     title: 'タイル洗浄',
     description: '美観を復元し清潔な空間に',
     image: '/images/タイル洗浄作業風景.png',
@@ -24,82 +24,178 @@ const services = [
 ]
 
 export default function Hero() {
+  const controls = useAnimation()
+
+  useEffect(() => {
+    controls.start({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: [0.25, 0.1, 0, 1] }
+    })
+  }, [controls])
+
   return (
     <section className="relative h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white overflow-hidden">
       {/* 背景の装飾 */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
-      <div className="absolute inset-0" style={{ background: 'url(/images/葉っぱ.png) repeat', opacity: 0.03 }}></div>
+      
+      {/* 動く背景パターン */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute w-full h-full bg-repeat" style={{ 
+          backgroundImage: 'url(/images/葉っぱ.png)',
+          animation: 'float 60s linear infinite'
+        }}></div>
+      </div>
 
-      <div className="container relative h-full flex flex-col justify-center">
+      {/* キラキラエフェクト */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            initial={{ 
+              opacity: 0,
+              x: Math.random() * 100 + '%',
+              y: Math.random() * 100 + '%'
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0, 1.5, 0],
+            }}
+            transition={{
+              duration: Math.random() * 2 + 1,
+              repeat: Infinity,
+              delay: Math.random() * 2
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container relative h-full flex flex-col justify-center items-center">
         <motion.div
-          className="text-center max-w-5xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          className="text-center max-w-5xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={controls}
         >
+          <motion.div
+            className="relative inline-block mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <motion.div
+              className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full blur opacity-30"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <div className="relative bg-blue-950/50 backdrop-blur-sm px-8 py-3 rounded-full border border-white/10">
+              <span className="text-lg font-medium text-yellow-400">Professional Cleaning Service</span>
+            </div>
+          </motion.div>
+
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <span className="inline-block">プロフェッショナル</span>
+            <span className="inline-block mb-2">プロフェッショナル</span>
             <span className="inline-block">な</span>
             <br />
             <span className="relative inline-block">
-              <span className="relative z-10 text-yellow-400">清掃サービス</span>
+              <motion.span 
+                className="relative z-10 bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8 }}
+              >
+                清掃サービス
+              </motion.span>
               <motion.span 
                 className="absolute -bottom-2 left-0 w-full h-3 bg-yellow-400/20 -skew-x-6"
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 0.8, delay: 1 }}
-              ></motion.span>
+                transition={{ duration: 1, delay: 1.2 }}
+              />
             </span>
           </motion.h1>
+
           <motion.p 
             className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
-            最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に
+            最新の技術と熟練の技で、あらゆる空間を
+            <br className="hidden md:block" />
+            清潔で快適な環境に
           </motion.p>
+
           <motion.div 
             className="flex flex-col sm:flex-row justify-center gap-6 mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
           >
             <motion.a
               href="#contact"
-              className="group bg-yellow-400 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
-              whileHover={{ scale: 1.02 }}
+              className="group bg-gradient-to-r from-yellow-400 to-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="relative z-10">無料見積もりを依頼</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+              <motion.span 
+                className="absolute inset-0 bg-white"
+                initial={{ x: "100%" }}
+                whileHover={{ x: "-100%" }}
+                transition={{ duration: 0.3 }}
+                style={{ mixBlendMode: "difference" }}
+              />
+              <span className="relative z-10 flex items-center justify-center">
+                <i className="fas fa-paper-plane mr-2" />
+                無料見積もりを依頼
+              </span>
             </motion.a>
             <motion.a
               href="#services"
-              className="group bg-white/10 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/20 transition-colors"
-              whileHover={{ scale: 1.02 }}
+              className="group bg-white/5 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/10 transition-colors"
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              サービスの詳細を見る
-              <i className="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+              <span className="flex items-center justify-center">
+                サービスの詳細を見る
+                <motion.i 
+                  className="fas fa-arrow-right ml-2"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 3 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </span>
             </motion.a>
           </motion.div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative px-4 -mt-4">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl px-4"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+        >
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              className="group relative rounded-2xl overflow-hidden shadow-2xl h-[260px] transform hover:-translate-y-1 transition-all duration-300"
+              className="group relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] transform hover:-translate-y-1 transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 + 0.8 }}
+              transition={{ duration: 0.5, delay: index * 0.2 + 1.4 }}
             >
               <Image
                 src={service.image}
@@ -109,32 +205,34 @@ export default function Hero() {
                 sizes="(max-width: 768px) 100vw, 33vw"
                 priority={index === 0}
                 quality={90}
-                loading="eager"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent opacity-90 group-hover:opacity-80 transition-opacity" />
               <div className="absolute inset-0 flex flex-col justify-end p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-yellow-400/20 rounded-xl flex items-center justify-center backdrop-blur-sm transform -rotate-6 group-hover:rotate-0 transition-transform">
-                    <i className={`${service.icon} text-yellow-400 text-2xl`}></i>
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-300 rounded-xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
+                    <i className={`${service.icon} text-blue-900 text-xl`} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-1 group-hover:text-yellow-400 transition-colors">{service.title}</h3>
-                    <p className="text-sm text-blue-100/90">{service.description}</p>
+                    <h3 className="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-blue-100/90 transform group-hover:translate-x-1 transition-transform">
+                      {service.description}
+                    </p>
                   </div>
                 </div>
               </div>
-              <div className="absolute top-4 right-4">
-                <motion.div
-                  className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <i className="fas fa-arrow-right text-sm text-white/70"></i>
-                </motion.div>
-              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0% { transform: translate(0, 0) rotate(0deg); }
+          100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+      `}</style>
     </section>
   )
 } 
