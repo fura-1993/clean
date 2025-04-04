@@ -185,9 +185,9 @@ export default function Hero() {
           </motion.div>
 
           {/* 右側のサービスカード */}
-          <div className="relative h-full flex items-center justify-center lg:justify-end overflow-visible px-6 lg:px-0">
+          <div className="relative flex justify-center lg:justify-end overflow-visible px-6 lg:px-0">
             <motion.div 
-              className="relative w-full max-w-2xl -mt-24 lg:-mt-32"
+              className="relative w-full max-w-2xl -mt-48 lg:-mt-64"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -197,12 +197,12 @@ export default function Hero() {
                   key={service.title}
                   className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]"
                   style={{
-                    top: `${index * 32}px`,
-                    right: `${index * 32}px`,
+                    top: `${index * 48}px`,
+                    right: `${index * 48}px`,
                     zIndex: services.length - index,
-                    transform: `rotate(${2 + index * 2}deg)`
+                    transform: `rotate(${3 + index * 3}deg)`
                   }}
-                  initial={{ opacity: 0, x: 100, rotate: 4 + index * 2 }}
+                  initial={{ opacity: 0, x: 100, rotate: 6 + index * 3 }}
                   animate={{ 
                     opacity: 1, 
                     x: 0,
@@ -212,7 +212,7 @@ export default function Hero() {
                     }
                   }}
                   whileHover={{ 
-                    scale: 1.02,
+                    scale: 1.05,
                     rotate: 0,
                     zIndex: 10,
                     transition: { duration: 0.3 }
