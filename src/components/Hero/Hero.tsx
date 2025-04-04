@@ -330,7 +330,7 @@ export default function Hero() {
           {/* 右側のサービスカード */}
           <div className="relative flex justify-center lg:justify-end overflow-visible px-6 lg:px-0">
             <motion.div 
-              className="relative w-full max-w-2xl -mt-48 lg:-mt-64"
+              className="relative w-full max-w-2xl -mt-32 lg:-mt-48"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
