@@ -72,159 +72,182 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="container relative h-full flex flex-col justify-center items-center">
-        <motion.div
-          className="text-center max-w-5xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={controls}
-        >
+      <div className="container relative h-full mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
+          {/* 左側のコンテンツ */}
           <motion.div
-            className="relative inline-block mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            className="relative z-10 px-6 lg:px-12"
+            initial={{ opacity: 0, x: -50 }}
+            animate={controls}
           >
             <motion.div
-              className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full blur opacity-30"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.3, 0.5, 0.3]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <div className="relative bg-blue-950/50 backdrop-blur-sm px-8 py-3 rounded-full border border-white/10">
-              <span className="text-lg font-medium text-yellow-400">Professional Cleaning Service</span>
-            </div>
-          </motion.div>
-
-          <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <span className="inline-block mb-2">プロフェッショナル</span>
-            <span className="inline-block">な</span>
-            <br />
-            <span className="relative inline-block">
-              <motion.span 
-                className="relative z-10 bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
-              >
-                清掃サービス
-              </motion.span>
-              <motion.span 
-                className="absolute -bottom-2 left-0 w-full h-3 bg-yellow-400/20 -skew-x-6"
-                initial={{ width: 0 }}
-                animate={{ width: '100%' }}
-                transition={{ duration: 1, delay: 1.2 }}
-              />
-            </span>
-          </motion.h1>
-
-          <motion.p 
-            className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            最新の技術と熟練の技で、あらゆる空間を
-            <br className="hidden md:block" />
-            清潔で快適な環境に
-          </motion.p>
-
-          <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-6 mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            <motion.a
-              href="#contact"
-              className="group bg-gradient-to-r from-yellow-400 to-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              className="relative inline-block mb-8"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <motion.span 
-                className="absolute inset-0 bg-white"
-                initial={{ x: "100%" }}
-                whileHover={{ x: "-100%" }}
-                transition={{ duration: 0.3 }}
-                style={{ mixBlendMode: "difference" }}
+              <motion.div
+                className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full blur opacity-30"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.5, 0.3]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
               />
-              <span className="relative z-10 flex items-center justify-center">
-                <i className="fas fa-paper-plane mr-2" />
-                無料見積もりを依頼
-              </span>
-            </motion.a>
-            <motion.a
-              href="#services"
-              className="group bg-white/5 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/10 transition-colors"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span className="flex items-center justify-center">
-                サービスの詳細を見る
-                <motion.i 
-                  className="fas fa-arrow-right ml-2"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </span>
-            </motion.a>
-          </motion.div>
-        </motion.div>
-
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl px-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-        >
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              className="group relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] transform hover:-translate-y-1 transition-all duration-300"
-              whileHover={{ scale: 1.02 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 + 1.4 }}
-            >
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                priority={index === 0}
-                quality={90}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent opacity-90 group-hover:opacity-80 transition-opacity" />
-              <div className="absolute inset-0 flex flex-col justify-end p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-300 rounded-xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
-                    <i className={`${service.icon} text-blue-900 text-xl`} />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm text-blue-100/90 transform group-hover:translate-x-1 transition-transform">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
+              <div className="relative bg-blue-950/50 backdrop-blur-sm px-8 py-3 rounded-full border border-white/10">
+                <span className="text-lg font-medium text-yellow-400">Professional Cleaning Service</span>
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <span className="inline-block mb-2">プロフェッショナル</span>
+              <span className="inline-block">な</span>
+              <br />
+              <span className="relative inline-block">
+                <motion.span 
+                  className="relative z-10 bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                >
+                  清掃サービス
+                </motion.span>
+                <motion.span 
+                  className="absolute -bottom-2 left-0 w-full h-3 bg-yellow-400/20 -skew-x-6"
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                />
+              </span>
+            </motion.h1>
+
+            <motion.p 
+              className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              最新の技術と熟練の技で、あらゆる空間を
+              <br className="hidden md:block" />
+              清潔で快適な環境に
+            </motion.p>
+
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+            >
+              <motion.a
+                href="#contact"
+                className="group bg-gradient-to-r from-yellow-400 to-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <motion.span 
+                  className="absolute inset-0 bg-white"
+                  initial={{ x: "100%" }}
+                  whileHover={{ x: "-100%" }}
+                  transition={{ duration: 0.3 }}
+                  style={{ mixBlendMode: "difference" }}
+                />
+                <span className="relative z-10 flex items-center justify-center">
+                  <i className="fas fa-paper-plane mr-2" />
+                  無料見積もりを依頼
+                </span>
+              </motion.a>
+              <motion.a
+                href="#services"
+                className="group bg-white/5 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/10 transition-colors"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="flex items-center justify-center">
+                  サービスの詳細を見る
+                  <motion.i 
+                    className="fas fa-arrow-right ml-2"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </span>
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* 右側のサービスカード */}
+          <div className="relative h-full flex items-center justify-center lg:justify-end overflow-visible px-6 lg:px-0">
+            <motion.div 
+              className="relative w-full max-w-2xl"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+            >
+              {services.map((service, index) => (
+                <motion.div
+                  key={service.title}
+                  className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]"
+                  style={{
+                    top: `${index * 60}px`,
+                    right: `${index * 40}px`,
+                    zIndex: services.length - index,
+                    transform: `rotate(${5 + index * 2}deg)`
+                  }}
+                  initial={{ opacity: 0, x: 100, rotate: 10 + index * 2 }}
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
+                    transition: { 
+                      duration: 0.8,
+                      delay: 0.8 + index * 0.2
+                    }
+                  }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    rotate: 0,
+                    zIndex: 10,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={index === 0}
+                    quality={90}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
+                  <div className="absolute inset-0 flex flex-col justify-end p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-300 rounded-xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
+                        <i className={`${service.icon} text-blue-900 text-xl`} />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm text-blue-100/90 transform group-hover:translate-x-1 transition-transform">
+                          {service.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
