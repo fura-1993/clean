@@ -1,68 +1,98 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="bg-white shadow-sm">
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+      }`}
+    >
       <div className="container py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-8">
             {/* ロゴ */}
             <Link href="/" className="flex items-center">
-              <div className="relative w-32 h-8">
+              <div className="relative w-40 h-12">
                 <Image
                   src="/images/logo.png"
-                  alt="EMEAO!"
+                  alt="清掃サービス"
                   fill
                   className="object-contain"
+                  priority
                 />
               </div>
-              <div className="flex items-center ml-4">
-                <div className="bg-yellow-400 rounded-full p-2">
-                  <span className="text-blue-900 font-bold">12</span>
-                </div>
-                <div className="ml-2">
-                  <div className="text-sm">累計相談件数</div>
-                  <div className="font-bold text-xl">10万件突破！</div>
-                </div>
-              </div>
             </Link>
+
+            {/* ナビゲーション */}
+            <nav className="hidden md:flex space-x-8">
+              <Link
+                href="#services"
+                className={`font-medium hover:text-yellow-400 transition-colors ${
+                  isScrolled ? 'text-gray-800' : 'text-white'
+                }`}
+              >
+                サービス
+              </Link>
+              <Link
+                href="#features"
+                className={`font-medium hover:text-yellow-400 transition-colors ${
+                  isScrolled ? 'text-gray-800' : 'text-white'
+                }`}
+              >
+                特徴
+              </Link>
+              <Link
+                href="#works"
+                className={`font-medium hover:text-yellow-400 transition-colors ${
+                  isScrolled ? 'text-gray-800' : 'text-white'
+                }`}
+              >
+                施工事例
+              </Link>
+            </nav>
           </div>
 
           <div className="flex items-center space-x-6">
             {/* 電話番号 */}
-            <div className="text-right">
-              <div className="text-sm">電話受付時間 9：00〜18：00（土日祝除く）</div>
-              <a href="tel:0120-130-357" className="text-3xl font-bold text-blue-900">
-                0120-130-357
+            <div className="text-right hidden md:block">
+              <div className={`text-sm ${isScrolled ? 'text-gray-600' : 'text-blue-100'}`}>
+                24時間365日対応
+              </div>
+              <a
+                href="tel:0120-000-000"
+                className={`text-2xl font-bold ${isScrolled ? 'text-blue-900' : 'text-white'}`}
+              >
+                0120-000-000
               </a>
             </div>
 
             {/* お問い合わせボタン */}
-            <Link
+            <motion.a
               href="#contact"
-              className="bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition-colors flex items-center"
+              className={`${
+                isScrolled
+                  ? 'bg-blue-900 text-white hover:bg-blue-800'
+                  : 'bg-yellow-400 text-blue-900 hover:bg-yellow-300'
+              } px-6 py-3 rounded-lg font-bold transition-colors shadow-lg`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span>
-                <div className="text-sm">完全無料</div>
-                <div>ご相談はこちら</div>
-              </span>
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
+              無料見積もり
+            </motion.a>
           </div>
         </div>
       </div>
