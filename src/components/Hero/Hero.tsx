@@ -228,19 +228,14 @@ export default function Hero() {
                     quality={90}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-300 rounded-xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
-                        <i className={`${service.icon} text-blue-900 text-xl`} />
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">
-                          {service.title}
-                        </h3>
-                        <p className="text-sm text-blue-100/90 transform group-hover:translate-x-1 transition-transform">
-                          {service.description}
-                        </p>
-                      </div>
+                  <div className="absolute inset-0 flex flex-col justify-center p-6">
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold group-hover:text-yellow-400 transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-blue-100/90 transform group-hover:translate-x-1 transition-transform">
+                        {service.description}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
