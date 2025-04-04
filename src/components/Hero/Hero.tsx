@@ -134,23 +134,6 @@ export default function Hero() {
             </motion.div>
           ))}
         </div>
-
-        {/* 実績バッジ */}
-        <motion.div
-          className="absolute top-6 right-6 bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center space-x-3 border border-white/10"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          whileHover={{ scale: 1.02 }}
-        >
-          <div className="bg-yellow-400 rounded-xl p-2 transform -rotate-6">
-            <span className="text-blue-900 font-bold">12</span>
-          </div>
-          <div>
-            <div className="text-xs text-blue-100/70">年間施工実績</div>
-            <div className="font-bold text-white">10,000件以上</div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
