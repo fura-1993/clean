@@ -13,6 +13,8 @@ const menuItems = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,25 +100,55 @@ export default function Header() {
           </Link>
 
           {/* ハンバーガーメニュー */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`relative z-50 w-12 h-12 flex flex-col justify-center items-center ${
-              isMenuOpen ? 'fixed right-6' : ''
-            }`}
+          <motion.button
+            className="relative z-50 w-12 h-12 flex flex-col items-center justify-center gap-[6px] group"
+            onClick={() => setIsOpen(!isOpen)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             aria-label="メニュー"
           >
-            {[1, 2, 3].map((i) => (
-              <motion.span
-                key={i}
-                className={`block w-6 h-0.5 my-0.5 transform transition-all duration-300 ${
-                  isScrolled && !isMenuOpen ? 'bg-blue-900' : 'bg-white'
-                } ${i === 2 && isMenuOpen ? 'opacity-0' : ''}`}
-                variants={lineVariants}
-                custom={i}
-                animate={isMenuOpen ? 'open' : 'closed'}
-              ></motion.span>
-            ))}
-          </button>
+            <motion.div
+              className="w-8 h-[2px] bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full origin-left"
+              animate={{
+                rotate: isOpen ? 45 : 0,
+                y: isOpen ? -3 : 0,
+                width: isHovered ? "32px" : "24px",
+                opacity: 1
+              }}
+              initial={{ width: "24px" }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className="w-6 h-[2px] bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full"
+              animate={{
+                scale: isOpen ? 0 : 1,
+                x: isHovered ? "4px" : "0px",
+                width: isHovered ? "28px" : "20px",
+                opacity: isOpen ? 0 : 1
+              }}
+              initial={{ width: "20px" }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className="w-8 h-[2px] bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full origin-left"
+              animate={{
+                rotate: isOpen ? -45 : 0,
+                y: isOpen ? 3 : 0,
+                width: isHovered ? "32px" : "28px",
+                opacity: 1
+              }}
+              initial={{ width: "28px" }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+              animate={{
+                scale: isHovered ? 1.1 : 1,
+                rotate: isHovered ? 180 : 0
+              }}
+              transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
+            />
+          </motion.button>
         </div>
       </div>
 
