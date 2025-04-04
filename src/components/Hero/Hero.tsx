@@ -197,12 +197,12 @@ export default function Hero() {
                   key={service.title}
                   className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]"
                   style={{
-                    top: `${index * 24}px`,
-                    right: `${index * 20}px`,
+                    top: `${index * 32}px`,
+                    right: `${index * 32}px`,
                     zIndex: services.length - index,
-                    transform: `rotate(${1.5 + index * 1.5}deg)`
+                    transform: `rotate(${2 + index * 2}deg)`
                   }}
-                  initial={{ opacity: 0, x: 100, rotate: 3 + index * 1.5 }}
+                  initial={{ opacity: 0, x: 100, rotate: 4 + index * 2 }}
                   animate={{ 
                     opacity: 1, 
                     x: 0,
