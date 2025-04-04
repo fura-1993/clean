@@ -75,12 +75,13 @@ export default function Header() {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+        isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container py-4">
+      <div className="container py-4 px-6">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center">
+          {/* ロゴ */}
+          <Link href="/" className="relative z-50">
             <div className="relative w-40 h-12">
               <Image
                 src={isScrolled ? '/images/JTロゴ.png' : '/images/JTロゴ.png'}
@@ -94,41 +95,26 @@ export default function Header() {
             </div>
           </Link>
 
-          <div className="flex items-center space-x-6">
-            {/* 電話番号 */}
-            <div className="text-right hidden md:block">
-              <div className={`text-sm ${isScrolled ? 'text-gray-600' : 'text-blue-100'}`}>
-                24時間365日対応
-              </div>
-              <a
-                href="tel:0120-000-000"
-                className={`text-2xl font-bold ${isScrolled ? 'text-blue-900' : 'text-white'}`}
-              >
-                0120-000-000
-              </a>
-            </div>
-
-            {/* ハンバーガーメニュー */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`relative z-50 w-12 h-12 flex flex-col justify-center items-center group ${
-                isMenuOpen ? 'fixed right-6' : ''
-              }`}
-              aria-label="メニュー"
-            >
-              {[1, 2, 3].map((i) => (
-                <motion.span
-                  key={i}
-                  className={`block w-6 h-0.5 my-0.5 transform transition-all duration-300 ${
-                    isScrolled && !isMenuOpen ? 'bg-blue-900' : 'bg-white'
-                  } ${i === 2 && isMenuOpen ? 'opacity-0' : ''}`}
-                  variants={lineVariants}
-                  custom={i}
-                  animate={isMenuOpen ? 'open' : 'closed'}
-                ></motion.span>
-              ))}
-            </button>
-          </div>
+          {/* ハンバーガーメニュー */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`relative z-50 w-12 h-12 flex flex-col justify-center items-center ${
+              isMenuOpen ? 'fixed right-6' : ''
+            }`}
+            aria-label="メニュー"
+          >
+            {[1, 2, 3].map((i) => (
+              <motion.span
+                key={i}
+                className={`block w-6 h-0.5 my-0.5 transform transition-all duration-300 ${
+                  isScrolled && !isMenuOpen ? 'bg-blue-900' : 'bg-white'
+                } ${i === 2 && isMenuOpen ? 'opacity-0' : ''}`}
+                variants={lineVariants}
+                custom={i}
+                animate={isMenuOpen ? 'open' : 'closed'}
+              ></motion.span>
+            ))}
+          </button>
         </div>
       </div>
 
