@@ -123,45 +123,41 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="flex flex-wrap items-baseline gap-x-2">
-                <motion.span 
-                  className="inline-block"
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  プロフェッショナル
-                </motion.span>
-                <motion.span 
-                  className="inline-block"
-                  animate={{
-                    y: [0, -3, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.3,
-                  }}
-                >
-                  な
-                </motion.span>
-              </div>
-              <motion.span 
-                className="relative inline-block mt-1"
+              <motion.div
+                className="inline-flex items-baseline gap-x-2 mb-2"
                 animate={{
                   y: [0, -4, 0],
                 }}
                 transition={{
-                  duration: 2,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 0.6,
+                }}
+              >
+                <motion.span 
+                  className="inline-block"
+                  animate={{
+                    y: [0, -2, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  プロフェッショナルな
+                </motion.span>
+              </motion.div>
+              <motion.div 
+                className="relative inline-block"
+                animate={{
+                  y: [0, -3, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
                 }}
               >
                 <motion.span 
@@ -170,7 +166,7 @@ export default function Hero() {
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
                   transition={{
-                    duration: 8,
+                    duration: 12,
                     repeat: Infinity,
                     ease: "linear"
                   }}
@@ -188,14 +184,14 @@ export default function Hero() {
                   transition={{
                     width: { duration: 1, delay: 1.2 },
                     backgroundPosition: {
-                      duration: 8,
+                      duration: 12,
                       repeat: Infinity,
                       ease: "linear"
                     }
                   }}
                   style={{ backgroundSize: "200% 100%" }}
                 />
-              </motion.span>
+              </motion.div>
             </motion.h1>
 
             <motion.p 
