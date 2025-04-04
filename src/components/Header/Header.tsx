@@ -87,7 +87,9 @@ export default function Header() {
                 src={isScrolled ? '/images/JTロゴ.png' : '/images/JTロゴ.png'}
                 alt="清掃サービス"
                 fill
-                className="object-contain transition-opacity duration-300"
+                className={`object-contain transition-all duration-300 ${
+                  isScrolled ? 'opacity-100' : 'opacity-0'
+                }`}
                 priority
                 quality={90}
                 loading="eager"
