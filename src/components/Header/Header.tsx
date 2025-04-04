@@ -78,11 +78,11 @@ export default function Header() {
         isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container py-4 px-6">
+      <div className="container py-2 px-6">
         <div className="flex justify-between items-center">
           {/* ロゴ */}
           <Link href="/" className="relative z-50">
-            <div className="relative w-40 h-12">
+            <div className="relative w-32 h-10">
               <Image
                 src={isScrolled ? '/images/JTロゴ.png' : '/images/JTロゴ.png'}
                 alt="清掃サービス"
