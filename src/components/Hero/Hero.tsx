@@ -80,28 +80,29 @@ export default function Hero() {
             initial={{ opacity: 0, x: -50 }}
             animate={controls}
           >
+            {/* タイトルバッジ */}
             <motion.div
-              className="relative inline-block mb-8"
+              className="relative inline-block mb-12"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full blur opacity-30"
+                className="absolute -inset-3 bg-gradient-to-r from-yellow-400/30 via-yellow-300/40 to-yellow-400/30 rounded-full blur-xl"
                 animate={{
-                  scale: [1, 1.1, 1],
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 180, 360],
                   opacity: [0.3, 0.5, 0.3],
-                  rotate: [0, 5, 0]
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 8,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "linear"
                 }}
               />
-              <div className="relative bg-blue-950/50 backdrop-blur-sm px-8 py-3 rounded-full border border-white/10">
+              <div className="relative bg-blue-950/50 backdrop-blur-md px-8 py-3 rounded-full border border-white/10">
                 <motion.span 
-                  className="text-lg font-medium bg-gradient-to-r from-yellow-300 to-yellow-400 bg-clip-text text-transparent"
+                  className="text-lg font-medium bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent"
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
@@ -117,14 +118,32 @@ export default function Hero() {
               </div>
             </motion.div>
 
+            {/* メインタイトル */}
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-4 leading-[1.1] tracking-tight"
+              className="text-4xl md:text-6xl font-bold mb-6 leading-[1.1] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="flex flex-wrap items-baseline gap-x-2">
-                <motion.span 
+              <div className="flex flex-wrap gap-x-3 mb-2">
+                {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル"].map((char, i) => (
+                  <motion.span
+                    key={i}
+                    className="inline-block"
+                    animate={{
+                      y: [0, -8, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.1,
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+                <motion.span
                   className="inline-block"
                   animate={{
                     y: [0, -5, 0],
@@ -133,27 +152,14 @@ export default function Hero() {
                     duration: 2,
                     repeat: Infinity,
                     ease: "easeInOut",
-                  }}
-                >
-                  プロフェッショナル
-                </motion.span>
-                <motion.span 
-                  className="inline-block"
-                  animate={{
-                    y: [0, -3, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.3,
+                    delay: 0.9,
                   }}
                 >
                   な
                 </motion.span>
               </div>
-              <motion.span 
-                className="relative inline-block mt-1"
+              <motion.div
+                className="relative inline-block"
                 animate={{
                   y: [0, -4, 0],
                 }}
@@ -161,7 +167,7 @@ export default function Hero() {
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 0.6,
+                  delay: 1,
                 }}
               >
                 <motion.span 
@@ -178,9 +184,9 @@ export default function Hero() {
                 >
                   清掃サービス
                 </motion.span>
-                <motion.span 
-                  className="absolute -bottom-1 left-0 w-full h-2 bg-gradient-to-r from-yellow-400/20 via-yellow-300/30 to-yellow-400/20"
-                  initial={{ width: 0 }}
+                <motion.div 
+                  className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-yellow-400/20 via-yellow-300/40 to-yellow-400/20"
+                  initial={{ width: "0%" }}
                   animate={{ 
                     width: "100%",
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
@@ -195,11 +201,12 @@ export default function Hero() {
                   }}
                   style={{ backgroundSize: "200% 100%" }}
                 />
-              </motion.span>
+              </motion.div>
             </motion.h1>
 
+            {/* サブテキスト */}
             <motion.p 
-              className="text-lg md:text-xl text-blue-100/90 mb-8 font-medium leading-relaxed"
+              className="text-lg md:text-xl text-blue-100/90 mb-12 font-medium leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -207,23 +214,24 @@ export default function Hero() {
               <motion.span
                 className="inline-block"
                 animate={{
-                  y: [0, -2, 0],
+                  y: [0, -3, 0],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
               >
                 最新の技術と熟練の技で、
               </motion.span>
+              <br className="hidden md:block" />
               <motion.span
                 className="inline-block"
                 animate={{
-                  y: [0, -2, 0],
+                  y: [0, -3, 0],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: 0.5,
@@ -233,6 +241,7 @@ export default function Hero() {
               </motion.span>
             </motion.p>
 
+            {/* ボタングループ */}
             <motion.div 
               className="flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
@@ -241,7 +250,7 @@ export default function Hero() {
             >
               <motion.a
                 href="#contact"
-                className="group bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold text-base shadow-lg hover:shadow-xl relative overflow-hidden"
+                className="group relative bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold text-base shadow-lg hover:shadow-xl overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 style={{ backgroundSize: "200% 100%" }}
@@ -256,18 +265,23 @@ export default function Hero() {
                   }
                 }}
               >
-                <motion.span 
-                  className="absolute inset-0 bg-white"
-                  initial={{ x: "100%" }}
-                  whileHover={{ x: "-100%" }}
-                  transition={{ duration: 0.3 }}
-                  style={{ mixBlendMode: "difference" }}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0"
+                  animate={{
+                    x: ["-200%", "200%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
                 />
                 <span className="relative z-10 flex items-center justify-center">
                   <motion.i 
                     className="fas fa-paper-plane mr-2"
                     animate={{
-                      x: [0, 3, 0],
+                      x: [0, 4, 0],
+                      y: [0, -2, 0],
                     }}
                     transition={{
                       duration: 2,
@@ -280,14 +294,14 @@ export default function Hero() {
               </motion.a>
               <motion.a
                 href="#services"
-                className="group bg-white/5 backdrop-blur-sm px-6 py-3 rounded-lg font-bold text-base border border-white/10 hover:bg-white/10 transition-colors relative overflow-hidden"
+                className="group relative bg-white/5 backdrop-blur-sm px-6 py-3 rounded-lg font-bold text-base border border-white/10 hover:bg-white/10 transition-all duration-300 overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-yellow-300/10"
+                  className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-300/10 to-yellow-400/0"
                   animate={{
-                    x: ["-100%", "100%"],
+                    x: ["-200%", "200%"],
                   }}
                   transition={{
                     duration: 3,
@@ -303,7 +317,7 @@ export default function Hero() {
                       x: [0, 4, 0],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 1.5,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
