@@ -327,12 +327,10 @@ input, textarea, select {
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--white);
-    border-radius: var(--radius);
+    padding: var(--spacing-sm);
+    background: none;
+    border: none;
     cursor: pointer;
-    transition: var(--transition);
     z-index: 1001;
 }
 
@@ -358,8 +356,8 @@ input, textarea, select {
 
 .menu-icon {
     position: relative;
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 2.4rem;
 }
 
 .menu-icon span {
@@ -368,13 +366,13 @@ input, textarea, select {
     width: 100%;
     height: 2px;
     background-color: var(--text-primary);
-    border-radius: var(--radius-full);
-    transition: var(--transition);
+    transition: transform 0.3s cubic-bezier(0.77, 0, 0.175, 1),
+                opacity 0.3s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .menu-icon span:nth-child(1) {
-    top: 25%;
-    transform-origin: center;
+    top: 0;
+    transform-origin: left center;
 }
 
 .menu-icon span:nth-child(2) {
@@ -383,24 +381,23 @@ input, textarea, select {
 }
 
 .menu-icon span:nth-child(3) {
-    bottom: 25%;
-    transform-origin: center;
-}
-
-.menu-button.active .menu-icon span {
-    background-color: var(--white);
+    bottom: 0;
+    transform-origin: left center;
 }
 
 .menu-button.active .menu-icon span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: rotate(45deg);
+    width: 125%;
 }
 
 .menu-button.active .menu-icon span:nth-child(2) {
     opacity: 0;
+    transform: translateX(20px);
 }
 
 .menu-button.active .menu-icon span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform: rotate(-45deg);
+    width: 125%;
 }
 
 /* Expanded Navigation */
@@ -410,13 +407,14 @@ input, textarea, select {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.98);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+                visibility 0.5s cubic-bezier(0.77, 0, 0.175, 1);
     z-index: 1000;
 }
 
@@ -426,43 +424,52 @@ input, textarea, select {
 }
 
 .expanded-nav-content {
-    position: relative;
     width: 100%;
     max-width: 120rem;
     padding: 0 var(--spacing-lg);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-2xl);
 }
 
 .nav-links {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-}
-
-.nav-links-title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-xl);
+    text-align: center;
 }
 
 .nav-links a {
-    display: inline-block;
-    font-size: 3.2rem;
-    font-weight: 600;
+    position: relative;
+    font-size: 4.8rem;
+    font-weight: 700;
     color: var(--text-primary);
-    transition: var(--transition);
-    transform-origin: left;
-    transform: translateX(-20px);
+    transform: translateY(50px);
     opacity: 0;
+    transition: color 0.3s ease,
+                transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+                opacity 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a:hover::before {
+    width: 100%;
 }
 
 .expanded-nav.active .nav-links a {
-    transform: translateX(0);
+    transform: translateY(0);
     opacity: 1;
 }
 
@@ -471,11 +478,6 @@ input, textarea, select {
 .expanded-nav.active .nav-links a:nth-child(3) { transition-delay: 0.3s; }
 .expanded-nav.active .nav-links a:nth-child(4) { transition-delay: 0.4s; }
 .expanded-nav.active .nav-links a:nth-child(5) { transition-delay: 0.5s; }
-
-.nav-links a:hover {
-    color: var(--primary-color);
-    transform: translateX(10px);
-}
 
 .nav-info {
     display: flex;
