@@ -118,41 +118,42 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
+              className="text-4xl md:text-6xl font-bold mb-4 leading-[1.1] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
+              <div className="flex flex-wrap items-baseline gap-x-2">
+                <motion.span 
+                  className="inline-block"
+                  animate={{
+                    y: [0, -5, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  プロフェッショナル
+                </motion.span>
+                <motion.span 
+                  className="inline-block"
+                  animate={{
+                    y: [0, -3, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.3,
+                  }}
+                >
+                  な
+                </motion.span>
+              </div>
               <motion.span 
-                className="inline-block mb-2"
-                animate={{
-                  y: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                プロフェッショナル
-              </motion.span>
-              <motion.span 
-                className="inline-block"
-                animate={{
-                  y: [0, -3, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.3,
-                }}
-              >
-                な
-              </motion.span>
-              <br />
-              <motion.span 
-                className="relative inline-block"
+                className="relative inline-block mt-1"
                 animate={{
                   y: [0, -4, 0],
                 }}
@@ -178,7 +179,7 @@ export default function Hero() {
                   清掃サービス
                 </motion.span>
                 <motion.span 
-                  className="absolute -bottom-2 left-0 w-full h-3 bg-gradient-to-r from-yellow-400/20 via-yellow-300/30 to-yellow-400/20"
+                  className="absolute -bottom-1 left-0 w-full h-2 bg-gradient-to-r from-yellow-400/20 via-yellow-300/30 to-yellow-400/20"
                   initial={{ width: 0 }}
                   animate={{ 
                     width: "100%",
@@ -198,7 +199,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl text-blue-100/90 mb-12 font-medium leading-relaxed"
+              className="text-lg md:text-xl text-blue-100/90 mb-8 font-medium leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -214,9 +215,8 @@ export default function Hero() {
                   ease: "easeInOut",
                 }}
               >
-                最新の技術と熟練の技で、あらゆる空間を
+                最新の技術と熟練の技で、
               </motion.span>
-              <br className="hidden md:block" />
               <motion.span
                 className="inline-block"
                 animate={{
@@ -229,19 +229,19 @@ export default function Hero() {
                   delay: 0.5,
                 }}
               >
-                清潔で快適な環境に
+                あらゆる空間を清潔で快適な環境に
               </motion.span>
             </motion.p>
 
             <motion.div 
-              className="flex flex-col sm:flex-row gap-6"
+              className="flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
               <motion.a
                 href="#contact"
-                className="group bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-blue-900 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl relative overflow-hidden"
+                className="group bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold text-base shadow-lg hover:shadow-xl relative overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 style={{ backgroundSize: "200% 100%" }}
@@ -280,7 +280,7 @@ export default function Hero() {
               </motion.a>
               <motion.a
                 href="#services"
-                className="group bg-white/5 backdrop-blur-sm px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/10 transition-colors relative overflow-hidden"
+                className="group bg-white/5 backdrop-blur-sm px-6 py-3 rounded-lg font-bold text-base border border-white/10 hover:bg-white/10 transition-colors relative overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
