@@ -36,25 +36,22 @@ const LanguageSwitcher: React.FC = () => {
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* メインボタン */}
+      {/* メインボタン - コンパクト化 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/50 text-white hover:bg-slate-700/90 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 group transition-all duration-300"
+        className="relative flex items-center justify-center w-8 h-8 rounded-full bg-slate-800/60 border border-slate-700/30 text-white hover:bg-slate-700/70 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 group transition-all duration-300"
         aria-label={t('language')}
+        title={language === 'ja' ? '日本語' : 'English'}
       >
-        <span className="text-base">
+        <span className="text-sm">
           {language === 'ja' ? '🇯🇵' : '🇺🇸'}
         </span>
-        <span className="text-sm font-medium">
-          {language === 'ja' ? '日本語' : 'English'}
-        </span>
-        <i className={`fas fa-chevron-down text-xs transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}></i>
         
-        {/* ホバーエフェクト */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-600/0 via-emerald-600/30 to-emerald-600/0 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300 pointer-events-none"></div>
+        {/* 微妙なホバーエフェクト */}
+        <div className="absolute inset-0 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/10 transition-colors duration-300 pointer-events-none"></div>
       </button>
 
-      {/* ドロップダウンメニュー */}
+      {/* ドロップダウンメニュー - 位置調整 */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -62,14 +59,14 @@ const LanguageSwitcher: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -5, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-0 mt-2 w-48 rounded-xl shadow-lg bg-slate-800/95 border border-slate-700/50 backdrop-blur-lg overflow-hidden z-50"
+            className="absolute right-0 mt-2 w-36 rounded-xl shadow-lg bg-slate-800/95 border border-slate-700/50 backdrop-blur-lg overflow-hidden z-50"
           >
             <div className="py-1">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => toggleLanguage(lang.code as 'ja' | 'en')}
-                  className={`flex items-center gap-3 w-full px-4 py-3 text-left text-sm transition-colors duration-200 ${
+                  className={`flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm transition-colors duration-200 ${
                     language === lang.code
                       ? 'bg-emerald-900/50 text-emerald-300'
                       : 'text-white hover:bg-slate-700/70'

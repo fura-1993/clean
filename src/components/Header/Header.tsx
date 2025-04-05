@@ -111,77 +111,87 @@ export default function Header() {
 
         <div className="container mx-auto px-4 relative">
           <div className="flex items-center justify-between">
-            {/* ハンバーガーメニューボタン */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative z-[51] group" // z-index higher than header
-              aria-label={t('toggleMenu')}
-              aria-expanded={isMenuOpen}
-            >
-              <div className="relative w-10 h-10 flex items-center justify-center">
-                {/* Rotating Frame - Outer frames remain */}
-                <motion.div
-                  className="absolute inset-[-4px] border-2 border-emerald-500/50 rounded-lg"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div
-                  className="absolute inset-[-8px] border border-emerald-500/30 rounded-xl"
-                   animate={{ rotate: -360 }}
-                   transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                />
+            {/* 左側のナビゲーション部分 */}
+            <div className="flex items-center space-x-3">
+              {/* ハンバーガーメニューボタン */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="relative z-[51] group" // z-index higher than header
+                aria-label={t('toggleMenu')}
+                aria-expanded={isMenuOpen}
+              >
+                <div className="relative w-10 h-10 flex items-center justify-center">
+                  {/* Rotating Frame - Outer frames remain */}
+                  <motion.div
+                    className="absolute inset-[-4px] border-2 border-emerald-500/50 rounded-lg"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.div
+                    className="absolute inset-[-8px] border border-emerald-500/30 rounded-xl"
+                     animate={{ rotate: -360 }}
+                     transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  />
 
-                {/* Inner rings REMOVED */}
-                
-                {/* メニューアイコン Lines - Adjusted Animation */}
-                <div className="relative w-6 h-5 flex flex-col justify-between items-center">
-                  {[0, 1, 2].map((i) => (
-                    <motion.span
-                      key={i}
-                      className="block h-0.5 rounded-full bg-white shadow-[0_0_5px_rgba(52,211,153,0.5)] transform origin-center"
-                      initial={false}
-                      animate={isMenuOpen ? {
-                        rotate: i === 1 ? 0 : (i === 0 ? 45 : -45),
-                        y: i === 1 ? 0 : (i === 0 ? 7 : -7),
-                        width: i === 1 ? "0%" : "100%",
-                        opacity: i === 1 ? 0 : 1,
-                        backgroundColor: "rgb(52, 211, 153)",
-                      } : {
-                        rotate: 0,
-                        y: 0,
-                        width: i === 1 ? "70%" : "100%",
-                        opacity: 1,
-                        backgroundColor: "rgb(255, 255, 255)",
-                        x: [0, i === 0 ? -3 : (i === 2 ? 3 : 0), 0],
-                        scaleX: [1, i === 1 ? 0.9 : 1.05, 1],
-                      }}
-                      transition={isMenuOpen ? {
-                        duration: 0.3,
-                        ease: "easeInOut"
-                      } : {
-                        x: { duration: 1.2 + i * 0.3, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
-                        scaleX: { duration: 1.8 + i * 0.3, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
-                        backgroundColor: { duration: 0.3 },
-                        rotate: { duration: 0.3 },
-                        y: { duration: 0.3 },
-                        width: { duration: 0.3 },
-                        opacity: { duration: 0.3 },
-                      }}
-                      style={{
-                        boxShadow: "0 0 5px rgba(52, 211, 153, 0.3)",
-                      }}
-                    />
-                  ))}
+                  {/* Inner rings REMOVED */}
+                  
+                  {/* メニューアイコン Lines - Adjusted Animation */}
+                  <div className="relative w-6 h-5 flex flex-col justify-between items-center">
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="block h-0.5 rounded-full bg-white shadow-[0_0_5px_rgba(52,211,153,0.5)] transform origin-center"
+                        initial={false}
+                        animate={isMenuOpen ? {
+                          rotate: i === 1 ? 0 : (i === 0 ? 45 : -45),
+                          y: i === 1 ? 0 : (i === 0 ? 7 : -7),
+                          width: i === 1 ? "0%" : "100%",
+                          opacity: i === 1 ? 0 : 1,
+                          backgroundColor: "rgb(52, 211, 153)",
+                        } : {
+                          rotate: 0,
+                          y: 0,
+                          width: i === 1 ? "70%" : "100%",
+                          opacity: 1,
+                          backgroundColor: "rgb(255, 255, 255)",
+                          x: [0, i === 0 ? -3 : (i === 2 ? 3 : 0), 0],
+                          scaleX: [1, i === 1 ? 0.9 : 1.05, 1],
+                        }}
+                        transition={isMenuOpen ? {
+                          duration: 0.3,
+                          ease: "easeInOut"
+                        } : {
+                          x: { duration: 1.2 + i * 0.3, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
+                          scaleX: { duration: 1.8 + i * 0.3, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
+                          backgroundColor: { duration: 0.3 },
+                          rotate: { duration: 0.3 },
+                          y: { duration: 0.3 },
+                          width: { duration: 0.3 },
+                          opacity: { duration: 0.3 },
+                        }}
+                        style={{
+                          boxShadow: "0 0 5px rgba(52, 211, 153, 0.3)",
+                        }}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* ホバーエフェクト */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full bg-emerald-400/0 group-hover:bg-emerald-400/10 transition-colors duration-300"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
                 </div>
-                
-                {/* ホバーエフェクト */}
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-emerald-400/0 group-hover:bg-emerald-400/10 transition-colors duration-300"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                />
+              </button>
+
+              {/* 言語切り替えボタン - 小さめのサイズで常に表示 */}
+              <div className="ml-1">
+                <div className="scale-90">
+                  <LanguageSwitcher />
+                </div>
               </div>
-            </button>
+            </div>
 
             {/* ロゴ - スクロール後のみ表示 */}
             <AnimatePresence>
@@ -239,7 +249,7 @@ export default function Header() {
               )}
             </AnimatePresence>
 
-            {/* 右側のコンテンツ - 電話問い合わせと言語切り替え */}
+            {/* 右側のコンテンツ - 電話問い合わせのみ */}
             <AnimatePresence>
               {isScrolled && (
                 <motion.div
@@ -249,9 +259,6 @@ export default function Header() {
                   transition={{ duration: 0.3 }}
                   className="hidden md:flex items-center gap-4"
                 >
-                  {/* 言語切り替えボタン */}
-                  <LanguageSwitcher />
-                  
                   {/* 電話問い合わせ - 既存 */}
                   <div className="relative group">
                     <div className="relative">
@@ -295,7 +302,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* モバイル用 - 電話番号表示と言語切り替え */}
+        {/* モバイル用 - 電話番号表示のみ（言語切り替えは除去） */}
         <AnimatePresence>
           {isScrolled && (
             <motion.div
@@ -316,9 +323,6 @@ export default function Header() {
                     <div className="font-bold">04-7185-0805</div>
                   </div>
                 </a>
-                
-                {/* モバイル用言語切り替え */}
-                <LanguageSwitcher />
               </div>
             </motion.div>
           )}
