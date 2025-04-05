@@ -120,18 +120,18 @@ export default function Hero() {
 
             {/* メインタイトル */}
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6 leading-[1.1] tracking-tight"
+              className="text-2xl md:text-3xl font-bold mb-6 leading-[1.1] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="flex flex-wrap gap-x-3 mb-2">
+              <div className="flex flex-wrap gap-x-2 mb-2">
                 {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル"].map((char, i) => (
                   <motion.span
                     key={i}
                     className="inline-block"
                     animate={{
-                      y: [0, -8, 0],
+                      y: [0, -4, 0],
                     }}
                     transition={{
                       duration: 2,
@@ -146,7 +146,7 @@ export default function Hero() {
                 <motion.span
                   className="inline-block"
                   animate={{
-                    y: [0, -5, 0],
+                    y: [0, -3, 0],
                   }}
                   transition={{
                     duration: 2,
