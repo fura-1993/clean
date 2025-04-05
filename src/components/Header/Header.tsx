@@ -320,7 +320,7 @@ export default function Header() {
               </svg>
             </motion.button>
 
-            {/* Menu Content - Diagonal Layout with Enhanced Animations */}
+            {/* Menu Content - Diagonal Layout with Horizontal Text */}
             <motion.nav
               className="fixed top-24 left-12"
               aria-label="Main navigation"
@@ -361,40 +361,35 @@ export default function Header() {
                     >
                       <motion.a
                         href={item.href}
-                        className="block text-xl font-medium text-white/90 hover:text-emerald-400 transition-colors duration-300 py-2 relative group"
+                        className="block text-xl font-medium text-white/90 hover:text-emerald-400 transition-colors duration-300 py-2 relative group whitespace-nowrap"
                         onClick={() => setIsMenuOpen(false)}
-                        // === Enhanced Constant & Hover Animations ===
+                        style={{ writingMode: 'horizontal-tb' }}
                         animate={{
-                          // Constant subtle pulse/glow and float
                           textShadow: [
                             '0 0 4px rgba(52, 211, 153, 0.3)',
                             '0 0 8px rgba(52, 211, 153, 0.5)',
                             '0 0 4px rgba(52, 211, 153, 0.3)'
                           ],
-                          y: [0, -2, 0] // Subtle float
+                          y: [0, -2, 0]
                         }}
                         transition={{
-                          // Independent transitions for constant animations
                           textShadow: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
                           y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                          // Default transition for hover (can be overridden by whileHover)
                           default: { type: "spring", stiffness: 400 }
                         }}
                         whileHover={{
-                          scale: 1.08, // Slightly larger scale
-                          y: -4,       // More pronounced upward movement
-                          textShadow: '0 0 12px rgba(52, 211, 153, 0.9)', // Stronger glow
-                          color: '#34d399', // Brighter emerald color
+                          scale: 1.08,
+                          y: -4,
+                          textShadow: '0 0 12px rgba(52, 211, 153, 0.9)',
+                          color: '#34d399',
                         }}
-                        // Removed transition from whileHover, rely on default or animate transition
                       >
-                        {item.label} {/* Text is already horizontal */}
-                        {/* Futuristic Underline */}
+                        {item.label}
                         <motion.span 
                           className="absolute left-0 bottom-0 h-[2px] bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0 group-hover:from-emerald-500 group-hover:via-emerald-400 group-hover:to-emerald-500 shadow-[0_0_8px_theme(colors.emerald.500)]"
                           initial={{ width: 0, opacity: 0 }}
                           whileHover={{ width: "100%", opacity: 1 }}
-                          transition={{ duration: 0.4, ease: "easeOut" }} // Faster underline animation
+                          transition={{ duration: 0.4, ease: "easeOut" }}
                         />
                       </motion.a>
                     </motion.li>
