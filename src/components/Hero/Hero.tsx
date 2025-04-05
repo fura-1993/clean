@@ -82,7 +82,7 @@ export default function Hero() {
           >
             {/* タイトルバッジ */}
             <motion.div
-              className="relative inline-block mb-12"
+              className="relative inline-block mb-16"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -120,12 +120,12 @@ export default function Hero() {
 
             {/* メインタイトル */}
             <motion.h1 
-              className="text-2xl md:text-3xl font-bold mb-6 leading-[1.1] tracking-tight"
+              className="text-2xl md:text-3xl font-bold mb-10 leading-[1.2] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="flex flex-wrap gap-x-2 mb-2 text-[1rem] md:text-[1.25rem] lg:text-[1.5rem]">
+              <div className="flex flex-wrap gap-x-3 gap-y-2 mb-4 text-[1rem] md:text-[1.25rem] lg:text-[1.5rem]">
                 {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル"].map((char, i) => (
                   <motion.span
                     key={i}
@@ -206,7 +206,7 @@ export default function Hero() {
 
             {/* サブテキスト */}
             <motion.p 
-              className="text-lg md:text-xl text-white/80 mb-12 font-medium leading-relaxed"
+              className="text-lg md:text-xl text-white/80 mb-16 font-medium leading-[1.8]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -340,12 +340,12 @@ export default function Hero() {
                   key={service.title}
                   className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]"
                   style={{
-                    top: `${index * 64}px`,
-                    right: `${index * 80}px`,
+                    top: `${index * 96}px`,
+                    right: `${index * 100}px`,
                     zIndex: services.length - index,
-                    transform: `rotate(${4 + index * 4}deg)`
+                    transform: `rotate(${3 + index * 3}deg)`
                   }}
-                  initial={{ opacity: 0, x: 100, rotate: 8 + index * 4 }}
+                  initial={{ opacity: 0, x: 100, rotate: 6 + index * 3 }}
                   animate={{ 
                     opacity: 1, 
                     x: 0,
