@@ -10,6 +10,7 @@ import path from 'path';
 interface ContactFormData {
   name: string;
   email: string;
+  phone: string;
   selectedService: string;
   message: string;
 }
@@ -33,10 +34,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     for (const [key, value] of formData.entries()) {
       if (value instanceof File) {
-        // Check individual file size
-        if (value.size > MAX_INDIVIDUAL_SIZE_BYTES) {
-            return NextResponse.json({ error: `ファイルサイズが50MBを超えています: ${value.name}` }, { status: 413 });
-        }
         // Check total file count
         if (files.length >= MAX_FILES) {
             console.warn(`Maximum file count (${MAX_FILES}) reached on server. Ignoring extra file: ${value.name}`);
@@ -45,8 +42,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         // Check total size
         if (currentTotalSize + value.size > MAX_TOTAL_SIZE_BYTES) {
             console.warn(`Maximum total size (${MAX_TOTAL_SIZE_MB}MB) exceeded on server. Ignoring file: ${value.name}`);
-            // Optionally, you could return an error here, but frontend should prevent it.
-            // For now, we just skip adding this file.
             continue; 
         }
 
@@ -97,6 +92,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       text: `
 お名前or法人名等: ${fields.name}
 メールアドレス: ${fields.email}
+電話番号: ${fields.phone}
 選択されたサービス: ${fields.selectedService || '選択なし'}
 
 メッセージ:

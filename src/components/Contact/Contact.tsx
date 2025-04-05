@@ -48,6 +48,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ 
     name: '', 
     email: '', 
+    phone: '',
     selectedService: '',
     message: '',
     files: [] as File[]
@@ -57,8 +58,6 @@ export default function Contact() {
   const MAX_FILES = 5;
   const MAX_TOTAL_SIZE_MB = 20;
   const MAX_TOTAL_SIZE_BYTES = MAX_TOTAL_SIZE_MB * 1024 * 1024;
-  const MAX_INDIVIDUAL_SIZE_MB = 50; // Keep individual limit as a fallback/clarity
-  const MAX_INDIVIDUAL_SIZE_BYTES = MAX_INDIVIDUAL_SIZE_MB * 1024 * 1024;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -72,15 +71,6 @@ export default function Contact() {
     const newFiles = Array.from(selectedFiles);
     const currentFiles = formData.files;
     
-    // Check individual file size first
-    for (const file of newFiles) {
-      if (file.size > MAX_INDIVIDUAL_SIZE_BYTES) {
-        setStatus({ type: 'error', message: `ファイルサイズが${MAX_INDIVIDUAL_SIZE_MB}MBを超えています: ${file.name}` });
-        e.target.value = ''; // Clear the input
-        return;
-      }
-    }
-
     // Check total file count
     const combinedFiles = [...currentFiles, ...newFiles];
     if (combinedFiles.length > MAX_FILES) {
@@ -121,6 +111,7 @@ export default function Contact() {
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
       formDataToSend.append('selectedService', formData.selectedService);
       formDataToSend.append('message', formData.message);
       formData.files.forEach((file, index) => {
@@ -136,7 +127,7 @@ export default function Contact() {
 
       if (response.ok) {
         setStatus({ type: 'success', message: result.message });
-        setFormData({ name: '', email: '', selectedService: '', message: '', files: [] });
+        setFormData({ name: '', email: '', phone: '', selectedService: '', message: '', files: [] });
       } else {
         setStatus({ type: 'error', message: result.error || '送信に失敗しました。' });
       }
@@ -303,6 +294,26 @@ export default function Contact() {
                 {/* Input Focus Glow - Added pointer-events-none */}
                 <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50 pointer-events-none"></div>
               </div>
+
+              {/* Phone Input */}
+              <div className="relative group">
+                <label htmlFor="phone" className="flex items-center text-lg font-medium text-slate-300 mb-2">
+                  <i className="fas fa-phone mr-2 text-emerald-400/70"></i>電話番号 <span className="text-red-500 text-sm ml-1">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="090-1234-5678"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 focus:bg-slate-800/70 transition-all duration-300"
+                  required
+                  value={formData.phone}
+                  onChange={handleChange}
+                  disabled={status.type === 'loading'}
+                />
+                {/* Input Focus Glow - Added pointer-events-none */}
+                <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50 pointer-events-none"></div>
+              </div>
             </motion.div>
 
             {/* Message Input */}
@@ -371,7 +382,7 @@ export default function Contact() {
                   </div>
                 )}
                 <p className="mt-2 text-sm text-slate-400">
-                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (各{MAX_INDIVIDUAL_SIZE_MB}MB, 合計{MAX_TOTAL_SIZE_MB}MBまで)
+                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (合計{MAX_TOTAL_SIZE_MB}MBまで)
                 </p>
               </div>
             </motion.div>
