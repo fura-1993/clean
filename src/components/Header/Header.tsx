@@ -50,6 +50,87 @@ export default function Header() {
 
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
+          {/* ハンバーガーメニュー */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="relative z-10 group"
+            aria-label="メニュー"
+          >
+            <div className="relative w-10 h-10 flex items-center justify-center">
+              {/* サイバーパンク風の装飾リング */}
+              <motion.div
+                className="absolute inset-0 rounded-full border border-emerald-400/30"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  borderWidth: ["1px", "2px", "1px"],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  border: "1px solid rgba(52, 211, 153, 0.1)",
+                }}
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              
+              {/* メニューアイコン */}
+              <div className="relative w-6 h-5 flex flex-col justify-between">
+                {[...Array(3)].map((_, i) => (
+                  <motion.span
+                    key={i}
+                    className="block h-0.5 rounded-full bg-white shadow-[0_0_5px_rgba(52,211,153,0.5)] transform origin-center"
+                    initial={false}
+                    animate={isMenuOpen ? {
+                      rotate: i === 1 ? 0 : i === 0 ? 45 : -45,
+                      y: i === 1 ? 0 : i === 0 ? 8 : -8,
+                      width: i === 1 ? "0%" : "100%",
+                      opacity: i === 1 ? 0 : 1,
+                      backgroundColor: "rgb(52, 211, 153)",
+                    } : {
+                      rotate: 0,
+                      y: 0,
+                      width: i === 1 ? "70%" : "100%",
+                      opacity: 1,
+                      backgroundColor: "rgb(255, 255, 255)",
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      ease: "easeInOut"
+                    }}
+                    style={{
+                      boxShadow: "0 0 5px rgba(52, 211, 153, 0.3)",
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* ホバーエフェクト */}
+              <motion.div
+                className="absolute inset-0 rounded-full bg-emerald-400/0 group-hover:bg-emerald-400/10 transition-colors duration-300"
+                animate={{
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            </div>
+          </button>
+
           {/* ロゴ - スクロール後のみ表示 */}
           <AnimatePresence>
             {isScrolled && (
@@ -148,37 +229,6 @@ export default function Header() {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* ハンバーガーメニュー */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="relative z-10 p-2 rounded-lg hover:bg-white/5 transition-colors"
-            aria-label="メニュー"
-          >
-            <div className="w-8 h-6 flex flex-col justify-between">
-              {[...Array(3)].map((_, i) => (
-                <motion.span
-                  key={i}
-                  className={`block h-0.5 rounded-full transform transition-all duration-300 ${
-                    isScrolled ? 'bg-white' : 'bg-white'
-                  }`}
-                  style={{ transformOrigin: "center" }}
-                  animate={isMenuOpen ? {
-                    rotate: i === 1 ? 0 : i === 0 ? 45 : -45,
-                    y: i === 1 ? 0 : i === 0 ? 10 : -10,
-                    opacity: i === 1 ? 0 : 1,
-                    width: i === 1 ? "100%" : "100%"
-                  } : {
-                    rotate: 0,
-                    y: 0,
-                    opacity: 1,
-                    width: i === 1 ? "75%" : "100%"
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              ))}
-            </div>
-          </button>
         </div>
       </div>
 
