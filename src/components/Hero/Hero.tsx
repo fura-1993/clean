@@ -48,7 +48,7 @@ const ServiceCard = memo(({ service, index, total }: { service: Service, index: 
   <motion.div
     className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.1)] aspect-[4/3]"
     style={{
-      top: `${index * 96 + 160}px`,
+      top: `${index * 96}px`,
       right: `${index * 100}px`,
       zIndex: total - index,
       transform: `rotate(${3 + index * 3}deg)`
@@ -74,7 +74,7 @@ const ServiceCard = memo(({ service, index, total }: { service: Service, index: 
       src={service.image}
       alt={service.title}
       fill
-      className="object-cover transition-transform duration-700 group-hover:scale-110"
+      className="object-cover object-bottom transition-transform duration-700 group-hover:scale-110"
       sizes="(max-width: 768px) 100vw, 50vw"
       priority={index === 0}
       quality={75}
@@ -297,7 +297,7 @@ function Hero() {
           {/* 右側のサービスカード */}
           <div className="relative flex justify-center lg:justify-end overflow-visible px-6 lg:px-0">
             <motion.div 
-              className="relative w-full max-w-2xl mt-16 md:mt-32 lg:mt-24"
+              className="relative w-full max-w-2xl -mt-32 lg:-mt-48"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
