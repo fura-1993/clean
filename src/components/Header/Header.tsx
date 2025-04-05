@@ -320,9 +320,9 @@ export default function Header() {
                </svg>
             </motion.button>
 
-            {/* Menu Content - Centered with Framed Items */}
+            {/* Menu Content - Centered Diagonal with Frames */}
             <motion.nav
-              className="relative z-50"
+              className="relative z-50" 
               aria-label="Main navigation"
               variants={{
                 open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
@@ -332,90 +332,111 @@ export default function Header() {
               animate="open"
               exit="closed"
             >
-              <ul className="flex flex-col items-center gap-6">
-                {menuItems.map((item, i) => (
-                  <motion.li
-                    key={item.href}
-                    className="list-none relative"
-                    variants={{
-                      open: {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        filter: 'blur(0px)',
-                        transition: { type: "spring", stiffness: 200, damping: 20 }
-                      },
-                      closed: {
-                        opacity: 0,
-                        y: 20,
-                        scale: 0.95,
-                        filter: 'blur(8px)',
-                        transition: { duration: 0.2 }
-                      }
-                    }}
-                  >
-                    {/* Futuristic Frame */}
-                    <motion.div
-                      className="absolute -inset-x-4 -inset-y-2 border border-emerald-500/30 rounded-lg pointer-events-none"
-                      animate={{
-                        borderColor: [
-                          'rgba(52, 211, 153, 0.3)',
-                          'rgba(52, 211, 153, 0.7)',
-                          'rgba(52, 211, 153, 0.3)',
-                        ],
-                        scale: [1, 1.03, 1]
+              {/* UL remains relative for positioning context */}
+              <ul className="relative">
+                {menuItems.map((item, i) => {
+                  // --- Settings for Diagonal Layout & Spacing ---
+                  const itemWidth = 200; // Approximate width for centering calculation
+                  const xSpacing = 120; // Increased Horizontal spacing 
+                  const ySpacing = 100; // Increased Vertical spacing
+                  const numItems = menuItems.length;
+                  
+                  // Calculate offset from center for diagonal layout
+                  const xOffset = (i - (numItems - 1) / 2) * xSpacing;
+                  const yOffset = (i - (numItems - 1) / 2) * ySpacing;
+                  // -----------------------------------------------
+
+                  return (
+                    <motion.li
+                      key={item.href}
+                      // Use absolute positioning relative to the centered nav
+                      className="absolute list-none"
+                      style={{ 
+                        // Position relative to the (invisible) center point of the nav
+                        x: xOffset,
+                        y: yOffset,
+                        // Ensure consistent width for frame calculation
+                        width: `${itemWidth}px`, 
                       }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut"
+                      variants={{
+                        open: {
+                          opacity: 1,
+                          scale: 1, // Use scale for entrance
+                          filter: 'blur(0px)',
+                          transition: { type: "spring", stiffness: 200, damping: 20 }
+                        },
+                        closed: {
+                          opacity: 0,
+                          scale: 0.8, // Scale down on exit
+                          filter: 'blur(8px)',
+                          transition: { duration: 0.2 }
+                        }
                       }}
-                    />
-                     {/* Inner subtle glow/scan line */}
-                    <motion.div
-                      className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
                     >
-                      <motion.div 
-                        className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-emerald-400/0 via-emerald-400/50 to-emerald-400/0 shadow-[0_0_10px_theme(colors.emerald.500)]"
-                        animate={{ x: ["-100%", "200%"] }}
-                        transition={{ 
-                          duration: 2.5 + i * 0.3, 
-                          repeat: Infinity, 
-                          ease: "linear",
-                          delay: i * 0.1
+                      {/* Futuristic Frame (Adjust padding if needed due to fixed width) */}
+                      <motion.div
+                        className="absolute -inset-x-4 -inset-y-2 border border-emerald-500/30 rounded-lg pointer-events-none"
+                        animate={{
+                          borderColor: [
+                            'rgba(52, 211, 153, 0.3)',
+                            'rgba(52, 211, 153, 0.7)',
+                            'rgba(52, 211, 153, 0.3)',
+                          ],
+                          scale: [1, 1.03, 1]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
                         }}
                       />
-                    </motion.div>
-                    
-                    {/* Menu Item Link */}
-                    <motion.a
-                      href={item.href}
-                      className="block text-xl font-medium text-white/90 hover:text-emerald-300 transition-colors duration-300 px-6 py-2 relative group whitespace-nowrap bg-slate-900/50 backdrop-blur-sm rounded-md"
-                      onClick={() => setIsMenuOpen(false)}
-                      style={{ writingMode: 'horizontal-tb' }}
-                      animate={{
-                        textShadow: [
-                          '0 0 4px rgba(52, 211, 153, 0.2)',
-                          '0 0 6px rgba(52, 211, 153, 0.4)',
-                          '0 0 4px rgba(52, 211, 153, 0.2)'
-                        ],
-                      }}
-                      transition={{
-                        textShadow: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
-                        default: { type: "spring", stiffness: 400 }
-                      }}
-                      whileHover={{
-                        scale: 1.05, 
-                        y: -2, 
-                        textShadow: '0 0 12px rgba(52, 211, 153, 0.9)',
-                        color: '#34d399',
-                        backgroundColor: 'rgba(15, 23, 42, 0.7)'
-                      }}
-                    >
-                      {item.label}
-                    </motion.a>
-                  </motion.li>
-                ))}
+                      {/* Inner subtle glow/scan line */}
+                      <motion.div
+                        className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
+                      >
+                        <motion.div 
+                          className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-emerald-400/0 via-emerald-400/50 to-emerald-400/0 shadow-[0_0_10px_theme(colors.emerald.500)]"
+                          animate={{ x: ["-100%", "200%"] }}
+                          transition={{ 
+                            duration: 2.5 + i * 0.3, 
+                            repeat: Infinity, 
+                            ease: "linear",
+                            delay: i * 0.1
+                          }}
+                        />
+                      </motion.div>
+                      
+                      {/* Menu Item Link */}
+                      <motion.a
+                        href={item.href}
+                        // Ensure text is centered within the fixed width
+                        className="flex items-center justify-center text-xl font-medium text-white/90 hover:text-emerald-300 transition-colors duration-300 px-6 py-2 relative group whitespace-nowrap bg-slate-900/50 backdrop-blur-sm rounded-md w-full h-full"
+                        onClick={() => setIsMenuOpen(false)}
+                        style={{ writingMode: 'horizontal-tb' }} 
+                        animate={{
+                          textShadow: [
+                            '0 0 4px rgba(52, 211, 153, 0.2)',
+                            '0 0 6px rgba(52, 211, 153, 0.4)',
+                            '0 0 4px rgba(52, 211, 153, 0.2)'
+                          ],
+                        }}
+                        transition={{
+                          textShadow: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
+                          default: { type: "spring", stiffness: 400 }
+                        }}
+                        whileHover={{
+                          scale: 1.05, 
+                          y: -2, 
+                          textShadow: '0 0 12px rgba(52, 211, 153, 0.9)',
+                          color: '#34d399',
+                          backgroundColor: 'rgba(15, 23, 42, 0.7)'
+                        }}
+                      >
+                        {item.label}
+                      </motion.a>
+                    </motion.li>
+                  )
+                })}
               </ul>
             </motion.nav>
           </motion.div>
