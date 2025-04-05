@@ -1,30 +1,39 @@
-import type { Metadata } from 'next'
-import { Noto_Sans_JP } from 'next/font/google'
-import '@/styles/globals.css'
-import 'aos/dist/aos.css'
+import './globals.css'
+import { Inter } from 'next/font/google'
 
-const notoSansJP = Noto_Sans_JP({
+// フォントの最適化
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
 })
 
-export const metadata: Metadata = {
-  title: 'プロフェッショナル清掃サービス | 高圧洗浄・タイル洗浄・絨毯清掃',
-  description: '高圧洗浄、タイル洗浄、絨毯清掃のプロフェッショナルサービス。品質と信頼のクリーニングで、あなたの空間を清潔に保ちます。',
+export const metadata = {
+  title: 'Professional Cleaning Service',
+  description: '最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に',
 }
 
+// レイアウトの最適化
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html lang="ja">
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        {/* Font Awesome の最適化読み込み */}
+        <link 
+          rel="preload"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          as="style"
+          onLoad="this.onload=null;this.rel='stylesheet'"
+        />
       </head>
-      <body className={notoSansJP.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+      </body>
     </html>
   )
 } 
