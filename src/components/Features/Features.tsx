@@ -3,34 +3,34 @@ import { motion } from 'framer-motion'
 
 const features = [
   {
-    icon: 'fas fa-microchip',
-    title: '最先端技術',
-    description: '最新AIとロボティクス技術を導入。効率的かつ高品質な清掃を実現します。'
+    icon: 'fas fa-tools',
+    title: '専門機材',
+    description: '業務用高性能清掃機器と専用洗剤を使用。効率的かつ高品質な清掃を実現します。'
   },
   {
     icon: 'fas fa-shield-virus',
     title: '徹底除菌',
-    description: '環境と人体に優しい専用薬剤を使用。見えない菌まで徹底的に除去し、衛生的な空間を提供します。'
+    description: '環境と人体に安全な専用洗浄剤を使用。目に見えない菌も確実に除去し、衛生的な空間を提供します。'
   },
   {
     icon: 'fas fa-shipping-fast',
-    title: '即応体制',
-    description: '24時間365日受付。お客様の緊急のご要望にも迅速に対応できる体制を整えています。'
+    title: '迅速対応',
+    description: '平日・休日問わず受付。お客様のご要望に迅速に対応できる体制を整えています。'
   },
   {
     icon: 'fas fa-hand-holding-usd',
-    title: '最適コスト',
-    description: '無駄を排除した効率的なオペレーションで、高品質サービスを適正価格でご提供します。'
+    title: '適正価格',
+    description: '無駄を排除した効率的な作業で、高品質なサービスを適正価格でご提供します。'
   },
   {
     icon: 'fas fa-user-shield',
-    title: '信頼と保証',
-    description: '万全の損害保険加入。作業後の品質にご満足いただけない場合は、無償で再対応いたします。'
+    title: '安心保証',
+    description: '損害保険完備。作業後の品質にご満足いただけない場合は、無償で再対応いたします。'
   },
   {
     icon: 'fas fa-headset',
-    title: '専任サポート',
-    description: 'お客様ごとに専任担当者がつき、ご要望に合わせた最適なプランと丁寧なサポートを提供します。'
+    title: '丁寧サポート',
+    description: 'お客様ごとに担当者を配置し、ご要望に合わせた最適なプランと丁寧なサービスを提供します。'
   }
 ]
 
@@ -95,7 +95,7 @@ export default function Features() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
             選ばれる理由
           </h2>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">JT Cleaning Service が提供する、他にはない価値と安心。</p>
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">確かな技術と信頼のJT Cleaning Service。安心と満足をお届けします。</p>
         </motion.div>
 
         {/* Features Grid - 近未来的なカードデザイン */} 
