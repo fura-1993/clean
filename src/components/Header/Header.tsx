@@ -16,7 +16,7 @@ type MenuItem = {
 const menuItems: readonly MenuItem[] = [
   { href: '#services', label: 'サービス' },
   { href: '#features', label: '特徴' },
-  { href: '#works', label: '施工事例' },
+  { href: '#portfolio', label: '実績' },
   { href: '#contact', label: 'お問い合わせ' }
 ]
 

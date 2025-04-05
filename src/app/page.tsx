@@ -8,6 +8,7 @@ import Header from '@/components/Header/Header'
 import Hero from '@/components/Hero/Hero'
 import Services from '@/components/Services/Services'
 import Features from '@/components/Features/Features'
+import Portfolio from '@/components/Portfolio/Portfolio'
 import Contact from '@/components/Contact/Contact'
 import Footer from '@/components/Footer/Footer'
 // import Testimonials from '@/components/Testimonials/TestimonialSlider'
@@ -38,6 +39,7 @@ export default function Home() {
         <Hero />
         <Services />
         <Features />
+        <Portfolio />
         <Contact />
         <Footer />
         {/* <Testimonials />
