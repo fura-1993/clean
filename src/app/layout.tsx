@@ -32,8 +32,12 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className={`${inter.className} animate-background-float`}>
-        <div className="animate-overlay-pulse">
+      <body className={inter.className}>
+        {/* Fixed Background */}
+        <div className="fixed-background" />
+        
+        {/* Content Wrapper */}
+        <div className="content-wrapper">
           {children}
         </div>
       </body>
