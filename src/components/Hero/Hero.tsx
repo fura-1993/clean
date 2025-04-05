@@ -35,10 +35,10 @@ export default function Hero() {
   }, [controls])
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white overflow-hidden pt-12">
+    <section className="relative min-h-screen bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 text-white overflow-hidden pt-12">
       {/* 背景の装飾 */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.12)_0%,transparent_50%)]"></div>
       
       {/* 動く背景パターン */}
       <div className="absolute inset-0 opacity-[0.02]">
@@ -88,7 +88,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <motion.div
-                className="absolute -inset-2.5 bg-gradient-to-r from-yellow-400/20 via-yellow-300/30 to-yellow-400/20 rounded-full blur-lg"
+                className="absolute -inset-2.5 bg-gradient-to-r from-emerald-400/20 via-white/30 to-emerald-400/20 rounded-full blur-lg"
                 animate={{
                   scale: [1, 1.15, 1],
                   rotate: [0, 90, 180],
@@ -100,9 +100,9 @@ export default function Hero() {
                   ease: "linear"
                 }}
               />
-              <div className="relative bg-blue-900/60 backdrop-blur-sm px-6 py-2.5 rounded-full border border-white/15 shadow-md">
+              <div className="relative bg-emerald-900/60 backdrop-blur-sm px-6 py-2.5 rounded-full border border-white/15 shadow-md">
                 <motion.span 
-                  className="text-base font-medium bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-200 bg-clip-text text-transparent tracking-wider"
+                  className="text-base font-medium bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent tracking-wider"
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
@@ -129,7 +129,7 @@ export default function Hero() {
                 {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル"].map((char, i) => (
                   <motion.span
                     key={i}
-                    className="inline-block"
+                    className="inline-block text-white/90"
                     animate={{
                       y: [0, -4, 0],
                     }}
@@ -144,7 +144,7 @@ export default function Hero() {
                   </motion.span>
                 ))}
                 <motion.span
-                  className="inline-block"
+                  className="inline-block text-white/90"
                   animate={{
                     y: [0, -3, 0],
                   }}
@@ -171,7 +171,7 @@ export default function Hero() {
                 }}
               >
                 <motion.span 
-                  className="relative z-10 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent"
+                  className="relative z-10 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent"
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
@@ -185,7 +185,7 @@ export default function Hero() {
                   清掃サービス
                 </motion.span>
                 <motion.div 
-                  className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-yellow-400/20 via-yellow-300/40 to-yellow-400/20"
+                  className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-white/20 via-emerald-200/40 to-white/20"
                   initial={{ width: "0%" }}
                   animate={{ 
                     width: "100%",
@@ -206,7 +206,7 @@ export default function Hero() {
 
             {/* サブテキスト */}
             <motion.p 
-              className="text-lg md:text-xl text-blue-100/90 mb-12 font-medium leading-relaxed"
+              className="text-lg md:text-xl text-white/80 mb-12 font-medium leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -250,7 +250,7 @@ export default function Hero() {
             >
               <motion.a
                 href="#contact"
-                className="group relative bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold text-base shadow-lg hover:shadow-xl overflow-hidden"
+                className="group relative bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 text-emerald-900 px-6 py-3 rounded-lg font-bold text-base shadow-lg hover:shadow-xl overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 style={{ backgroundSize: "200% 100%" }}
@@ -299,7 +299,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.98 }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-300/10 to-yellow-400/0"
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-emerald-300/10 to-emerald-400/0"
                   animate={{
                     x: ["-200%", "200%"],
                   }}
@@ -370,13 +370,13 @@ export default function Hero() {
                     priority={index === 0}
                     quality={90}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/80 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/95 via-emerald-900/80 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
                   <div className="absolute inset-0 flex flex-col justify-center p-6">
                     <div className="space-y-2">
-                      <h3 className="text-2xl font-bold group-hover:text-yellow-400 transition-colors">
+                      <h3 className="text-2xl font-bold group-hover:text-emerald-400 transition-colors">
                         {service.title}
                       </h3>
-                      <p className="text-sm text-blue-100/90 transform group-hover:translate-x-1 transition-transform">
+                      <p className="text-sm text-white/80 transform group-hover:translate-x-1 transition-transform">
                         {service.description}
                       </p>
                     </div>
