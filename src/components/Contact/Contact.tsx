@@ -50,6 +50,29 @@ const serviceOptions = [
 
 export default function Contact() {
   const { t } = useLanguage();
+  
+  // サービスオプションを翻訳対応
+  const translatedServiceOptions = [
+    {
+      id: 'high-pressure',
+      title: t('highPressure'),
+      icon: 'fas fa-water',
+      description: t('highPressureDesc'),
+    },
+    {
+      id: 'tile-cleaning',
+      title: t('tileCleaning'),
+      icon: 'fas fa-brush',
+      description: t('tileCleaningDesc'),
+    },
+    {
+      id: 'carpet-cleaning',
+      title: t('carpetCleaning'),
+      icon: 'fas fa-spray-can-sparkles',
+      description: t('carpetCleaningDesc'),
+    },
+  ];
+
   const [formData, setFormData] = useState({ 
     name: '', 
     email: '', 
@@ -312,7 +335,7 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {serviceOptions.map((service) => (
+          {translatedServiceOptions.map((service) => (
             <motion.button
               key={service.id}
               onClick={() => handleServiceSelect(service.id)}

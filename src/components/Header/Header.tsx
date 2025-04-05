@@ -17,17 +17,18 @@ type MenuItem = {
   label: string;
 };
 
-const menuItems: readonly MenuItem[] = [
-  { href: '#services', label: 'サービス' },
-  { href: '#features', label: '特徴' },
-  { href: '#portfolio', label: '実績' },
-  { href: '#contact', label: 'お問い合わせ' }
-]
-
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { t } = useLanguage();
+
+  // メニュー項目を動的に翻訳に対応
+  const menuItems: readonly MenuItem[] = [
+    { href: '#services', label: t('services') },
+    { href: '#features', label: t('features') },
+    { href: '#portfolio', label: t('portfolio') },
+    { href: '#contact', label: t('contact') }
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,7 +115,7 @@ export default function Header() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="relative z-[51] group" // z-index higher than header
-              aria-label="メニューを開閉"
+              aria-label={t('toggleMenu')}
               aria-expanded={isMenuOpen}
             >
               <div className="relative w-10 h-10 flex items-center justify-center">
@@ -200,7 +201,7 @@ export default function Header() {
                     >
                       <Image
                         src="/images/JTlogo.png"
-                        alt="JT Professional Cleaning Service"
+                        alt={t('companyLogo')}
                         width={100}
                         height={30}
                         className="w-full h-auto"
@@ -211,11 +212,6 @@ export default function Header() {
                 </Link>
               )}
             </AnimatePresence>
-
-            {/* Staff Image - Central - REMOVED */}
-            {/* 
-              REMOVED THIS ENTIRE BLOCK PREVIOUSLY, ENSURING IT'S GONE 
-            */}
 
             {/* 清掃サービスの特徴 - スクロール後のみ表示 */}
             <AnimatePresence>
@@ -229,15 +225,15 @@ export default function Header() {
                 >
                   <div className="flex items-center gap-2">
                     <i className="fas fa-spray-can-sparkles text-emerald-400" />
-                    <span className="text-sm">最新技術導入</span>
+                    <span className="text-sm">{t('latest')}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <i className="fas fa-clock text-emerald-400" />
-                    <span className="text-sm">即日対応可能</span>
+                    <span className="text-sm">{t('sameDay')}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <i className="fas fa-shield-check text-emerald-400" />
-                    <span className="text-sm">プロ品質保証</span>
+                    <span className="text-sm">{t('quality')}</span>
                   </div>
                 </motion.div>
               )}
@@ -278,7 +274,7 @@ export default function Header() {
                         <div className="relative w-10 h-10 rounded-full overflow-hidden border border-emerald-400/40 shadow-md flex-shrink-0">
                           <Image
                             src="/images/infostaff2.png"
-                            alt="カスタマーサポートスタッフ"
+                            alt={t('supportStaff')}
                             width={40} 
                             height={40}
                             className="object-cover w-full h-full"
@@ -287,7 +283,7 @@ export default function Header() {
                         </div>
                         <i className="fas fa-phone-volume text-emerald-400 text-xl" />
                         <div>
-                          <div className="text-xs font-medium text-emerald-400">{t('supportHours') || '24時間365日対応'}</div>
+                          <div className="text-xs font-medium text-emerald-400">{t('supportHours')}</div>
                           <div className="text-lg font-bold tracking-wider">04-7185-0805</div>
                         </div>
                       </a>
@@ -316,7 +312,7 @@ export default function Header() {
                 >
                   <i className="fas fa-phone-volume text-emerald-400 animate-bounce" />
                   <div>
-                    <div className="text-xs text-emerald-400">{t('supportHours') || '24時間365日対応'}</div>
+                    <div className="text-xs text-emerald-400">{t('supportHours')}</div>
                     <div className="font-bold">04-7185-0805</div>
                   </div>
                 </a>

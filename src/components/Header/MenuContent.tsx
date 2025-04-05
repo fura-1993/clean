@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Define types for props
 type MenuItem = {
@@ -15,12 +16,14 @@ type MenuContentProps = {
 };
 
 const MenuContent: React.FC<MenuContentProps> = ({ menuItems, closeMenu }) => {
+  const { t } = useLanguage();
+  
   return (
     <>
       {/* Menu Content - Centered Diagonal with Frames - Shifted Left */}
       <motion.nav
         className="relative z-50 left-[-100px]" // Adjusted further left
-        aria-label="Main navigation"
+        aria-label={t('mainNavigation') || "Main navigation"}
         variants={{
           open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
           closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }

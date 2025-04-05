@@ -1,38 +1,8 @@
+"use client";
+
 import React from 'react'
 import { motion } from 'framer-motion'
-
-const features = [
-  {
-    icon: 'fas fa-tools',
-    title: '専門機材',
-    description: '業務用高性能清掃機器と専用洗剤を使用。効率的かつ高品質な清掃を実現します。'
-  },
-  {
-    icon: 'fas fa-shield-virus',
-    title: '徹底除菌',
-    description: '環境と人体に安全な専用洗浄剤を使用。目に見えない菌も確実に除去し、衛生的な空間を提供します。'
-  },
-  {
-    icon: 'fas fa-shipping-fast',
-    title: '迅速対応',
-    description: '平日・休日問わず受付。お客様のご要望に迅速に対応できる体制を整えています。'
-  },
-  {
-    icon: 'fas fa-hand-holding-usd',
-    title: '適正価格',
-    description: '無駄を排除した効率的な作業で、高品質なサービスを適正価格でご提供します。'
-  },
-  {
-    icon: 'fas fa-user-shield',
-    title: '安心保証',
-    description: '損害保険完備。作業後の品質にご満足いただけない場合は、無償で再対応いたします。'
-  },
-  {
-    icon: 'fas fa-headset',
-    title: '丁寧サポート',
-    description: 'お客様ごとに担当者を配置し、ご要望に合わせた最適なプランと丁寧なサービスを提供します。'
-  }
-]
+import { useLanguage } from '../../contexts/LanguageContext'
 
 // Variants for staggering children
 const containerVariants = {
@@ -59,6 +29,41 @@ const itemVariants = {
 };
 
 export default function Features() {
+  const { t } = useLanguage();
+  
+  const features = [
+    {
+      icon: 'fas fa-tools',
+      title: t('specialEquipment'),
+      description: t('specialEquipmentDesc')
+    },
+    {
+      icon: 'fas fa-shield-virus',
+      title: t('thoroughSanitization'),
+      description: t('thoroughSanitizationDesc')
+    },
+    {
+      icon: 'fas fa-shipping-fast',
+      title: t('quickResponse'),
+      description: t('quickResponseDesc')
+    },
+    {
+      icon: 'fas fa-hand-holding-usd',
+      title: t('fairPricing'),
+      description: t('fairPricingDesc')
+    },
+    {
+      icon: 'fas fa-user-shield',
+      title: t('securityGuarantee'),
+      description: t('securityGuaranteeDesc')
+    },
+    {
+      icon: 'fas fa-headset',
+      title: t('attentiveSupport'),
+      description: t('attentiveSupportDesc')
+    }
+  ];
+  
   return (
     <section 
       id="features" 
@@ -93,9 +98,9 @@ export default function Features() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
-            選ばれる理由
+            {t('whyChooseUs')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">確かな技術と経験豊富なスタッフによる、JT Cleaning Serviceの価値あるサービス。</p>
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">{t('featuresDescription')}</p>
         </motion.div>
 
         {/* Features Grid - 近未来的なカードデザイン */} 
