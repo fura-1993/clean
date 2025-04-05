@@ -210,7 +210,7 @@ function Hero() {
 
             {/* ボタングループ */}
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -218,15 +218,46 @@ function Hero() {
             >
               <motion.a
                 href="#contact"
-                className="group relative bg-white/10 backdrop-blur-sm px-8 py-4 rounded-lg font-bold text-base border border-white/20 hover:bg-white/20 transition-all duration-300"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                className="group relative px-8 py-4 rounded-lg font-bold text-base text-white overflow-hidden isolation-auto z-0"
+                animate={{
+                  scale: [1, 1.02, 1],
+                  boxShadow: [
+                    "0 0 10px rgba(52, 211, 153, 0.3)", 
+                    "0 0 20px rgba(52, 211, 153, 0.5)", 
+                    "0 0 10px rgba(52, 211, 153, 0.3)"
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  boxShadow: "0 0 25px rgba(52, 211, 153, 0.7)",
+                  y: -3 
+                }}
+                whileTap={{ scale: 0.97 }}
               >
-                <span className="relative z-10 flex items-center justify-center text-white group-hover:text-white/90">
+                <div className="absolute inset-0 z-[-2] bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800"></div>
+                <motion.div 
+                  className="absolute inset-0 z-[-1] bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <div 
+                  className="absolute inset-0 z-[-1] opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px)`,
+                    backgroundSize: `10px 10px`,
+                    animation: `pulseDots 5s infinite linear`
+                  }}
+                ></div>
+                
+                <span className="relative z-10 flex items-center justify-center">
                   <i className="fas fa-paper-plane mr-2" />
                   無料見積もりを依頼
                 </span>
               </motion.a>
+              
               <motion.a
                 href="#services"
                 className="group relative bg-white/5 backdrop-blur-sm px-6 py-4 rounded-lg font-bold text-base border border-white/10 hover:bg-white/10 transition-all duration-300"
@@ -262,8 +293,16 @@ function Hero() {
           </div>
         </div>
       </div>
+       {/* Add Keyframes for pulseDots animation */}
+       <style jsx global>{`
+        @keyframes pulseDots {
+          0% { background-position: 0 0; }
+          50% { background-position: 5px 5px; }
+          100% { background-position: 0 0; }
+        }
+      `}</style>
     </section>
   )
 }
 
-export default memo(Hero) 
+export default memo(Hero)
