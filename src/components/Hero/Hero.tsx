@@ -3,8 +3,15 @@ import { motion, useAnimation } from 'framer-motion'
 import Image from 'next/image'
 import { memo } from 'react'
 
-// サービス配列を外部に移動し、メモ化
-const services = [
+// Define a more explicit type for services where icon is optional
+type Service = {
+  title: string;
+  description: string;
+  image: string;
+  icon?: string; // Make icon optional
+};
+
+const services: readonly Service[] = [
   {
     icon: 'fas fa-sparkles',
     title: '絨毯清掃',
@@ -12,7 +19,6 @@ const services = [
     image: '/images/絨毯清掃作業風景.png',
   },
   {
-    icon: 'fas fa-droplet',
     title: '高圧洗浄',
     description: '外壁・駐車場の汚れを徹底洗浄',
     image: '/images/高圧洗浄作業風景.png',
@@ -23,7 +29,7 @@ const services = [
     description: '美観を復元し清潔な空間に',
     image: '/images/タイル洗浄作業風景.png',
   }
-] as const
+]
 
 // 背景のグラデーションコンポーネントをメモ化
 const BackgroundGradients = memo(() => (
@@ -36,7 +42,7 @@ const BackgroundGradients = memo(() => (
 BackgroundGradients.displayName = 'BackgroundGradients'
 
 // サービスカードコンポーネントをメモ化
-const ServiceCard = memo(({ service, index, total }: { service: typeof services[number], index: number, total: number }) => (
+const ServiceCard = memo(({ service, index, total }: { service: Service, index: number, total: number }) => (
   <motion.div
     className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.1)] aspect-[4/3]"
     style={{
@@ -75,7 +81,7 @@ const ServiceCard = memo(({ service, index, total }: { service: typeof services[
     <div className="absolute inset-0 flex flex-col justify-end p-6">
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <i className={`${service.icon} text-white/90`} />
+          {service.icon && <i className={`${service.icon} text-white/90`} />}
           <h3 className="text-2xl font-bold text-white group-hover:text-white/90 transition-colors">
             {service.title}
           </h3>
