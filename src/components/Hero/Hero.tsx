@@ -41,17 +41,18 @@ const BackgroundGradients = memo(() => (
 ))
 BackgroundGradients.displayName = 'BackgroundGradients'
 
-// サービスカードコンポーネントをメモ化
+// サービスカードコンポーネント - Positioning adjusted
 const ServiceCard = memo(({ service, index, total }: { service: Service, index: number, total: number }) => (
   <motion.div
     className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.1)] aspect-[4/3]"
     style={{
-      top: `${index * 96}px`,
-      right: `${index * 100}px`,
+      // Simplified positioning: reduce offsets and rotation slightly
+      top: `${index * 60}px`, // Reduced vertical offset
+      right: `${index * 60}px`, // Reduced horizontal offset
       zIndex: total - index,
-      transform: `rotate(${3 + index * 3}deg)`
+      transform: `rotate(${2 + index * 2}deg)` // Reduced rotation
     }}
-    initial={{ opacity: 0, x: 100, rotate: 6 + index * 3 }}
+    initial={{ opacity: 0, x: 100, rotate: 4 + index * 2 }}
     whileInView={{ 
       opacity: 1, 
       x: 0,
@@ -241,10 +242,10 @@ function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* 右側のサービスカード */}
+          {/* 右側のサービスカードコンテナ - Removed negative margin */}
           <div className="relative flex justify-center lg:justify-end overflow-visible px-6 lg:px-0">
             <motion.div 
-              className="relative w-full max-w-2xl -mt-32 lg:-mt-48"
+              className="relative w-full max-w-2xl h-[calc(100%+120px)]" // Ensure container has enough height for offset cards
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
