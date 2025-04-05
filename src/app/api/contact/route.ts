@@ -1,83 +1,85 @@
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import nodemailer from 'nodemailer';
+import { IncomingForm, File, Files, Fields } from 'formidable';
+import fs from 'fs';
+import path from 'path';
 
-const serviceNames = {
-  'high-pressure': '高圧洗浄',
-  'tile-cleaning': 'タイル洗浄',
-  'carpet-cleaning': 'カーペット清掃'
-};
+// Note: config export is not needed for App Router Route Handlers
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  if (req.method !== 'POST') {
+    return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+  }
+
   try {
-    const { name, email, selectedService, message } = await request.json();
-
-    // Basic validation
-    if (!name || !email || !selectedService || !message) {
-      return NextResponse.json({ error: 'すべてのフィールドを入力してください。' }, { status: 400 });
-    }
-
-    const user = process.env.EMAIL_USER;
-    const pass = process.env.EMAIL_PASSWORD;
-
-    if (!user || !pass) {
-      console.error('Email credentials missing in environment variables.');
-      return NextResponse.json({ error: 'サーバー設定エラーが発生しました。' }, { status: 500 });
-    }
-
-    // Configure transporter
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.lolipop.jp',
-      port: 465,
-      secure: true, // true for 465, false for other ports
-      auth: {
-        user: user,
-        pass: pass,
-      },
-      // Increase timeout to avoid connection issues
-      connectionTimeout: 10000, // 10 seconds
-      greetingTimeout: 10000, // 10 seconds
-      socketTimeout: 10000, // 10 seconds
+    const form = new IncomingForm({
+      maxFileSize: 50 * 1024 * 1024, // 50MB
     });
 
-    // Verify connection configuration (optional, good for debugging)
-    try {
-        await transporter.verify();
-        console.log('Server is ready to take our messages');
-    } catch (verifyError) {
-        console.error('Transporter verification failed:', verifyError);
-        // Don't necessarily fail the request here, but log it
+    const { fields, files } = await new Promise<{ fields: Fields; files: Files }>((resolve, reject) => {
+      // Pass the NextRequest directly to formidable's parse method
+      form.parse(req as any, (err, fields, files) => {
+        if (err) reject(err);
+        resolve({ fields, files });
+      });
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const attachments = [];
+    const file = files.file ? (Array.isArray(files.file) ? files.file[0] : files.file) : null;
+    if (file && file.originalFilename) {
+      attachments.push({
+        filename: file.originalFilename,
+        content: fs.createReadStream(file.filepath),
+      });
     }
 
-    // Get the service name from the mapping
-    const serviceName = serviceNames[selectedService as keyof typeof serviceNames] || '選択なし';
+    // Extract fields and provide default values if they are arrays (though less likely here)
+    const name = Array.isArray(fields.name) ? fields.name[0] : fields.name || '';
+    const email = Array.isArray(fields.email) ? fields.email[0] : fields.email || '';
+    const selectedService = Array.isArray(fields.selectedService) ? fields.selectedService[0] : fields.selectedService || '';
+    const message = Array.isArray(fields.message) ? fields.message[0] : fields.message || '';
 
-    // Email options
     const mailOptions = {
-      from: `"Webサイトお問い合わせ" <${user}>`, // Sender address (must be your email)
-      to: user, // List of receivers (your email address)
-      replyTo: email, // Set reply-to to the user's email
-      subject: `Webサイトお問い合わせ: ${serviceName}について`, // Subject line with service name
-      html: `
-        <h1>Webサイトからのお問い合わせ</h1>
-        <p><strong>お名前:</strong> ${name}</p>
-        <p><strong>メールアドレス:</strong> ${email}</p>
-        <p><strong>希望サービス:</strong> ${serviceName}</p>
-        <hr>
-        <p><strong>メッセージ内容:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-        <hr>
-        <p><small>このメールは ${new Date().toLocaleString('ja-JP')} に送信されました。</small></p>
-      `, // HTML body
+      from: process.env.EMAIL_USER || '',
+      to: process.env.EMAIL_USER || '',
+      subject: '【お問い合わせ】新規のお問い合わせがありました',
+      text: `
+お名前or法人名等: ${name}
+メールアドレス: ${email}
+選択されたサービス: ${selectedService}
+
+メッセージ:
+${message}
+      `,
+      attachments,
     };
 
-    // Send mail
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ message: 'お問い合わせありがとうございます。メッセージは正常に送信されました。' }, { status: 200 });
+    // Clean up temporary files
+    if (file) {
+      fs.unlinkSync(file.filepath);
+    }
 
+    return NextResponse.json({ message: 'お問い合わせを受け付けました。' }, { status: 200 });
   } catch (error) {
-    console.error('Error sending email:', error);
-    // Provide a generic error message to the client
-    return NextResponse.json({ error: 'メッセージの送信中にエラーが発生しました。しばらくしてからもう一度お試しください。' }, { status: 500 });
+    console.error('Error processing contact form:', error);
+    // Check if the error is a formidable error (e.g., file size limit exceeded)
+    if (error instanceof Error && 'httpCode' in error) {
+      const formidableError = error as any;
+      if (formidableError.httpCode === 413) { // Payload Too Large
+        return NextResponse.json({ error: 'ファイルサイズが大きすぎます。50MB以下にしてください。' }, { status: 413 });
+      }
+    }
+    return NextResponse.json({ error: 'サーバーエラーが発生しました。' }, { status: 500 });
   }
 } 
