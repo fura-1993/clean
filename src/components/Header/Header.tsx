@@ -109,14 +109,14 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
           >
             <motion.div
-              className="w-9 h-[2px] bg-emerald-400 rounded-none origin-left shadow-[0_0_10px_#34d399]"
+              className="w-9 h-[2px] bg-white rounded-none origin-left shadow-[0_0_10px_rgba(255,255,255,0.8)]"
               animate={{
                 rotate: isOpen ? 45 : 0,
                 y: isOpen ? -4 : 0,
                 width: isHovered ? "36px" : "28px",
                 opacity: 1,
                 x: !isOpen && !isHovered ? [-2, 2, -2] : 0,
-                boxShadow: isHovered ? "0 0 20px #34d399" : "0 0 10px #34d399"
+                boxShadow: isHovered ? "0 0 20px rgba(255,255,255,0.9)" : "0 0 10px rgba(255,255,255,0.8)"
               }}
               initial={{ width: "28px" }}
               transition={{
@@ -129,13 +129,13 @@ export default function Header() {
               }}
             />
             <motion.div
-              className="w-7 h-[2px] bg-emerald-400 rounded-none shadow-[0_0_10px_#34d399]"
+              className="w-7 h-[2px] bg-white rounded-none shadow-[0_0_10px_rgba(255,255,255,0.8)]"
               animate={{
                 scale: isOpen ? 0 : 1,
                 x: isHovered ? "4px" : !isOpen ? [-3, 3, -3] : 0,
                 width: isHovered ? "32px" : "24px",
                 opacity: isOpen ? 0 : 1,
-                boxShadow: isHovered ? "0 0 20px #34d399" : "0 0 10px #34d399"
+                boxShadow: isHovered ? "0 0 20px rgba(255,255,255,0.9)" : "0 0 10px rgba(255,255,255,0.8)"
               }}
               initial={{ width: "24px" }}
               transition={{
@@ -149,14 +149,14 @@ export default function Header() {
               }}
             />
             <motion.div
-              className="w-9 h-[2px] bg-emerald-400 rounded-none origin-left shadow-[0_0_10px_#34d399]"
+              className="w-9 h-[2px] bg-white rounded-none origin-left shadow-[0_0_10px_rgba(255,255,255,0.8)]"
               animate={{
                 rotate: isOpen ? -45 : 0,
                 y: isOpen ? 4 : 0,
                 width: isHovered ? "36px" : "32px",
                 opacity: 1,
                 x: !isOpen && !isHovered ? [2, -2, 2] : 0,
-                boxShadow: isHovered ? "0 0 20px #34d399" : "0 0 10px #34d399"
+                boxShadow: isHovered ? "0 0 20px rgba(255,255,255,0.9)" : "0 0 10px rgba(255,255,255,0.8)"
               }}
               initial={{ width: "32px" }}
               transition={{
@@ -170,12 +170,12 @@ export default function Header() {
               }}
             />
             <motion.div
-              className="absolute inset-0 border-2 border-emerald-400/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 border-2 border-white/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
               animate={{
                 scale: [1, 1.1, 1],
                 rotate: [0, 180, 360],
                 opacity: isHovered ? 0.8 : 0.4,
-                borderColor: ["rgba(52, 211, 153, 0.3)", "rgba(52, 211, 153, 0.6)", "rgba(52, 211, 153, 0.3)"]
+                borderColor: ["rgba(255,255,255,0.3)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.3)"]
               }}
               transition={{
                 duration: 3,
@@ -191,7 +191,7 @@ export default function Header() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-gradient-to-br from-emerald-950/98 via-emerald-900/95 to-emerald-800/98 backdrop-blur-lg z-40"
+            className="fixed inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/90 to-slate-800/95 backdrop-blur-lg z-40"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -199,10 +199,10 @@ export default function Header() {
           >
             {/* サイバーパンク風の装飾的な背景 */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(52,211,153,0.05)_50%,transparent_75%)] bg-[length:200%_200%] animate-cyber-gradient"></div>
-              <div className="absolute w-full h-px top-1/4 left-0 bg-emerald-400/20 shadow-[0_0_15px_#34d399] animate-scan-line"></div>
-              <div className="absolute w-full h-px top-2/4 left-0 bg-emerald-400/20 shadow-[0_0_15px_#34d399] animate-scan-line-reverse"></div>
-              <div className="absolute w-full h-px top-3/4 left-0 bg-emerald-400/20 shadow-[0_0_15px_#34d399] animate-scan-line"></div>
+              <div className="absolute w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_50%,transparent_75%)] bg-[length:200%_200%] animate-cyber-gradient"></div>
+              <div className="absolute w-full h-px top-1/4 left-0 bg-white/20 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan-line"></div>
+              <div className="absolute w-full h-px top-2/4 left-0 bg-white/20 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan-line-reverse"></div>
+              <div className="absolute w-full h-px top-3/4 left-0 bg-white/20 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan-line"></div>
             </div>
 
             <div className="container h-full flex items-center justify-center relative">
@@ -233,11 +233,11 @@ export default function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="text-4xl font-bold text-emerald-400 hover:text-white transition-all duration-300 relative group flex items-center"
+                      className="text-4xl font-bold text-white/90 hover:text-white transition-all duration-300 relative group flex items-center"
                       onClick={() => setIsOpen(false)}
                     >
                       <motion.span
-                        className="absolute -left-8 opacity-0 group-hover:opacity-100 text-emerald-400"
+                        className="absolute -left-8 opacity-0 group-hover:opacity-100 text-white/90"
                         initial={{ x: -10 }}
                         animate={{ x: 0 }}
                         transition={{ duration: 0.2 }}
@@ -247,7 +247,7 @@ export default function Header() {
                       <span className="relative">
                         {item.label}
                         <motion.div
-                          className="absolute -bottom-2 left-0 h-[2px] bg-emerald-400 shadow-[0_0_10px_#34d399]"
+                          className="absolute -bottom-2 left-0 h-[2px] bg-white/90 shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                           initial={{ width: 0 }}
                           whileHover={{ width: "100%" }}
                           transition={{ duration: 0.3 }}
