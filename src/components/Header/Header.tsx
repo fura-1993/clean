@@ -180,19 +180,13 @@ export default function Header() {
                     className="relative"
                   >
                     <motion.div
-                      animate={{
-                        scale: [1, 1.02, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
+                      animate={{ scale: [1, 1.02, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                       className="w-20 md:w-24"
                     >
                       <Image
-                        src="/images/JTロゴ.png"
-                        alt="Professional Cleaning Service"
+                        src="/images/JTlogo.png"
+                        alt="JT Professional Cleaning Service"
                         width={100}
                         height={30}
                         className="w-full h-auto"
