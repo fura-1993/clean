@@ -143,24 +143,24 @@ export default function Contact() {
       id="contact" 
       className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
-      {/* 半透明のオーバーレイを追加して、テキストとコンテンツの視認性を向上 */}
-      <div className="absolute inset-0 bg-slate-900/75 backdrop-blur-sm"></div>
+      {/* 先進的なオーバーレイ背景 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-800/85 to-slate-900/90 backdrop-blur-md"></div>
       
-      {/* Animated Background Grid - reduced opacity for fixed background */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
+      {/* 強化されたアニメーショングリッド */}
+      <div className="absolute inset-0 pointer-events-none">
         <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
           <defs>
             <pattern id='contactGrid' patternUnits='userSpaceOnUse' width='60' height='60' patternTransform='scale(1) rotate(0)'>
               <rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/>
-              <path d='M30-1.5 V61.5 M-1.5 30 H61.5' stroke='hsla(158, 82%, 57%, 0.03)' strokeWidth='1'/>
+              <path d='M30-1.5 V61.5 M-1.5 30 H61.5' stroke='hsla(158, 82%, 57%, 0.12)' strokeWidth='1'/>
             </pattern>
           </defs>
           <rect width='100%' height='100%' fill='url(#contactGrid)' className="animate-bgGridMove" />
         </svg>
       </div>
 
-      {/* Top Edge Glow */}
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent shadow-[0_0_15px_theme(colors.emerald.500)]"></div>
+      {/* 輝くエッジ効果 */}
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent shadow-[0_0_20px_theme(colors.emerald.500)]"></div>
 
       <div className="container relative z-10 max-w-6xl">
         <motion.div
@@ -170,8 +170,10 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {/* Staff Image */}
-          <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full overflow-hidden border-4 border-emerald-400/30 shadow-xl">
+          {/* スタッフ画像を未来的なスタイルに */}
+          <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full overflow-hidden border-4 border-emerald-400/50 shadow-[0_0_25px_rgba(0,0,0,0.5)]">
+            {/* テクノグロー効果 */}
+            <div className="absolute -inset-1 rounded-full bg-emerald-400/20 blur-md animate-pulse"></div>
             <Image
               src="/images/infostaff.png"
               alt="お問い合わせ受付スタッフ"
@@ -180,16 +182,27 @@ export default function Contact() {
               className="object-cover w-full h-full"
               priority
             />
+            {/* スキャンライン効果 */}
+            <div className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none">
+              <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
+                <defs>
+                  <pattern id="scanline" width="5" height="5" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="0" x2="5" y2="0" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="0.5"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#scanline)" />
+              </svg>
+            </div>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight pt-12" style={{ textShadow: '0 0 10px rgba(52, 211, 153, 0.3)' }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight pt-12" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
             お問い合わせ
           </h2>
           <p className="text-xl text-slate-300">サービスに関するご質問やご依頼など、お気軽にご連絡ください。</p>
           <p className="text-lg text-emerald-400/80 mt-2">24時間以内に担当者よりご連絡させていただきます。</p>
         </motion.div>
 
-        {/* Service Selection Cards - Adjusted Width and Centering */}
+        {/* Service Selection Cards - 近未来的なデザインにアップグレード */}
         <motion.div 
           className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12"
           variants={containerVariants}
@@ -201,36 +214,75 @@ export default function Contact() {
             <motion.button
               key={service.id}
               onClick={() => handleServiceSelect(service.id)}
-              className={`relative p-4 sm:p-6 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-emerald-500 w-full h-full flex flex-col items-center justify-center text-center shadow-lg group ${
+              className={`relative p-4 sm:p-6 rounded-lg border transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-emerald-500 w-full h-full flex flex-col items-center justify-center text-center shadow-[0_10px_30px_rgba(0,0,0,0.25)] group ${
                 formData.selectedService === service.id
-                  ? 'bg-emerald-600/30 border-emerald-500 text-white'
-                  : 'bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-700/50 hover:border-slate-600'
+                  ? 'bg-emerald-900/50 border-emerald-400/70 text-white'
+                  : 'bg-slate-800/80 border-slate-700/80 text-slate-300 hover:bg-slate-700/50 hover:border-emerald-500/50'
               }`}
               variants={itemVariants}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.03, y: -5 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Checkmark for selected state */}
+              {/* 選択状態エフェクト */}
+              <AnimatePresence>
+                {formData.selectedService === service.id && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
+                  >
+                    {/* パルスエフェクト */}
+                    <div className="absolute inset-0 opacity-20 bg-emerald-500/20 animate-pulse"></div>
+                    {/* エッジグロー */}
+                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent shadow-[0_0_10px_theme(colors.emerald.400)]"></div>
+                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent shadow-[0_0_10px_theme(colors.emerald.400)]"></div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+              {/* チェックマークの強化 */}
               <AnimatePresence>
                 {formData.selectedService === service.id && (
                   <motion.div
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}
-                    className="absolute top-2 right-2 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center"
+                    transition={{ duration: 0.3, type: "spring" }}
+                    className="absolute top-2 right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center shadow-[0_0_10px_theme(colors.emerald.500)]"
                   >
                     <i className="fas fa-check text-white text-xs"></i>
                   </motion.div>
                 )}
               </AnimatePresence>
               
-              {/* Icon */}
-              <i className={`${service.icon} text-3xl mb-3 ${formData.selectedService === service.id ? 'text-emerald-300' : 'text-emerald-400/80 group-hover:text-emerald-400'} transition-colors duration-300`}></i>
-              {/* Title */}
-              <h3 className="text-md sm:text-lg font-semibold mb-1 ${formData.selectedService === service.id ? 'text-white' : 'text-slate-200 group-hover:text-white'} transition-colors duration-300">
+              {/* アイコン */}
+              <div className="relative">
+                <motion.div
+                  animate={formData.selectedService === service.id ? 
+                    { scale: [1, 1.1, 1], opacity: [1, 0.7, 1] } : 
+                    { scale: 1, opacity: 1 }
+                  }
+                  transition={{ duration: 2, repeat: formData.selectedService === service.id ? Infinity : 0 }}
+                  className="mb-3"
+                >
+                  <i className={`${service.icon} text-3xl ${formData.selectedService === service.id ? 'text-emerald-300' : 'text-emerald-400/80 group-hover:text-emerald-400'} transition-colors duration-300`}></i>
+                </motion.div>
+                {/* アイコン下の輝き効果 */}
+                {formData.selectedService === service.id && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 0.7, scale: 1 }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-2 bg-emerald-400/30 blur-md rounded-full"
+                  />
+                )}
+              </div>
+              
+              {/* タイトル */}
+              <h3 className="text-md sm:text-lg font-semibold mb-1 ${formData.selectedService === service.id ? 'text-white' : 'text-slate-200 group-hover:text-white'} transition-all duration-300">
                 {service.title}
               </h3>
-              {/* Description */}
+              {/* 説明 */}
               <p className={`text-xs sm:text-sm ${formData.selectedService === service.id ? 'text-emerald-100' : 'text-slate-400 group-hover:text-slate-300'} transition-colors duration-300`}>
                 {service.description}
               </p>
@@ -238,7 +290,7 @@ export default function Contact() {
           ))}
         </motion.div>
 
-        {/* Form Area */}
+        {/* Form Area - ハイテク感のあるフォームスタイル */}
         <motion.div 
           className="max-w-3xl mx-auto"
           variants={containerVariants}

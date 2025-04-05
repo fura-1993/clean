@@ -121,8 +121,25 @@ function Hero() {
 
   return (
     <section className="relative min-h-screen text-white overflow-hidden pt-12">
-      {/* 半透明のオーバーレイを追加して、テキストとコンテンツの視認性を向上 */}
-      <div className="absolute inset-0 bg-slate-900/75 backdrop-blur-sm"></div>
+      {/* より効果的な背景オーバーレイ - グラデーションでよりハイテク感を表現 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-800/85 to-slate-900/90 backdrop-blur-md"></div>
+      
+      {/* テック要素を追加 - 動くグリッドパターン */}
+      <div className="absolute inset-0 opacity-30 mix-blend-screen pointer-events-none">
+        <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
+          <defs>
+            <pattern id='techGrid' patternUnits='userSpaceOnUse' width='40' height='40' patternTransform='scale(1) rotate(0)'>
+              <rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/>
+              <path d='M10-1.5 V41.5 M-1.5 10 H41.5 M30-1.5 V41.5 M-1.5 30 H41.5' stroke='hsla(158, 82%, 57%, 0.2)' strokeWidth='0.5'/>
+            </pattern>
+          </defs>
+          <rect width='100%' height='100%' fill='url(#techGrid)' className="animate-bgGridMove" />
+        </svg>
+      </div>
+      
+      {/* グローエッジエフェクト - 近未来感を強化 */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent shadow-[0_0_20px_theme(colors.emerald.400)]"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent shadow-[0_0_15px_theme(colors.emerald.400)]"></div>
       
       <div className="container relative h-full mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
@@ -142,10 +159,12 @@ function Hero() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative bg-white/10 backdrop-blur-sm px-6 py-2.5 rounded-full border border-white/15 shadow-lg">
-                <span className="text-base font-medium bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent tracking-wider">
+              <div className="relative bg-white/10 backdrop-blur-sm px-6 py-2.5 rounded-full border border-emerald-400/30 shadow-lg">
+                <span className="text-base font-medium bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent tracking-wider">
                   Professional Cleaning Service
                 </span>
+                {/* ネオン輝きエフェクト */}
+                <div className="absolute -inset-[1px] rounded-full opacity-70 blur-sm bg-gradient-to-r from-emerald-400/0 via-emerald-400/50 to-emerald-400/0"></div>
               </div>
             </motion.div>
 
@@ -181,11 +200,11 @@ function Hero() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="relative z-10 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent" style={{ textShadow: '0 0 15px rgba(255, 255, 255, 0.5)' }}>
+                <span className="relative z-10 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
                   清掃サービス
                 </span>
                 <motion.div 
-                  className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-white/20 via-blue-200/40 to-white/20 shadow-[0_0_10px_rgba(255,255,255,0.5)]"
+                  className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-white/20 via-emerald-200/40 to-white/20 shadow-[0_0_10px_rgba(255,255,255,0.5)]"
                   initial={{ width: "0%" }}
                   whileInView={{ width: "100%" }}
                   viewport={{ once: true }}
