@@ -149,7 +149,7 @@ export default function Hero() {
                   }}
                   style={{ backgroundSize: "200% 100%" }}
                 >
-                  Next Generation Cleaning Technology
+                  Professional Cleaning Service
                 </motion.span>
               </div>
             </motion.div>
@@ -162,7 +162,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <div className="flex flex-wrap gap-x-3 gap-y-2 mb-4 text-[1rem] md:text-[1.25rem] lg:text-[1.5rem]">
-                {["最", "先", "端", "の", "清", "掃", "技", "術"].map((char, i) => (
+                {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル"].map((char, i) => (
                   <motion.span
                     key={i}
                     className="inline-block text-white/90"
@@ -176,6 +176,17 @@ export default function Hero() {
                     {char}
                   </motion.span>
                 ))}
+                <motion.span
+                  className="inline-block text-white/90"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.9,
+                  }}
+                >
+                  な
+                </motion.span>
               </div>
               <motion.div
                 className="relative inline-block text-[2rem] md:text-[2.5rem] lg:text-[3rem]"
@@ -195,7 +206,7 @@ export default function Hero() {
                     delay: 1.2,
                   }}
                 >
-                  スマートクリーニング
+                  清掃サービス
                 </motion.span>
                 <motion.div 
                   className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-white/20 via-blue-200/40 to-white/20 shadow-[0_0_10px_rgba(255,255,255,0.5)]"
@@ -217,11 +228,11 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <span className="inline-block">
-                AI搭載の最新清掃システムと
+                最新の技術と熟練の技で、
               </span>
               <br className="hidden md:block" />
               <span className="inline-block">
-                熟練の技術で、未来の清潔空間を創造
+                あらゆる空間を清潔で快適な環境に
               </span>
             </motion.p>
 
@@ -251,17 +262,18 @@ export default function Hero() {
                 />
                 <span className="relative z-10 flex items-center justify-center text-white group-hover:text-white/90">
                   <motion.i 
-                    className="fas fa-robot mr-2"
+                    className="fas fa-paper-plane mr-2"
                     animate={{
-                      rotateY: [0, 180, 360],
+                      x: [0, 4, 0],
+                      y: [0, -2, 0],
                     }}
                     transition={{
                       duration: 2,
                       repeat: Infinity,
-                      ease: "linear"
+                      ease: "easeInOut"
                     }}
                   />
-                  AIアシスタントに相談
+                  無料見積もりを依頼
                 </span>
               </motion.a>
               <motion.a
@@ -271,17 +283,16 @@ export default function Hero() {
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="relative z-10 flex items-center justify-center text-white/90 group-hover:text-white">
-                  テクノロジー詳細
+                  サービスの詳細を見る
                   <motion.i 
-                    className="fas fa-microchip ml-2"
+                    className="fas fa-arrow-right ml-2"
                     animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.7, 1, 0.7],
+                      x: [0, 4, 0],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 1.5,
                       repeat: Infinity,
-                      ease: "linear"
+                      ease: "easeInOut"
                     }}
                   />
                 </span>
