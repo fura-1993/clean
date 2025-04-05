@@ -3,6 +3,8 @@ import { motion, useAnimation, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import LanguageSwitcher from '../LanguageSwitcher'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 // Dynamically import the menu content component
 const DynamicMenuContent = dynamic(() => import('./MenuContent'), { ssr: false })
@@ -23,6 +25,7 @@ const menuItems: readonly MenuItem[] = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -238,7 +241,7 @@ export default function Header() {
               )}
             </AnimatePresence>
 
-            {/* 電話問い合わせ - スクロール後のみ表示に変更 */}
+            {/* 右側のコンテンツ - 電話問い合わせと言語切り替え */}
             <AnimatePresence>
               {isScrolled && (
                 <motion.div
@@ -246,8 +249,12 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="hidden md:block"
+                  className="hidden md:flex items-center gap-4"
                 >
+                  {/* 言語切り替えボタン */}
+                  <LanguageSwitcher />
+                  
+                  {/* 電話問い合わせ - 既存 */}
                   <div className="relative group">
                     <div className="relative">
                       <motion.div
@@ -278,7 +285,7 @@ export default function Header() {
                         </div>
                         <i className="fas fa-phone-volume text-emerald-400 text-xl" />
                         <div>
-                          <div className="text-xs font-medium text-emerald-400">24時間365日対応</div>
+                          <div className="text-xs font-medium text-emerald-400">{t('supportHours') || '24時間365日対応'}</div>
                           <div className="text-lg font-bold tracking-wider">04-7185-0805</div>
                         </div>
                       </a>
@@ -290,7 +297,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* モバイル用電話番号表示 */}
+        {/* モバイル用 - 電話番号表示と言語切り替え */}
         <AnimatePresence>
           {isScrolled && (
             <motion.div
@@ -299,16 +306,22 @@ export default function Header() {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden border-t border-white/10 bg-slate-800/90"
             >
-              <a
-                href="tel:04-7185-0805"
-                className="flex items-center justify-center gap-2 py-2 text-white"
-              >
-                <i className="fas fa-phone-volume text-emerald-400 animate-bounce" />
-                <div className="text-center">
-                  <div className="text-xs text-emerald-400">24時間365日対応</div>
-                  <div className="font-bold">04-7185-0805</div>
-                </div>
-              </a>
+              <div className="flex items-center justify-between px-4 py-2">
+                {/* 電話番号 */}
+                <a
+                  href="tel:04-7185-0805"
+                  className="flex items-center gap-2 text-white"
+                >
+                  <i className="fas fa-phone-volume text-emerald-400 animate-bounce" />
+                  <div>
+                    <div className="text-xs text-emerald-400">{t('supportHours') || '24時間365日対応'}</div>
+                    <div className="font-bold">04-7185-0805</div>
+                  </div>
+                </a>
+                
+                {/* モバイル用言語切り替え */}
+                <LanguageSwitcher />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 // Define variants for staggering children
 const containerVariants = {
@@ -46,6 +47,7 @@ const serviceOptions = [
 ];
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({ 
     name: '', 
     email: '', 
@@ -109,8 +111,7 @@ export default function Contact() {
     // Check total file count
     const combinedFiles = [...currentFiles, ...newFiles];
     if (combinedFiles.length > MAX_FILES) {
-      setStatus({ type: 'error', message: `添付できるファイルは${MAX_FILES}個までです。` });
-      // Use optional chaining to avoid null reference and type assertion for .value property
+      setStatus({ type: 'error', message: t('fileCountError').replace('{MAX_FILES}', MAX_FILES.toString()) });
       if (e.target) {
         (e.target as HTMLInputElement).value = '';
       }
@@ -123,14 +124,17 @@ export default function Contact() {
         const { isValid, formattedSize } = event.data;
         
         if (!isValid) {
-          setStatus({ type: 'error', message: `添付ファイルの合計サイズは${MAX_TOTAL_SIZE_MB}MBまでです。(現在: ${formattedSize})` });
-          // Use optional chaining to avoid null reference and type assertion for .value property
+          setStatus({ 
+            type: 'error', 
+            message: t('fileSizeError')
+              .replace('{MAX_TOTAL_SIZE_MB}', MAX_TOTAL_SIZE_MB.toString())
+              .replace('{currentSize}', formattedSize) 
+          });
           if (e.target) {
             (e.target as HTMLInputElement).value = '';
           }
         } else {
           setFormData(prevState => ({ ...prevState, files: combinedFiles }));
-          // Clear the input value to allow selecting the same file again after removing it
           if (e.target) {
             (e.target as HTMLInputElement).value = '';
           }
@@ -159,7 +163,7 @@ export default function Contact() {
         (e.target as HTMLInputElement).value = '';
       }
     }
-  }, [formData.files, worker, MAX_FILES, MAX_TOTAL_SIZE_MB, MAX_TOTAL_SIZE_BYTES]);
+  }, [formData.files, worker, MAX_FILES, MAX_TOTAL_SIZE_MB, MAX_TOTAL_SIZE_BYTES, t]);
 
   const removeFile = useCallback((indexToRemove: number) => {
     setFormData(prevState => ({ 
@@ -174,7 +178,7 @@ export default function Contact() {
 
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus({ type: 'loading', message: '送信中...' });
+    setStatus({ type: 'loading', message: t('sending') });
 
     // Cancel any ongoing request
     if (abortControllerRef.current) {
@@ -208,10 +212,10 @@ export default function Contact() {
         const result = await response.json();
 
         if (response.ok) {
-          setStatus({ type: 'success', message: result.message });
+          setStatus({ type: 'success', message: t('success') });
           setFormData({ name: '', email: '', phone: '', selectedService: '', message: '', files: [] });
         } else {
-          setStatus({ type: 'error', message: result.error || '送信に失敗しました。' });
+          setStatus({ type: 'error', message: result.error || t('error') });
         }
       }
     } catch (error) {
@@ -221,9 +225,9 @@ export default function Contact() {
       }
       
       console.error('Form submission error:', error);
-      setStatus({ type: 'error', message: 'ネットワークエラーが発生しました。' });
+      setStatus({ type: 'error', message: t('networkError') });
     }
-  }, [formData]);
+  }, [formData, t]);
 
   // Cleanup effect for aborting requests
   useEffect(() => {
@@ -292,10 +296,10 @@ export default function Contact() {
           </div>
 
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight pt-12" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
-            お問い合わせ
+            {t('contact')}
           </h2>
-          <p className="text-xl text-white max-w-2xl mx-auto">サービスに関するご質問やご依頼など、お気軽にご連絡ください。</p>
-          <p className="text-lg text-emerald-300 mt-2 font-medium">24時間以内に担当者よりご連絡させていただきます。</p>
+          <p className="text-xl text-white max-w-2xl mx-auto">{t('contactDescription')}</p>
+          <p className="text-lg text-emerald-300 mt-2 font-medium">{t('contactResponse')}</p>
         </motion.div>
 
         {/* Service Selection Cards - 近未来的なデザインにアップグレード */}
@@ -399,13 +403,13 @@ export default function Contact() {
               {/* Name Input */}
               <div className="relative group">
                 <label htmlFor="name" className="flex items-center text-base font-medium text-white mb-2">
-                  <i className="fas fa-user mr-2 text-emerald-400"></i>お名前or法人名等 <span className="text-red-400 ml-1">*</span>
+                  <i className="fas fa-user mr-2 text-emerald-400"></i>{t('name')} <span className="text-red-400 ml-1">*</span>
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="山田 太郎 / 株式会社〇〇"
+                  placeholder={t('name')}
                   className="w-full px-4 py-3 rounded-lg bg-slate-800/80 border border-slate-600/80 text-white placeholder-slate-300/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 focus:bg-slate-800/90 transition-all duration-300 shadow-inner shadow-black/20"
                   required
                   value={formData.name}
@@ -419,7 +423,7 @@ export default function Contact() {
               {/* Email Input */}
               <div className="relative group">
                 <label htmlFor="email" className="flex items-center text-base font-medium text-white mb-2">
-                  <i className="fas fa-envelope mr-2 text-emerald-400"></i>メールアドレス <span className="text-red-400 ml-1">*</span>
+                  <i className="fas fa-envelope mr-2 text-emerald-400"></i>{t('email')} <span className="text-red-400 ml-1">*</span>
                 </label>
                 <input
                   type="email"
@@ -439,7 +443,7 @@ export default function Contact() {
               {/* Phone Input */}
               <div className="relative group">
                 <label htmlFor="phone" className="flex items-center text-base font-medium text-white mb-2">
-                  <i className="fas fa-phone mr-2 text-emerald-400"></i>電話番号 <span className="text-red-400 ml-1">*</span>
+                  <i className="fas fa-phone mr-2 text-emerald-400"></i>{t('phone')} <span className="text-red-400 ml-1">*</span>
                 </label>
                 <input
                   type="tel"
@@ -460,13 +464,13 @@ export default function Contact() {
             {/* Message Input */}
             <motion.div variants={itemVariants} className="relative group">
               <label htmlFor="message" className="flex items-center text-base font-medium text-white mb-2">
-                <i className="fas fa-comment-dots mr-2 text-emerald-400"></i>メッセージ <span className="text-red-400 ml-1">*</span>
+                <i className="fas fa-comment-dots mr-2 text-emerald-400"></i>{t('message')} <span className="text-red-400 ml-1">*</span>
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={6}
-                placeholder="具体的なご要望やご質問をご記入ください..."
+                placeholder={t('message')}
                 className="w-full px-4 py-3 rounded-lg bg-slate-800/80 border border-slate-600/80 text-white placeholder-slate-300/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 focus:bg-slate-800/90 transition-all duration-300 resize-none shadow-inner shadow-black/20"
                 required
                 value={formData.message}
@@ -480,7 +484,9 @@ export default function Contact() {
             {/* File Upload */}
             <motion.div variants={itemVariants} className="relative group">
               <label htmlFor="file" className="flex items-center text-base font-medium text-white mb-2">
-                <i className="fas fa-paperclip mr-2 text-emerald-400"></i>ファイル添付 <span className="text-xs text-emerald-300 ml-2">(最大{MAX_FILES}個, 合計{MAX_TOTAL_SIZE_MB}MBまで)</span>
+                <i className="fas fa-paperclip mr-2 text-emerald-400"></i>{t('fileAttachment')} <span className="text-xs text-emerald-300 ml-2">
+                  {t('maxFiles').replace('{MAX_FILES}', MAX_FILES.toString()).replace('{MAX_TOTAL_SIZE_MB}', MAX_TOTAL_SIZE_MB.toString())}
+                </span>
               </label>
               <div className="relative p-4 rounded-lg bg-slate-800/60 border border-slate-600/40">
                 <input
@@ -501,10 +507,10 @@ export default function Contact() {
                     className="px-4 py-2 rounded-lg bg-emerald-700/80 border border-emerald-600/70 text-white hover:bg-emerald-600/90 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
                     <i className="fas fa-plus-circle"></i>
-                    ファイル追加
+                    {t('addFile')}
                   </button>
                   <span className="inline-flex items-center justify-center px-3 py-1 text-sm bg-slate-700/80 rounded-full text-white border border-slate-600/50">
-                    {formData.files.length} / {MAX_FILES} 個選択中
+                    {t('selectedFiles').replace('{count}', formData.files.length.toString()).replace('{max}', MAX_FILES.toString())}
                   </span>
                 </div>
                 {formData.files.length > 0 && (
@@ -531,7 +537,7 @@ export default function Contact() {
                 )}
                 <p className="mt-3 text-sm text-emerald-200/90 flex items-center">
                   <i className="fas fa-info-circle mr-2"></i>
-                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等
+                  {t('supportedFiles')}
                 </p>
               </div>
             </motion.div>
@@ -592,11 +598,11 @@ export default function Contact() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      送信中...
+                      {t('sending')}
                     </>
                   ) : (
                     <>
-                      送信する
+                      {t('submit')}
                       <i className="fas fa-paper-plane ml-3 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"></i>
                     </>
                   )}

@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
+import { LanguageProvider } from '../contexts/LanguageContext'
 
 // フォントの最適化
 const inter = Inter({
@@ -38,7 +39,9 @@ export default function RootLayout({
         
         {/* Content Wrapper */}
         <div className="content-wrapper">
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </div>
       </body>
     </html>
