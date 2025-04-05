@@ -47,10 +47,10 @@ export default function Services() {
   return (
     <section 
       id="services" 
-      className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 text-white/90"
+      className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none opacity-60">
+      {/* Background Elements - Made semi-transparent for fixed background */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
         {/* Grid */}
         <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
           <defs>

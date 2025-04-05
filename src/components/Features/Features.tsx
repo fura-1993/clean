@@ -62,10 +62,10 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-slate-950 to-slate-900 text-white/90"
+      className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
-      {/* Subtle Background Grid - adjusted density */}
-      <div className="absolute inset-0 pointer-events-none opacity-70">
+      {/* Subtle Background Grid - adjusted density and opacity for fixed background */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
         <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
           <defs>
             <pattern id='featuresGrid' patternUnits='userSpaceOnUse' width='50' height='50' patternTransform='scale(1) rotate(0)'>

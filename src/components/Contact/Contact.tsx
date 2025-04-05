@@ -141,10 +141,10 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 text-white/90"
+      className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
-      {/* Animated Background Grid */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Animated Background Grid - reduced opacity for fixed background */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
         <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
           <defs>
             <pattern id='contactGrid' patternUnits='userSpaceOnUse' width='60' height='60' patternTransform='scale(1) rotate(0)'>

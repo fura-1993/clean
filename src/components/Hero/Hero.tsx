@@ -31,7 +31,8 @@ const services: readonly Service[] = [
   }
 ]
 
-// 背景のグラデーションコンポーネントをメモ化
+// 背景のグラデーションコンポーネントをメモ化 - 固定背景を使うため無効化
+/* 
 const BackgroundGradients = memo(() => (
   <div className="absolute inset-0">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
@@ -40,6 +41,7 @@ const BackgroundGradients = memo(() => (
   </div>
 ))
 BackgroundGradients.displayName = 'BackgroundGradients'
+*/
 
 // サービスカードコンポーネントをメモ化
 const ServiceCard = memo(({ service, index, total }: { service: Service, index: number, total: number }) => (
@@ -118,8 +120,8 @@ function Hero() {
   }, [controls])
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white overflow-hidden pt-12">
-      <BackgroundGradients />
+    <section className="relative min-h-screen text-white overflow-hidden pt-12">
+      {/* Remove the background gradient to allow fixed background to show through */}
       
       <div className="container relative h-full mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
