@@ -1,7 +1,10 @@
+"use client";
+
 import React from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import Image from 'next/image'
 import { memo } from 'react'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 // Define a more explicit type for services where icon is optional
 type Service = {
@@ -11,105 +14,30 @@ type Service = {
   icon?: string; // Make icon optional
 };
 
-const services: readonly Service[] = [
-  {
-    icon: 'fas fa-sparkles',
-    title: '絨毯清掃',
-    description: '最新の技術で頑固な汚れも除去',
-    image: '/images/絨毯清掃作業風景.png',
-  },
-  {
-    title: '高圧洗浄',
-    description: '外壁・駐車場の汚れを徹底洗浄',
-    image: '/images/高圧洗浄作業風景.png',
-  },
-  {
-    icon: 'fas fa-stars',
-    title: 'タイル洗浄',
-    description: '美観を復元し清潔な空間に',
-    image: '/images/タイル洗浄作業風景.png',
-  }
-]
-
-// 背景のグラデーションコンポーネントをメモ化 - 固定背景を使うため無効化
-/* 
-const BackgroundGradients = memo(() => (
-  <div className="absolute inset-0">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08)_0%,transparent_50%)]"></div>
-    <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_50%,transparent_75%)] bg-[length:200%_200%] animate-cyber-gradient"></div>
-  </div>
-))
-BackgroundGradients.displayName = 'BackgroundGradients'
-*/
-
-// サービスカードコンポーネントをメモ化
-const ServiceCard = memo(({ service, index, total }: { service: Service, index: number, total: number }) => (
-  <motion.div
-    className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.1)] aspect-[4/3]"
-    style={{
-      top: `${index * 96}px`,
-      right: `${index * 100}px`,
-      zIndex: total - index,
-      transform: `rotate(${3 + index * 3}deg)`
-    }}
-    initial={{ opacity: 0, x: 100, rotate: 6 + index * 3 }}
-    whileInView={{ 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        duration: 0.8,
-        delay: 0.2 + index * 0.2
-      }
-    }}
-    viewport={{ once: true }}
-    whileHover={{ 
-      scale: 1.05,
-      rotate: 0,
-      zIndex: 10,
-      transition: { duration: 0.4 }
-    }}
-  >
-    <Image
-      src={service.image}
-      alt={service.title}
-      fill
-      className="object-cover object-bottom transition-transform duration-700 group-hover:scale-110"
-      sizes="(max-width: 768px) 100vw, 50vw"
-      priority={index === 0}
-      quality={75}
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/80 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
-    <div className="absolute inset-0 flex flex-col justify-end p-6">
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          {service.icon && <i className={`${service.icon} text-white/90`} />}
-          <h3 className="text-2xl font-bold text-white group-hover:text-white/90 transition-colors">
-            {service.title}
-          </h3>
-        </div>
-        <p className="text-sm text-white/80 transform group-hover:translate-x-1 transition-transform">
-          {service.description}
-        </p>
-        <motion.div
-          className="h-[1px] bg-white/20"
-          initial={{ width: 0 }}
-          whileInView={{ width: "100%" }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.8,
-            delay: 0.3 + index * 0.2
-          }}
-        />
-      </div>
-    </div>
-  </motion.div>
-))
-ServiceCard.displayName = 'ServiceCard'
-
-// メインコンポーネント
 function Hero() {
   const controls = useAnimation()
+  const { t } = useLanguage();
+
+  // サービス情報を翻訳対応
+  const services: readonly Service[] = [
+    {
+      icon: 'fas fa-sparkles',
+      title: t('carpetCleaningShort'),
+      description: t('carpetCleaningShortDesc'),
+      image: '/images/絨毯清掃作業風景.png',
+    },
+    {
+      title: t('highPressureShort'),
+      description: t('highPressureShortDesc'),
+      image: '/images/高圧洗浄作業風景.png',
+    },
+    {
+      icon: 'fas fa-stars',
+      title: t('tileCleaningShort'),
+      description: t('tileCleaningShortDesc'),
+      image: '/images/タイル洗浄作業風景.png',
+    }
+  ];
 
   React.useEffect(() => {
     controls.start({
@@ -118,6 +46,70 @@ function Hero() {
       transition: { duration: 0.8, ease: [0.25, 0.1, 0, 1] }
     })
   }, [controls])
+
+  // サービスカードコンポーネントをメモ化
+  const ServiceCard = memo(({ service, index, total }: { service: Service, index: number, total: number }) => (
+    <motion.div
+      className="group absolute w-full max-w-md rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.1)] aspect-[4/3]"
+      style={{
+        top: `${index * 96}px`,
+        right: `${index * 100}px`,
+        zIndex: total - index,
+        transform: `rotate(${3 + index * 3}deg)`
+      }}
+      initial={{ opacity: 0, x: 100, rotate: 6 + index * 3 }}
+      whileInView={{ 
+        opacity: 1, 
+        x: 0,
+        transition: { 
+          duration: 0.8,
+          delay: 0.2 + index * 0.2
+        }
+      }}
+      viewport={{ once: true }}
+      whileHover={{ 
+        scale: 1.05,
+        rotate: 0,
+        zIndex: 10,
+        transition: { duration: 0.4 }
+      }}
+    >
+      <Image
+        src={service.image}
+        alt={service.title}
+        fill
+        className="object-cover object-bottom transition-transform duration-700 group-hover:scale-110"
+        sizes="(max-width: 768px) 100vw, 50vw"
+        priority={index === 0}
+        quality={75}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/80 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
+      <div className="absolute inset-0 flex flex-col justify-end p-6">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            {service.icon && <i className={`${service.icon} text-white/90`} />}
+            <h3 className="text-2xl font-bold text-white group-hover:text-white/90 transition-colors">
+              {service.title}
+            </h3>
+          </div>
+          <p className="text-sm text-white/80 transform group-hover:translate-x-1 transition-transform">
+            {service.description}
+          </p>
+          <motion.div
+            className="h-[1px] bg-white/20"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3 + index * 0.2
+            }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  ))
+  ServiceCard.displayName = 'ServiceCard'
 
   return (
     <section className="relative min-h-screen text-white overflow-hidden pt-12">
@@ -161,7 +153,7 @@ function Hero() {
             >
               <div className="relative bg-white/10 backdrop-blur-sm px-6 py-2.5 rounded-full border border-emerald-400/30 shadow-lg">
                 <span className="text-base font-medium bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent tracking-wider">
-                  Professional Cleaning Service
+                  {t('professionalCleaning')}
                 </span>
                 {/* ネオン輝きエフェクト */}
                 <div className="absolute -inset-[1px] rounded-full opacity-70 blur-sm bg-gradient-to-r from-emerald-400/0 via-emerald-400/50 to-emerald-400/0"></div>
@@ -177,7 +169,7 @@ function Hero() {
               transition={{ duration: 0.8 }}
             >
               <div className="flex flex-wrap gap-x-3 gap-y-2 mb-4 text-[1rem] md:text-[1.25rem] lg:text-[1.5rem]">
-                {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル", "な"].map((char, i) => (
+                {t('titlePrefix').split('').map((char, i) => (
                   <motion.span
                     key={i}
                     className="inline-block text-white/90"
@@ -201,7 +193,7 @@ function Hero() {
                 transition={{ duration: 0.5 }}
               >
                 <span className="relative z-10 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
-                  清掃サービス
+                  {t('cleaningService')}
                 </span>
                 <motion.div 
                   className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-white/20 via-emerald-200/40 to-white/20 shadow-[0_0_10px_rgba(255,255,255,0.5)]"
@@ -222,11 +214,11 @@ function Hero() {
               transition={{ duration: 0.8 }}
             >
               <span className="inline-block">
-                最新の技術と熟練の技で、
+                {t('heroDescriptionLine1')}
               </span>
               <br className="hidden md:block" />
               <span className="inline-block">
-                あらゆる空間を清潔で快適な環境に
+                {t('heroDescriptionLine2')}
               </span>
             </motion.p>
 
@@ -276,7 +268,7 @@ function Hero() {
                 
                 <span className="relative z-10 flex items-center justify-center">
                   <i className="fas fa-paper-plane mr-2" />
-                  無料見積もりを依頼
+                  {t('requestQuote')}
                 </span>
               </motion.a>
               
@@ -287,7 +279,7 @@ function Hero() {
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="relative z-10 flex items-center justify-center text-white/90 group-hover:text-white">
-                  サービスの詳細を見る
+                  {t('viewServices')}
                   <i className="fas fa-arrow-right ml-2" />
                 </span>
               </motion.a>

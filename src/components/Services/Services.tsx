@@ -1,36 +1,9 @@
+"use client";
+
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const services = [
-  {
-    id: 'high-pressure',
-    icon: 'fas fa-water',
-    title: '高圧洗浄',
-    shortDesc: '外壁・床面の頑固な汚れを強力除去',
-    longDesc: '最新鋭の高圧洗浄機を使用し、外壁、駐車場、ベランダ等の汚れを根本から除去。新築のような輝きを取り戻します。',
-    features: ['建造物外壁', 'コンクリート床', 'タイル・石材', '屋根・雨どい'],
-    image: '/images/高圧洗浄作業風景.png'
-  },
-  {
-    id: 'tile-cleaning',
-    icon: 'fas fa-brush',
-    title: 'タイル洗浄 & コーティング',
-    shortDesc: 'タイルの美観回復と防汚コーティング',
-    longDesc: '特殊洗剤と専用機器でタイルの黒ずみや水垢を除去。さらに防汚・防カビコーティングで美しさを長期間維持します。',
-    features: ['床・壁タイル', '浴室・キッチン', 'エントランス', '防汚コーティング'],
-    image: '/images/タイル洗浄作業風景.png'
-  },
-  {
-    id: 'carpet-cleaning',
-    icon: 'fas fa-spray-can-sparkles',
-    title: '特殊カーペットクリーニング',
-    shortDesc: '繊維の奥から汚れを除去、消臭・除菌も',
-    longDesc: '先進のカーペット洗浄システムで、深層の汚れ、シミ、臭いを徹底除去。アレルギー対策にも効果的です。',
-    features: ['オフィス・店舗', 'ホテル・住宅', 'シミ抜き・消臭', 'アレルゲン除去'],
-    image: '/images/絨毯清掃作業風景.png'
-  }
-]
+import { useLanguage } from '../../contexts/LanguageContext'
 
 // Animation Variants for the content area
 const contentVariants = {
@@ -40,6 +13,38 @@ const contentVariants = {
 };
 
 export default function Services() {
+  const { t } = useLanguage();
+  
+  const services = [
+    {
+      id: 'high-pressure',
+      icon: 'fas fa-water',
+      title: t('highPressure'),
+      shortDesc: t('highPressureDesc'),
+      longDesc: t('highPressureLongDesc'),
+      features: t('highPressureFeatures').split(','),
+      image: '/images/高圧洗浄作業風景.png'
+    },
+    {
+      id: 'tile-cleaning',
+      icon: 'fas fa-brush',
+      title: t('tileCleaning'),
+      shortDesc: t('tileCleaningDesc'),
+      longDesc: t('tileCleaningLongDesc'),
+      features: t('tileCleaningFeatures').split(','),
+      image: '/images/タイル洗浄作業風景.png'
+    },
+    {
+      id: 'carpet-cleaning',
+      icon: 'fas fa-spray-can-sparkles',
+      title: t('carpetCleaning'),
+      shortDesc: t('carpetCleaningDesc'),
+      longDesc: t('carpetCleaningLongDesc'),
+      features: t('carpetCleaningFeatures').split(','),
+      image: '/images/絨毯清掃作業風景.png'
+    }
+  ];
+
   const [selectedTab, setSelectedTab] = useState(services[0].id);
 
   const selectedService = services.find(s => s.id === selectedTab);
@@ -78,9 +83,9 @@ export default function Services() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
-            提供サービス
+            {t('ourServices')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">多様なニーズに応える、プロフェッショナル清掃ソリューション。</p>
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">{t('servicesDescription')}</p>
         </motion.div>
 
         {/* Tabs Navigation - 未来的なスタイルに強化 */}
@@ -128,7 +133,7 @@ export default function Services() {
                 <div className="lg:col-span-2 relative h-64 md:h-80 lg:h-full rounded-lg overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.6)]">
                   <Image
                     src={selectedService.image}
-                    alt={`${selectedService.title}の作業イメージ`}
+                    alt={`${selectedService.title}${t('workImage')}`}
                     fill
                     className="object-cover"
                     priority={true}
@@ -156,7 +161,7 @@ export default function Services() {
                   <p className="text-base text-slate-300 mb-6 leading-relaxed">{selectedService.longDesc}</p>
                   
                   <div className="mb-8 border-t border-emerald-500/15 pt-5">
-                     <h4 className="text-sm font-semibold text-emerald-400 uppercase tracking-wider mb-3">主な対応箇所</h4>
+                     <h4 className="text-sm font-semibold text-emerald-400 uppercase tracking-wider mb-3">{t('mainTargetAreas')}</h4>
                      <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
                         {selectedService.features.map((feature) => (
                           <li key={feature} className="flex items-center text-sm text-slate-400">
@@ -173,7 +178,7 @@ export default function Services() {
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.97 }}
                   >
-                    このサービスについて問い合わせる
+                    {t('inquireAboutService')}
                     <i className="fas fa-arrow-right ml-2.5 text-emerald-200/80 transform transition-transform duration-300 group-hover:translate-x-1"></i>
                   </motion.a>
                 </div>

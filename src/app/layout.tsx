@@ -1,7 +1,9 @@
+"use client";
+
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Metadata } from 'next'
-import { LanguageProvider } from '../contexts/LanguageContext'
+import { useState, useEffect } from 'react'
+import { LanguageProvider, useLanguage } from '../contexts/LanguageContext'
 
 // フォントの最適化
 const inter = Inter({
@@ -11,13 +13,8 @@ const inter = Inter({
   fallback: ['system-ui', 'arial'],
 })
 
-export const metadata: Metadata = {
-  title: 'Professional Cleaning Service',
-  description: '最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に',
-}
-
-// レイアウトの最適化
-export default function RootLayout({
+// Main layout component
+function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -40,10 +37,39 @@ export default function RootLayout({
         {/* Content Wrapper */}
         <div className="content-wrapper">
           <LanguageProvider>
+            <MetadataUpdater />
             {children}
           </LanguageProvider>
         </div>
       </body>
     </html>
   )
-} 
+}
+
+// Component to handle dynamic metadata updates
+function MetadataUpdater() {
+  const { language, t } = useLanguage();
+  
+  useEffect(() => {
+    // Update metadata based on current language
+    document.title = t('siteTitle') || 'Professional Cleaning Service';
+    
+    // Update meta description
+    const metaDescElement = document.querySelector('meta[name="description"]');
+    if (metaDescElement) {
+      metaDescElement.setAttribute('content', t('siteDescription') || '');
+    } else {
+      const metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      metaDesc.content = t('siteDescription') || '';
+      document.head.appendChild(metaDesc);
+    }
+    
+    // Update html lang attribute
+    document.documentElement.lang = language;
+  }, [language, t]);
+  
+  return null;
+}
+
+export default RootLayout; 
