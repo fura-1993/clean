@@ -95,7 +95,7 @@ export default function Features() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
             選ばれる理由
           </h2>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">確かな技術と信頼のJT Cleaning Service。安心と満足をお届けします。</p>
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">確かな技術と経験豊富なスタッフによる、JT Cleaning Serviceの価値あるサービス。</p>
         </motion.div>
 
         {/* Features Grid - 近未来的なカードデザイン */} 
