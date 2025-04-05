@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 // Define variants for staggering children
 const containerVariants = {
@@ -160,16 +161,29 @@ export default function Contact() {
 
       <div className="container relative z-10 max-w-6xl">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-16 relative"
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight" style={{ textShadow: '0 0 10px rgba(52, 211, 153, 0.3)' }}>
+          {/* Staff Image */}
+          <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full overflow-hidden border-4 border-emerald-400/30 shadow-xl">
+            <Image
+              src="/images/infostaff.png"
+              alt="お問い合わせ受付スタッフ"
+              width={128}
+              height={128}
+              className="object-cover w-full h-full"
+              priority
+            />
+          </div>
+
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight pt-12" style={{ textShadow: '0 0 10px rgba(52, 211, 153, 0.3)' }}>
             お問い合わせ
           </h2>
           <p className="text-xl text-slate-300">サービスに関するご質問やご依頼など、お気軽にご連絡ください。</p>
+          <p className="text-lg text-emerald-400/80 mt-2">24時間以内に担当者よりご連絡させていただきます。</p>
         </motion.div>
 
         {/* Service Selection Cards */}
