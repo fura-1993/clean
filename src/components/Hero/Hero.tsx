@@ -130,13 +130,10 @@ export default function Hero() {
                   <motion.span
                     key={i}
                     className="inline-block text-white/90"
-                    animate={{
-                      y: [0, -4, 0],
-                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
+                      duration: 0.5,
                       delay: i * 0.1,
                     }}
                   >
@@ -145,13 +142,10 @@ export default function Hero() {
                 ))}
                 <motion.span
                   className="inline-block text-white/90"
-                  animate={{
-                    y: [0, -3, 0],
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
+                    duration: 0.5,
                     delay: 0.9,
                   }}
                 >
@@ -160,46 +154,32 @@ export default function Hero() {
               </div>
               <motion.div
                 className="relative inline-block text-[2rem] md:text-[2.5rem] lg:text-[3rem]"
-                animate={{
-                  y: [0, -4, 0],
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
+                  duration: 0.5,
                   delay: 1,
                 }}
               >
                 <motion.span 
                   className="relative z-10 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear"
+                    duration: 0.5,
+                    delay: 1.2,
                   }}
-                  style={{ backgroundSize: "200% 100%" }}
                 >
                   清掃サービス
                 </motion.span>
                 <motion.div 
                   className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-white/20 via-emerald-200/40 to-white/20"
                   initial={{ width: "0%" }}
-                  animate={{ 
-                    width: "100%",
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
+                  animate={{ width: "100%" }}
                   transition={{
-                    width: { duration: 1, delay: 1.2 },
-                    backgroundPosition: {
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }
+                    duration: 1,
+                    delay: 1.4,
                   }}
-                  style={{ backgroundSize: "200% 100%" }}
                 />
               </motion.div>
             </motion.h1>
@@ -211,34 +191,13 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <motion.span
-                className="inline-block"
-                animate={{
-                  y: [0, -3, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
+              <span className="inline-block">
                 最新の技術と熟練の技で、
-              </motion.span>
+              </span>
               <br className="hidden md:block" />
-              <motion.span
-                className="inline-block"
-                animate={{
-                  y: [0, -3, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-              >
+              <span className="inline-block">
                 あらゆる空間を清潔で快適な環境に
-              </motion.span>
+              </span>
             </motion.p>
 
             {/* ボタングループ */}
