@@ -266,23 +266,7 @@ export default function Header() {
               transition={{ duration: 0.3 }}
               className="hidden md:block"
             >
-              <div className="relative group flex items-center gap-3">
-                {/* Moved Staff Image Here */}
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-emerald-400/40 shadow-lg animate-pulse">
-                  <Image
-                    src="/images/infostaff2.png"
-                    alt="カスタマーサポートスタッフ"
-                    width={48}
-                    height={48}
-                    className="object-cover w-full h-full"
-                    priority
-                  />
-                  {/* Optional Glow Effect 
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0 animate-shimmer"></div>
-                  */}
-                </div>
-
-                {/* Phone Number Block */}
+              <div className="relative group">
                 <div className="relative">
                   <motion.div
                     className="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 opacity-70 blur-sm group-hover:opacity-100 transition-all duration-300"
@@ -298,8 +282,18 @@ export default function Header() {
                   />
                   <a
                     href="tel:04-7185-0805"
-                    className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/90 text-white hover:bg-slate-700/90 transition-all duration-300 shadow-md"
+                    className="relative flex items-center gap-3 px-4 py-2 rounded-lg bg-slate-800/90 text-white hover:bg-slate-700/90 transition-all duration-300 shadow-md"
                   >
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden border border-emerald-400/40 shadow-md flex-shrink-0">
+                      <Image
+                        src="/images/infostaff2.png"
+                        alt="カスタマーサポートスタッフ"
+                        width={40} 
+                        height={40}
+                        className="object-cover w-full h-full"
+                        priority
+                      />
+                    </div>
                     <i className="fas fa-phone-volume text-emerald-400 text-xl" />
                     <div>
                       <div className="text-xs font-medium text-emerald-400">24時間365日対応</div>
