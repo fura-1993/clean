@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { motion, useAnimation, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
 
 const menuItems = [
   { href: '#services', label: 'サービス' },
@@ -13,278 +13,142 @@ const menuItems = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
+  const controls = useAnimation()
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      x: '100%',
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    }
-  }
-
-  const menuItemVariants = {
-    closed: {
-      opacity: 0,
-      x: 20,
-      transition: {
-        duration: 0.2
-      }
-    },
-    open: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    })
-  }
-
-  const lineVariants = {
-    closed: {
-      rotate: 0,
-      y: 0
-    },
-    open: (i: number) => ({
-      rotate: i === 1 ? 45 : i === 2 ? -45 : 0,
-      y: i === 1 ? 6 : i === 2 ? -6 : 0
-    })
-  }
-
   return (
-    <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'
-      }`}
-    >
-      <div className="container py-2 px-6">
-        <div className="flex justify-between items-center">
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white shadow-lg py-2' : 'bg-transparent py-4'
+    }`}>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
           {/* ロゴ */}
-          <Link href="/" className="relative z-50">
-            <div className="relative w-32 h-10">
-              <Image
-                src={isScrolled ? '/images/JTロゴ.png' : '/images/JTロゴ.png'}
-                alt="清掃サービス"
-                fill
-                className={`object-contain transition-all duration-300 ${
-                  isScrolled ? 'opacity-100' : 'opacity-0'
-                }`}
-                priority
-                quality={90}
-                loading="eager"
-              />
-            </div>
-          </Link>
-
-          {/* ハンバーガーメニュー */}
-          <motion.button
-            className="relative z-50 w-14 h-14 flex flex-col items-center justify-center gap-[8px] group"
-            onClick={() => setIsOpen(!isOpen)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            aria-label="メニュー"
-            whileHover={{ scale: 1.05 }}
-          >
+          <Link href="/" className="relative z-10">
             <motion.div
-              className="w-9 h-[2px] bg-white rounded-none origin-left shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-              animate={{
-                rotate: isOpen ? 45 : 0,
-                y: isOpen ? -4 : 0,
-                width: isHovered ? "36px" : "28px",
-                opacity: 1,
-                x: !isOpen && !isHovered ? [-2, 2, -2] : 0,
-                boxShadow: isHovered ? "0 0 20px rgba(255,255,255,0.9)" : "0 0 10px rgba(255,255,255,0.8)"
-              }}
-              initial={{ width: "28px" }}
-              transition={{
-                duration: 0.3,
-                x: {
-                  duration: 1.5,
+              className="relative"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                animate={{
+                  scale: [1, 1.02, 1],
+                  rotate: [0, 1, -1, 0],
+                }}
+                transition={{
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut"
-                }
-              }}
-            />
-            <motion.div
-              className="w-7 h-[2px] bg-white rounded-none shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-              animate={{
-                scale: isOpen ? 0 : 1,
-                x: isHovered ? "4px" : !isOpen ? [-3, 3, -3] : 0,
-                width: isHovered ? "32px" : "24px",
-                opacity: isOpen ? 0 : 1,
-                boxShadow: isHovered ? "0 0 20px rgba(255,255,255,0.9)" : "0 0 10px rgba(255,255,255,0.8)"
-              }}
-              initial={{ width: "24px" }}
-              transition={{
-                duration: 0.3,
-                x: {
+                }}
+                className={`transition-all duration-300 ${
+                  isScrolled ? 'w-40 md:w-48' : 'w-32 md:w-40'
+                }`}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Professional Cleaning Service"
+                  width={200}
+                  height={60}
+                  className="w-full h-auto"
+                  priority
+                />
+              </motion.div>
+            </motion.div>
+          </Link>
+
+          {/* 電話問い合わせ */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className={`hidden md:flex items-center gap-2 ${
+              isScrolled ? 'text-slate-800' : 'text-white'
+            }`}
+          >
+            <div className="relative group">
+              <motion.div
+                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 opacity-70 blur-sm group-hover:opacity-100 transition-all duration-300"
+                animate={{
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.2
-                }
-              }}
-            />
-            <motion.div
-              className="w-9 h-[2px] bg-white rounded-none origin-left shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-              animate={{
-                rotate: isOpen ? -45 : 0,
-                y: isOpen ? 4 : 0,
-                width: isHovered ? "36px" : "32px",
-                opacity: 1,
-                x: !isOpen && !isHovered ? [2, -2, 2] : 0,
-                boxShadow: isHovered ? "0 0 20px rgba(255,255,255,0.9)" : "0 0 10px rgba(255,255,255,0.8)"
-              }}
-              initial={{ width: "32px" }}
-              transition={{
-                duration: 0.3,
-                x: {
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.4
-                }
-              }}
-            />
-            <motion.div
-              className="absolute inset-0 border-2 border-white/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
-              animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 180, 360],
-                opacity: isHovered ? 0.8 : 0.4,
-                borderColor: ["rgba(255,255,255,0.3)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.3)"]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
-            />
-          </motion.button>
+                  ease: "easeInOut"
+                }}
+              />
+              <a
+                href="tel:04-7185-0805"
+                className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-white/95 text-slate-800 hover:bg-white transition-all duration-300"
+              >
+                <i className="fas fa-phone-volume text-emerald-600 text-xl animate-bounce" />
+                <div>
+                  <div className="text-xs font-medium text-emerald-600">お気軽にお電話ください</div>
+                  <div className="text-lg font-bold tracking-wider">04-7185-0805</div>
+                </div>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* ハンバーガーメニュー */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="relative z-10 p-2 rounded-lg hover:bg-black/5 transition-colors"
+            aria-label="メニュー"
+          >
+            <div className="w-8 h-6 flex flex-col justify-between">
+              {[...Array(3)].map((_, i) => (
+                <motion.span
+                  key={i}
+                  className={`block h-0.5 rounded-full transform transition-all duration-300 ${
+                    isScrolled ? 'bg-slate-800' : 'bg-white'
+                  }`}
+                  style={{ transformOrigin: "center" }}
+                  animate={isMenuOpen ? {
+                    rotate: i === 1 ? 0 : i === 0 ? 45 : -45,
+                    y: i === 1 ? 0 : i === 0 ? 10 : -10,
+                    opacity: i === 1 ? 0 : 1,
+                    width: i === 1 ? "100%" : "100%"
+                  } : {
+                    rotate: 0,
+                    y: 0,
+                    opacity: 1,
+                    width: i === 1 ? "75%" : "100%"
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              ))}
+            </div>
+          </button>
         </div>
       </div>
 
-      {/* フルスクリーンメニュー */}
+      {/* モバイル用電話番号表示 */}
       <AnimatePresence>
-        {isOpen && (
+        {isScrolled && (
           <motion.div
-            className="fixed inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/90 to-slate-800/95 backdrop-blur-lg z-40"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-slate-100 bg-white"
           >
-            {/* サイバーパンク風の装飾的な背景 */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_50%,transparent_75%)] bg-[length:200%_200%] animate-cyber-gradient"></div>
-              <div className="absolute w-full h-px top-1/4 left-0 bg-white/20 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan-line"></div>
-              <div className="absolute w-full h-px top-2/4 left-0 bg-white/20 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan-line-reverse"></div>
-              <div className="absolute w-full h-px top-3/4 left-0 bg-white/20 shadow-[0_0_15px_rgba(255,255,255,0.5)] animate-scan-line"></div>
-            </div>
-
-            <div className="container h-full flex items-center justify-center relative">
-              <nav className="flex flex-col items-center space-y-8">
-                {menuItems.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, y: 50, scale: 0.5 }}
-                    animate={{ 
-                      opacity: 1, 
-                      y: 0, 
-                      scale: 1,
-                      transition: {
-                        duration: 0.6,
-                        delay: i * 0.15,
-                        ease: [0.2, 0.65, 0.3, 0.9]
-                      }
-                    }}
-                    exit={{ 
-                      opacity: 0, 
-                      y: -30,
-                      scale: 0.9,
-                      transition: {
-                        duration: 0.2,
-                        delay: (menuItems.length - i - 1) * 0.1
-                      }
-                    }}
-                  >
-                    <Link
-                      href={item.href}
-                      className="text-4xl font-bold text-white/90 hover:text-white transition-all duration-300 relative group flex items-center"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <motion.span
-                        className="absolute -left-8 opacity-0 group-hover:opacity-100 text-white/90"
-                        initial={{ x: -10 }}
-                        animate={{ x: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        ⟫
-                      </motion.span>
-                      <span className="relative">
-                        {item.label}
-                        <motion.div
-                          className="absolute -bottom-2 left-0 h-[2px] bg-white/90 shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-                          initial={{ width: 0 }}
-                          whileHover={{ width: "100%" }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      </span>
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
-            </div>
+            <a
+              href="tel:04-7185-0805"
+              className="flex items-center justify-center gap-2 py-2 text-slate-800"
+            >
+              <i className="fas fa-phone-volume text-emerald-600 animate-bounce" />
+              <span className="font-bold">04-7185-0805</span>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style jsx global>{`
-        @keyframes cyber-gradient {
-          0% { background-position: 0% 0%; }
-          100% { background-position: 200% 200%; }
-        }
-        @keyframes scan-line {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        @keyframes scan-line-reverse {
-          0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
-        }
-        .animate-cyber-gradient {
-          animation: cyber-gradient 15s linear infinite;
-        }
-        .animate-scan-line {
-          animation: scan-line 3s linear infinite;
-        }
-        .animate-scan-line-reverse {
-          animation: scan-line-reverse 3s linear infinite;
-        }
-      `}</style>
     </header>
   )
 } 
