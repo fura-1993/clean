@@ -90,11 +90,12 @@ ${fields.message}
       attachments,
     };
 
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions); // <-- Commented out for debugging
+    return NextResponse.json({ message: 'Email sending skipped for debugging.' }, { status: 200 }); // <-- Added for debugging
 
     // No temporary files to clean up when using req.formData()
 
-    return NextResponse.json({ message: 'お問い合わせを受け付けました。' }, { status: 200 });
+    // return NextResponse.json({ message: 'お問い合わせを受け付けました。' }, { status: 200 }); // Original success response
   } catch (error) {
     console.error('Error processing contact form:', error);
     // Handle potential specific errors if needed
