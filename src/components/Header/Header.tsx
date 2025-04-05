@@ -287,12 +287,12 @@ export default function Header() {
         </AnimatePresence>
       </header>
 
-      {/* === 開閉メニューパネル (リニューアル) === */}
+      {/* === 開閉メニューパネル === */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             key="menu-panel"
-            className="fixed inset-0 z-40" // Keep overlay functionality
+            className="fixed inset-0 z-40"
           >
             {/* Overlay */}
             <motion.div
@@ -320,17 +320,13 @@ export default function Header() {
               </svg>
             </motion.button>
 
-            {/* Menu Content - Diagonal Layout */}
+            {/* Menu Content - Diagonal Layout with Enhanced Animations */}
             <motion.nav
-              className="fixed top-24 left-12" // Adjust starting position
+              className="fixed top-24 left-12"
               aria-label="Main navigation"
               variants={{
-                open: { 
-                  transition: { staggerChildren: 0.08, delayChildren: 0.2 }
-                },
-                closed: {
-                  transition: { staggerChildren: 0.05, staggerDirection: -1 }
-                }
+                open: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+                closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
               }}
               initial="closed"
               animate="open"
@@ -338,19 +334,14 @@ export default function Header() {
             >
               <ul className="relative">
                 {menuItems.map((item, i) => {
-                  const yOffset = i * 60; // Vertical spacing for stairs
-                  const xOffset = i * 40; // Horizontal spacing for stairs
+                  const yOffset = i * 60; 
+                  const xOffset = i * 40;
                   
                   return (
                     <motion.li
                       key={item.href}
-                      className="absolute list-none" // Use absolute positioning
-                      style={{ 
-                        top: `${yOffset}px`, 
-                        left: `${xOffset}px`,
-                        originX: 0, // For animation origin
-                        originY: 0
-                      }}
+                      className="absolute list-none"
+                      style={{ top: `${yOffset}px`, left: `${xOffset}px`, originX: 0, originY: 0 }}
                       variants={{
                         open: {
                           opacity: 1,
@@ -361,7 +352,7 @@ export default function Header() {
                         },
                         closed: {
                           opacity: 0,
-                          x: -30, // Slide from left
+                          x: -30,
                           scale: 0.9,
                           filter: 'blur(5px)',
                           transition: { duration: 0.2 }
@@ -370,21 +361,40 @@ export default function Header() {
                     >
                       <motion.a
                         href={item.href}
-                        className="block text-xl font-medium text-white/80 hover:text-emerald-300 transition-colors duration-300 py-2 relative group"
-                        onClick={() => setIsMenuOpen(false)} // Close menu on link click
-                        whileHover={{ 
-                          scale: 1.05,
-                          textShadow: '0 0 8px rgba(52, 211, 153, 0.7)' // Glow effect
+                        className="block text-xl font-medium text-white/90 hover:text-emerald-400 transition-colors duration-300 py-2 relative group"
+                        onClick={() => setIsMenuOpen(false)}
+                        // === Enhanced Constant & Hover Animations ===
+                        animate={{
+                          // Constant subtle pulse/glow and float
+                          textShadow: [
+                            '0 0 4px rgba(52, 211, 153, 0.3)',
+                            '0 0 8px rgba(52, 211, 153, 0.5)',
+                            '0 0 4px rgba(52, 211, 153, 0.3)'
+                          ],
+                          y: [0, -2, 0] // Subtle float
                         }}
-                        transition={{ type: "spring", stiffness: 400 }}
+                        transition={{
+                          // Independent transitions for constant animations
+                          textShadow: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
+                          y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                          // Default transition for hover (can be overridden by whileHover)
+                          default: { type: "spring", stiffness: 400 }
+                        }}
+                        whileHover={{
+                          scale: 1.08, // Slightly larger scale
+                          y: -4,       // More pronounced upward movement
+                          textShadow: '0 0 12px rgba(52, 211, 153, 0.9)', // Stronger glow
+                          color: '#34d399', // Brighter emerald color
+                        }}
+                        // Removed transition from whileHover, rely on default or animate transition
                       >
-                        {item.label}
+                        {item.label} {/* Text is already horizontal */}
                         {/* Futuristic Underline */}
                         <motion.span 
-                          className="absolute left-0 bottom-0 h-[2px] bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0 group-hover:from-emerald-500/50 group-hover:to-emerald-500/50"
-                          initial={{ width: 0 }}
-                          whileHover={{ width: "100%" }}
-                          transition={{ duration: 0.3 }}
+                          className="absolute left-0 bottom-0 h-[2px] bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0 group-hover:from-emerald-500 group-hover:via-emerald-400 group-hover:to-emerald-500 shadow-[0_0_8px_theme(colors.emerald.500)]"
+                          initial={{ width: 0, opacity: 0 }}
+                          whileHover={{ width: "100%", opacity: 1 }}
+                          transition={{ duration: 0.4, ease: "easeOut" }} // Faster underline animation
                         />
                       </motion.a>
                     </motion.li>
