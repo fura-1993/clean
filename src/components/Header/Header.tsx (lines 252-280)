@@ -1,0 +1,26 @@
+            {/* 電話問い合わせ - スクロール後のみ表示 */}
+            <AnimatePresence>
+              {isScrolled && ( // ← スクロール時に表示
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="hidden md:block" // ← md (デスクトップ) 以上で表示
+                >
+                  <div className="relative group">
+                    {/* ... (Glow effect) ... */}
+                    <a
+                      href="tel:04-7185-0805" // ← 電話番号リンク
+                      className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/90 text-white hover:bg-slate-800 transition-all duration-300"
+                    >
+                      <i className="fas fa-phone-volume text-emerald-400 text-xl animate-bounce" />
+                      <div>
+                        <div className="text-xs font-medium text-emerald-400">24時間365日対応</div> {/* ← テキスト */}
+                        <div className="text-lg font-bold tracking-wider">04-7185-0805</div> {/* ← 電話番号 */}
+                      </div>
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence> 
