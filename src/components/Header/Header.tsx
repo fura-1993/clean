@@ -292,7 +292,7 @@ export default function Header() {
         {isMenuOpen && (
           <motion.div
             key="menu-panel"
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-40 flex items-center justify-center"
           >
             {/* Overlay */}
             <motion.div
@@ -300,101 +300,122 @@ export default function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
-              onClick={() => setIsMenuOpen(false)} // Close on overlay click
+              className="absolute inset-0 bg-black/80 backdrop-blur-lg"
+              onClick={() => setIsMenuOpen(false)}
             />
 
-            {/* Close Button (Top Right) */}
+            {/* Close Button */}
             <motion.button
               onClick={() => setIsMenuOpen(false)}
               className="fixed top-6 right-6 z-50 text-white/70 hover:text-emerald-400 transition-colors"
               aria-label="メニューを閉じる"
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1, transition: { delay: 0.5 } }}
+              animate={{ opacity: 1, scale: 1, transition: { delay: 0.8 } }}
               exit={{ opacity: 0, scale: 0.5 }}
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+               <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+               </svg>
             </motion.button>
 
-            {/* Menu Content - Diagonal Layout with Horizontal Text */}
+            {/* Menu Content - Centered with Framed Items */}
             <motion.nav
-              className="fixed top-24 left-12"
+              className="relative z-50"
               aria-label="Main navigation"
               variants={{
-                open: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+                open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
                 closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
               }}
               initial="closed"
               animate="open"
               exit="closed"
             >
-              <ul className="relative">
-                {menuItems.map((item, i) => {
-                  const yOffset = i * 60; 
-                  const xOffset = i * 40;
-                  
-                  return (
-                    <motion.li
-                      key={item.href}
-                      className="absolute list-none"
-                      style={{ top: `${yOffset}px`, left: `${xOffset}px`, originX: 0, originY: 0 }}
-                      variants={{
-                        open: {
-                          opacity: 1,
-                          x: 0,
-                          scale: 1,
-                          filter: 'blur(0px)',
-                          transition: { type: "spring", stiffness: 300, damping: 24 }
-                        },
-                        closed: {
-                          opacity: 0,
-                          x: -30,
-                          scale: 0.9,
-                          filter: 'blur(5px)',
-                          transition: { duration: 0.2 }
-                        }
+              <ul className="flex flex-col items-center gap-6">
+                {menuItems.map((item, i) => (
+                  <motion.li
+                    key={item.href}
+                    className="list-none relative"
+                    variants={{
+                      open: {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        filter: 'blur(0px)',
+                        transition: { type: "spring", stiffness: 200, damping: 20 }
+                      },
+                      closed: {
+                        opacity: 0,
+                        y: 20,
+                        scale: 0.95,
+                        filter: 'blur(8px)',
+                        transition: { duration: 0.2 }
+                      }
+                    }}
+                  >
+                    {/* Futuristic Frame */}
+                    <motion.div
+                      className="absolute -inset-x-4 -inset-y-2 border border-emerald-500/30 rounded-lg pointer-events-none"
+                      animate={{
+                        borderColor: [
+                          'rgba(52, 211, 153, 0.3)',
+                          'rgba(52, 211, 153, 0.7)',
+                          'rgba(52, 211, 153, 0.3)',
+                        ],
+                        scale: [1, 1.03, 1]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                     {/* Inner subtle glow/scan line */}
+                    <motion.div
+                      className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
+                    >
+                      <motion.div 
+                        className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-emerald-400/0 via-emerald-400/50 to-emerald-400/0 shadow-[0_0_10px_theme(colors.emerald.500)]"
+                        animate={{ x: ["-100%", "200%"] }}
+                        transition={{ 
+                          duration: 2.5 + i * 0.3, 
+                          repeat: Infinity, 
+                          ease: "linear",
+                          delay: i * 0.1
+                        }}
+                      />
+                    </motion.div>
+                    
+                    {/* Menu Item Link */}
+                    <motion.a
+                      href={item.href}
+                      className="block text-xl font-medium text-white/90 hover:text-emerald-300 transition-colors duration-300 px-6 py-2 relative group whitespace-nowrap bg-slate-900/50 backdrop-blur-sm rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                      style={{ writingMode: 'horizontal-tb' }}
+                      animate={{
+                        textShadow: [
+                          '0 0 4px rgba(52, 211, 153, 0.2)',
+                          '0 0 6px rgba(52, 211, 153, 0.4)',
+                          '0 0 4px rgba(52, 211, 153, 0.2)'
+                        ],
+                      }}
+                      transition={{
+                        textShadow: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
+                        default: { type: "spring", stiffness: 400 }
+                      }}
+                      whileHover={{
+                        scale: 1.05, 
+                        y: -2, 
+                        textShadow: '0 0 12px rgba(52, 211, 153, 0.9)',
+                        color: '#34d399',
+                        backgroundColor: 'rgba(15, 23, 42, 0.7)'
                       }}
                     >
-                      <motion.a
-                        href={item.href}
-                        className="block text-xl font-medium text-white/90 hover:text-emerald-400 transition-colors duration-300 py-2 relative group whitespace-nowrap"
-                        onClick={() => setIsMenuOpen(false)}
-                        style={{ writingMode: 'horizontal-tb' }}
-                        animate={{
-                          textShadow: [
-                            '0 0 4px rgba(52, 211, 153, 0.3)',
-                            '0 0 8px rgba(52, 211, 153, 0.5)',
-                            '0 0 4px rgba(52, 211, 153, 0.3)'
-                          ],
-                          y: [0, -2, 0]
-                        }}
-                        transition={{
-                          textShadow: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
-                          y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                          default: { type: "spring", stiffness: 400 }
-                        }}
-                        whileHover={{
-                          scale: 1.08,
-                          y: -4,
-                          textShadow: '0 0 12px rgba(52, 211, 153, 0.9)',
-                          color: '#34d399',
-                        }}
-                      >
-                        {item.label}
-                        <motion.span 
-                          className="absolute left-0 bottom-0 h-[2px] bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0 group-hover:from-emerald-500 group-hover:via-emerald-400 group-hover:to-emerald-500 shadow-[0_0_8px_theme(colors.emerald.500)]"
-                          initial={{ width: 0, opacity: 0 }}
-                          whileHover={{ width: "100%", opacity: 1 }}
-                          transition={{ duration: 0.4, ease: "easeOut" }}
-                        />
-                      </motion.a>
-                    </motion.li>
-                  );
-                })}
+                      {item.label}
+                    </motion.a>
+                  </motion.li>
+                ))}
               </ul>
             </motion.nav>
           </motion.div>
