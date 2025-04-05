@@ -143,6 +143,9 @@ export default function Contact() {
       id="contact" 
       className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
+      {/* 半透明のオーバーレイを追加して、テキストとコンテンツの視認性を向上 */}
+      <div className="absolute inset-0 bg-slate-900/75 backdrop-blur-sm"></div>
+      
       {/* Animated Background Grid - reduced opacity for fixed background */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
         <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>

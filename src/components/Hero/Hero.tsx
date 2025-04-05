@@ -121,7 +121,8 @@ function Hero() {
 
   return (
     <section className="relative min-h-screen text-white overflow-hidden pt-12">
-      {/* Remove the background gradient to allow fixed background to show through */}
+      {/* 半透明のオーバーレイを追加して、テキストとコンテンツの視認性を向上 */}
+      <div className="absolute inset-0 bg-slate-900/75 backdrop-blur-sm"></div>
       
       <div className="container relative h-full mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
@@ -180,7 +181,7 @@ function Hero() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="relative z-10 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+                <span className="relative z-10 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent" style={{ textShadow: '0 0 15px rgba(255, 255, 255, 0.5)' }}>
                   清掃サービス
                 </span>
                 <motion.div 

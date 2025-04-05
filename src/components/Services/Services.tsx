@@ -49,6 +49,9 @@ export default function Services() {
       id="services" 
       className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
+      {/* 半透明のオーバーレイを追加して、テキストとコンテンツの視認性を向上 */}
+      <div className="absolute inset-0 bg-slate-900/75 backdrop-blur-sm"></div>
+      
       {/* Background Elements - Made semi-transparent for fixed background */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
         {/* Grid */}
@@ -114,7 +117,7 @@ export default function Services() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center bg-slate-800/40 backdrop-blur-lg p-6 md:p-10 rounded-xl border border-emerald-500/20 shadow-xl shadow-emerald-950/30"
+                className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center bg-slate-800/70 backdrop-blur-lg p-6 md:p-10 rounded-xl border border-emerald-500/30 shadow-xl shadow-emerald-950/30"
               >
                 {/* Image Column */}
                 <div className="lg:col-span-2 relative h-64 md:h-80 lg:h-full rounded-lg overflow-hidden shadow-lg">

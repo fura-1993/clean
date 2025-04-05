@@ -64,6 +64,9 @@ export default function Features() {
       id="features" 
       className="relative overflow-hidden py-20 md:py-32 text-white/90"
     >
+      {/* 半透明のオーバーレイを追加して、テキストとコンテンツの視認性を向上 */}
+      <div className="absolute inset-0 bg-slate-900/75 backdrop-blur-sm"></div>
+      
       {/* Subtle Background Grid - adjusted density and opacity for fixed background */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
         <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
@@ -105,7 +108,7 @@ export default function Features() {
           {features.map((feature) => (
             <motion.div
               key={feature.title}
-              className="feature-card relative overflow-hidden bg-slate-800/50 backdrop-blur-lg rounded-xl p-6 lg:p-8 border border-emerald-500/20 shadow-lg shadow-emerald-950/30 group transition-all duration-300 hover:bg-slate-800/80 hover:border-emerald-500/40 hover:shadow-emerald-800/40"
+              className="feature-card relative overflow-hidden bg-slate-800/70 backdrop-blur-lg rounded-xl p-6 lg:p-8 border border-emerald-500/30 shadow-lg shadow-emerald-950/30 group transition-all duration-300 hover:bg-slate-800/90 hover:border-emerald-500/40 hover:shadow-emerald-800/40"
               variants={itemVariants}
             >
               {/* Subtle Glow effect on hover */} 
