@@ -125,7 +125,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="flex flex-wrap gap-x-2 mb-2">
+              <div className="flex flex-wrap gap-x-2 mb-2 text-[1rem] md:text-[1.25rem] lg:text-[1.5rem]">
                 {["プ", "ロ", "フ", "ェ", "ッ", "シ", "ョ", "ナ", "ル"].map((char, i) => (
                   <motion.span
                     key={i}
@@ -159,7 +159,7 @@ export default function Hero() {
                 </motion.span>
               </div>
               <motion.div
-                className="relative inline-block"
+                className="relative inline-block text-[2rem] md:text-[2.5rem] lg:text-[3rem]"
                 animate={{
                   y: [0, -4, 0],
                 }}
