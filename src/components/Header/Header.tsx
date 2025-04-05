@@ -207,31 +207,10 @@ export default function Header() {
               )}
             </AnimatePresence>
 
-            {/* Staff Image - スクロール後のみ表示 */}
-            <AnimatePresence>
-              {isScrolled && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2"
-                >
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-emerald-400/30 shadow-lg">
-                    <Image
-                      src="/images/infostaff2.png"
-                      alt="カスタマーサポートスタッフ"
-                      width={48}
-                      height={48}
-                      className="object-cover w-full h-full"
-                      priority
-                    />
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0 animate-shimmer"></div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Staff Image - Central - REMOVED */}
+            {/* 
+              REMOVED THIS ENTIRE BLOCK PREVIOUSLY, ENSURING IT'S GONE 
+            */}
 
             {/* 清掃サービスの特徴 - スクロール後のみ表示 */}
             <AnimatePresence>
