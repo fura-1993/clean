@@ -13,10 +13,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Professional Cleaning Service',
   description: '最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に',
-  // Font Awesome の最適化読み込み
-  other: {
-    'link:css': 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  },
 }
 
 // レイアウトの最適化
@@ -27,6 +23,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <link 
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
       <body className={inter.className}>
         {children}
       </body>
