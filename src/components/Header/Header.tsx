@@ -42,31 +42,55 @@ export default function Header() {
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-[0_4px_30px_rgba(0,0,0,0.2)] py-2' : 'bg-transparent py-4'
       }`}>
-        {/* サイバーパンク風の装飾 - スクロール後のみ表示 */}
+        {/* サイバーパンク風の装飾 & 新しい背景エフェクト - スクロール後のみ表示 */}
         <AnimatePresence>
           {isScrolled && (
-            <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 overflow-hidden pointer-events-none"
+            >
+              {/* Existing gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-transparent to-emerald-600/10" />
+              
+              {/* Existing top line animation */}
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 overflow-hidden pointer-events-none"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-transparent to-emerald-600/10" />
-                <motion.div
-                  className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"
-                  animate={{
-                    scaleX: [0, 1, 0],
-                    x: ['-100%', '100%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
-              </motion.div>
-            </>
+                className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"
+                animate={{ scaleX: [0, 1, 0], x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+              
+              {/* New Background Tech Grid Animation */}
+              <div className="absolute inset-0 mix-blend-overlay">
+                <svg width="100%" height="100%" xmlns='http://www.w3.org/2000/svg'>
+                  <defs>
+                    <pattern id='patt' patternUnits='userSpaceOnUse' width='40' height='40' patternTransform='scale(1) rotate(0)'>
+                      <rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/>
+                      <path d='M10-1.5 V41.5 M-1.5 10 H41.5 M30-1.5 V41.5 M-1.5 30 H41.5' stroke='hsla(158, 82%, 57%, 0.05)' strokeWidth='1'/>
+                    </pattern>
+                  </defs>
+                  <rect 
+                    width='100%' 
+                    height='100%' 
+                    fill='url(#patt)' 
+                    style={{
+                      animation: 'bgGridMove 20s linear infinite'
+                    }}
+                  />
+                </svg>
+                 {/* Add Keyframes for bgGridMove in globals.css or via style tag if needed */}
+                 <style jsx global>{`
+                  @keyframes bgGridMove {
+                    0% { background-position: 0% 0%; }
+                    100% { background-position: -80px 80px; } /* Adjust values for speed/direction */
+                  }
+                  rect[fill='url(#patt)'] {
+                    animation: bgGridMove 20s linear infinite;
+                  }
+                `}</style>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
 
@@ -80,7 +104,7 @@ export default function Header() {
               aria-expanded={isMenuOpen}
             >
               <div className="relative w-10 h-10 flex items-center justify-center">
-                {/* Rotating Frame */}
+                {/* Rotating Frame - Outer frames remain */}
                 <motion.div
                   className="absolute inset-[-4px] border-2 border-emerald-500/50 rounded-lg"
                   animate={{ rotate: 360 }}
@@ -92,35 +116,9 @@ export default function Header() {
                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />
 
-                {/* Existing rings */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border border-emerald-400/30"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    borderWidth: ["1px", "2px", "1px"],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    border: "1px solid rgba(52, 211, 153, 0.1)",
-                  }}
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
+                {/* Inner rings REMOVED */}
                 
-                {/* メニューアイコン Lines */}
+                {/* メニューアイコン Lines - Adjusted Animation */}
                 <div className="relative w-6 h-5 flex flex-col justify-between items-center">
                   {[0, 1, 2].map((i) => (
                     <motion.span
@@ -129,25 +127,24 @@ export default function Header() {
                       initial={false}
                       animate={isMenuOpen ? {
                         rotate: i === 1 ? 0 : (i === 0 ? 45 : -45),
-                        y: i === 1 ? 0 : (i === 0 ? 7 : -7), // Adjusted y for spacing
+                        y: i === 1 ? 0 : (i === 0 ? 7 : -7),
                         width: i === 1 ? "0%" : "100%",
                         opacity: i === 1 ? 0 : 1,
                         backgroundColor: "rgb(52, 211, 153)",
                       } : {
                         rotate: 0,
                         y: 0,
-                        width: i === 1 ? "70%" : "100%", // Default state width
+                        width: i === 1 ? "70%" : "100%",
                         opacity: 1,
                         backgroundColor: "rgb(255, 255, 255)",
-                        // Add individual constant animation here
-                        x: [0, i === 0 ? -1 : (i === 1 ? 0 : 1), 0], // Subtle horizontal movement
-                        scaleX: [1, i === 1 ? 0.9 : 1.05, 1],       // Subtle scaling
+                        x: [0, i === 0 ? -3 : (i === 2 ? 3 : 0), 0],
+                        scaleX: [1, i === 1 ? 0.9 : 1.05, 1],
                       }}
                       transition={isMenuOpen ? {
                         duration: 0.3,
                         ease: "easeInOut"
-                      } : { // Transitions for constant animation
-                        x: { duration: 1.5 + i * 0.2, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
+                      } : {
+                        x: { duration: 1.2 + i * 0.3, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
                         scaleX: { duration: 1.8 + i * 0.3, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" },
                         backgroundColor: { duration: 0.3 },
                         rotate: { duration: 0.3 },
@@ -165,14 +162,8 @@ export default function Header() {
                 {/* ホバーエフェクト */}
                 <motion.div
                   className="absolute inset-0 rounded-full bg-emerald-400/0 group-hover:bg-emerald-400/10 transition-colors duration-300"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 />
               </div>
             </button>
