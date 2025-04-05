@@ -1,12 +1,18 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+const serviceNames = {
+  'high-pressure': '高圧洗浄',
+  'tile-cleaning': 'タイル洗浄',
+  'carpet-cleaning': 'カーペット清掃'
+};
+
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json();
+    const { name, email, selectedService, message } = await request.json();
 
     // Basic validation
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !selectedService || !message) {
       return NextResponse.json({ error: 'すべてのフィールドを入力してください。' }, { status: 400 });
     }
 
@@ -42,18 +48,20 @@ export async function POST(request: Request) {
         // Don't necessarily fail the request here, but log it
     }
 
+    // Get the service name from the mapping
+    const serviceName = serviceNames[selectedService as keyof typeof serviceNames] || '選択なし';
 
     // Email options
     const mailOptions = {
       from: `"Webサイトお問い合わせ" <${user}>`, // Sender address (must be your email)
       to: user, // List of receivers (your email address)
       replyTo: email, // Set reply-to to the user's email
-      subject: `Webサイトお問い合わせ: ${subject}`, // Subject line
+      subject: `Webサイトお問い合わせ: ${serviceName}について`, // Subject line with service name
       html: `
         <h1>Webサイトからのお問い合わせ</h1>
         <p><strong>お名前:</strong> ${name}</p>
         <p><strong>メールアドレス:</strong> ${email}</p>
-        <p><strong>件名:</strong> ${subject}</p>
+        <p><strong>希望サービス:</strong> ${serviceName}</p>
         <hr>
         <p><strong>メッセージ内容:</strong></p>
         <p>${message.replace(/\n/g, '<br>')}</p>
