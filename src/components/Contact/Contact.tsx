@@ -49,13 +49,31 @@ export default function Contact() {
     name: '', 
     email: '', 
     selectedService: '',
-    message: '' 
+    message: '',
+    file: null as File | null
   });
   const [status, setStatus] = useState<{ type: 'idle' | 'loading' | 'success' | 'error'; message: string }>({ type: 'idle', message: '' });
+  const [fileName, setFileName] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 50 * 1024 * 1024) { // 50MB in bytes
+        setStatus({ type: 'error', message: 'ファイルサイズは50MB以下にしてください。' });
+        e.target.value = '';
+        return;
+      }
+      setFormData(prevState => ({ ...prevState, file }));
+      setFileName(file.name);
+    } else {
+      setFormData(prevState => ({ ...prevState, file: null }));
+      setFileName('');
+    }
   };
 
   const handleServiceSelect = (serviceId: string) => {
@@ -67,19 +85,26 @@ export default function Contact() {
     setStatus({ type: 'loading', message: '送信中...' });
 
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('selectedService', formData.selectedService);
+      formDataToSend.append('message', formData.message);
+      if (formData.file) {
+        formDataToSend.append('file', formData.file);
+      }
+
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
 
       const result = await response.json();
 
       if (response.ok) {
         setStatus({ type: 'success', message: result.message });
-        setFormData({ name: '', email: '', selectedService: '', message: '' }); // Clear form
+        setFormData({ name: '', email: '', selectedService: '', message: '', file: null }); // Clear form
+        setFileName('');
       } else {
         setStatus({ type: 'error', message: result.error || '送信に失敗しました。' });
       }
@@ -210,13 +235,13 @@ export default function Contact() {
               {/* Name Input */}
               <div className="relative group">
                 <label htmlFor="name" className="flex items-center text-lg font-medium text-slate-300 mb-2">
-                  <i className="fas fa-user mr-2 text-emerald-400/70"></i>お名前 <span className="text-red-500 text-sm ml-1">*</span>
+                  <i className="fas fa-user mr-2 text-emerald-400/70"></i>お名前or法人名等 <span className="text-red-500 text-sm ml-1">*</span>
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="山田 太郎"
+                  placeholder="山田 太郎 / 株式会社〇〇"
                   className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 focus:bg-slate-800/70 transition-all duration-300"
                   required
                   value={formData.name}
@@ -266,6 +291,54 @@ export default function Contact() {
               ></textarea>
               {/* Textarea Focus Glow */}
               <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50"></div>
+            </motion.div>
+
+            {/* File Upload */}
+            <motion.div variants={itemVariants} className="relative group">
+              <label htmlFor="file" className="flex items-center text-lg font-medium text-slate-300 mb-2">
+                <i className="fas fa-paperclip mr-2 text-emerald-400/70"></i>ファイル添付
+              </label>
+              <div className="relative">
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  onChange={handleFileChange}
+                  accept=".jpg,.jpeg,.png,.pdf,.xls,.xlsx,.doc,.docx,.txt"
+                  className="hidden"
+                  disabled={status.type === 'loading'}
+                />
+                <div className="flex items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById('file')?.click()}
+                    className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-white hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition-all duration-300"
+                  >
+                    ファイルを選択
+                  </button>
+                  {fileName && (
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/30 border border-slate-600/30">
+                      <span className="text-slate-300 text-sm truncate max-w-xs">{fileName}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData(prevState => ({ ...prevState, file: null }));
+                          setFileName('');
+                          if (document.getElementById('file')) {
+                            (document.getElementById('file') as HTMLInputElement).value = '';
+                          }
+                        }}
+                        className="text-slate-400 hover:text-slate-300"
+                      >
+                        <i className="fas fa-times"></i>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <p className="mt-2 text-sm text-slate-400">
+                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (最大50MB)
+                </p>
+              </div>
             </motion.div>
 
             {/* Status Message */}
