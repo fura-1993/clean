@@ -248,8 +248,8 @@ export default function Contact() {
                   onChange={handleChange}
                   disabled={status.type === 'loading'}
                 />
-                {/* Input Focus Glow */}
-                <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50"></div>
+                {/* Input Focus Glow - Added pointer-events-none */}
+                <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50 pointer-events-none"></div>
               </div>
 
               {/* Email Input */}
@@ -268,8 +268,8 @@ export default function Contact() {
                   onChange={handleChange}
                   disabled={status.type === 'loading'}
                 />
-                {/* Input Focus Glow */}
-                <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50"></div>
+                {/* Input Focus Glow - Added pointer-events-none */}
+                <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50 pointer-events-none"></div>
               </div>
             </motion.div>
 
@@ -289,8 +289,8 @@ export default function Contact() {
                 onChange={handleChange}
                 disabled={status.type === 'loading'}
               ></textarea>
-              {/* Textarea Focus Glow */}
-              <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50"></div>
+              {/* Textarea Focus Glow - Added pointer-events-none */}
+              <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 opacity-0 group-focus-within:opacity-100 blur transition-all duration-300 group-hover:opacity-50 pointer-events-none"></div>
             </motion.div>
 
             {/* File Upload */}
