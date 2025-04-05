@@ -101,7 +101,7 @@ export default function Header() {
 
           {/* ハンバーガーメニュー */}
           <motion.button
-            className="relative z-50 w-12 h-12 flex flex-col items-center justify-center gap-[6px] group"
+            className="relative z-50 w-14 h-14 flex flex-col items-center justify-center gap-[8px] group"
             onClick={() => setIsOpen(!isOpen)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -109,15 +109,15 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
           >
             <motion.div
-              className="w-8 h-[2px] bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full origin-left"
+              className="w-9 h-[3px] bg-white rounded-full origin-left"
               animate={{
                 rotate: isOpen ? 45 : 0,
-                y: isOpen ? -3 : 0,
-                width: isHovered ? "32px" : "24px",
+                y: isOpen ? -4 : 0,
+                width: isHovered ? "36px" : "28px",
                 opacity: 1,
                 x: !isOpen && !isHovered ? [-2, 2, -2] : 0
               }}
-              initial={{ width: "24px" }}
+              initial={{ width: "28px" }}
               transition={{
                 duration: 0.3,
                 x: {
@@ -128,14 +128,14 @@ export default function Header() {
               }}
             />
             <motion.div
-              className="w-6 h-[2px] bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full"
+              className="w-7 h-[3px] bg-white rounded-full"
               animate={{
                 scale: isOpen ? 0 : 1,
                 x: isHovered ? "4px" : !isOpen ? [-3, 3, -3] : 0,
-                width: isHovered ? "28px" : "20px",
+                width: isHovered ? "32px" : "24px",
                 opacity: isOpen ? 0 : 1
               }}
-              initial={{ width: "20px" }}
+              initial={{ width: "24px" }}
               transition={{
                 duration: 0.3,
                 x: {
@@ -147,15 +147,15 @@ export default function Header() {
               }}
             />
             <motion.div
-              className="w-8 h-[2px] bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full origin-left"
+              className="w-9 h-[3px] bg-white rounded-full origin-left"
               animate={{
                 rotate: isOpen ? -45 : 0,
-                y: isOpen ? 3 : 0,
-                width: isHovered ? "32px" : "28px",
+                y: isOpen ? 4 : 0,
+                width: isHovered ? "36px" : "32px",
                 opacity: 1,
                 x: !isOpen && !isHovered ? [2, -2, 2] : 0
               }}
-              initial={{ width: "28px" }}
+              initial={{ width: "32px" }}
               transition={{
                 duration: 0.3,
                 x: {
