@@ -287,55 +287,112 @@ export default function Header() {
         </AnimatePresence>
       </header>
 
-      {/* 開閉メニューパネル */}
+      {/* === 開閉メニューパネル (リニューアル) === */}
       <AnimatePresence>
         {isMenuOpen && (
-          <>
+          <motion.div
+            key="menu-panel"
+            className="fixed inset-0 z-40" // Keep overlay functionality
+          >
             {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
               onClick={() => setIsMenuOpen(false)} // Close on overlay click
             />
 
-            {/* Menu Content */}
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Smooth cubic bezier
-              className="fixed top-0 left-0 h-full w-full max-w-xs bg-slate-900/95 shadow-xl z-[45] p-8 pt-24 flex flex-col" // z-index below button
-              aria-labelledby="menu-title"
+            {/* Close Button (Top Right) */}
+            <motion.button
+              onClick={() => setIsMenuOpen(false)}
+              className="fixed top-6 right-6 z-50 text-white/70 hover:text-emerald-400 transition-colors"
+              aria-label="メニューを閉じる"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1, transition: { delay: 0.5 } }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <h2 id="menu-title" className="text-2xl font-bold text-emerald-400 mb-8 border-b border-emerald-400/20 pb-2">
-                ナビゲーション
-              </h2>
-              <nav>
-                <ul className="space-y-4">
-                  {menuItems.map((item) => (
-                    <li key={item.href}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.button>
+
+            {/* Menu Content - Diagonal Layout */}
+            <motion.nav
+              className="fixed top-24 left-12" // Adjust starting position
+              aria-label="Main navigation"
+              variants={{
+                open: { 
+                  transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+                },
+                closed: {
+                  transition: { staggerChildren: 0.05, staggerDirection: -1 }
+                }
+              }}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              <ul className="relative">
+                {menuItems.map((item, i) => {
+                  const yOffset = i * 60; // Vertical spacing for stairs
+                  const xOffset = i * 40; // Horizontal spacing for stairs
+                  
+                  return (
+                    <motion.li
+                      key={item.href}
+                      className="absolute list-none" // Use absolute positioning
+                      style={{ 
+                        top: `${yOffset}px`, 
+                        left: `${xOffset}px`,
+                        originX: 0, // For animation origin
+                        originY: 0
+                      }}
+                      variants={{
+                        open: {
+                          opacity: 1,
+                          x: 0,
+                          scale: 1,
+                          filter: 'blur(0px)',
+                          transition: { type: "spring", stiffness: 300, damping: 24 }
+                        },
+                        closed: {
+                          opacity: 0,
+                          x: -30, // Slide from left
+                          scale: 0.9,
+                          filter: 'blur(5px)',
+                          transition: { duration: 0.2 }
+                        }
+                      }}
+                    >
                       <motion.a
                         href={item.href}
-                        className="block text-lg text-white/80 hover:text-emerald-400 transition-colors duration-300 py-2 relative group"
+                        className="block text-xl font-medium text-white/80 hover:text-emerald-300 transition-colors duration-300 py-2 relative group"
                         onClick={() => setIsMenuOpen(false)} // Close menu on link click
-                        whileHover={{ x: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
+                        whileHover={{ 
+                          scale: 1.05,
+                          textShadow: '0 0 8px rgba(52, 211, 153, 0.7)' // Glow effect
+                        }}
+                        transition={{ type: "spring", stiffness: 400 }}
                       >
                         {item.label}
-                        <span className="absolute left-0 bottom-0 h-[1px] w-0 group-hover:w-full bg-emerald-400 transition-all duration-300"></span>
+                        {/* Futuristic Underline */}
+                        <motion.span 
+                          className="absolute left-0 bottom-0 h-[2px] bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0 group-hover:from-emerald-500/50 group-hover:to-emerald-500/50"
+                          initial={{ width: 0 }}
+                          whileHover={{ width: "100%" }}
+                          transition={{ duration: 0.3 }}
+                        />
                       </motion.a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-              <div className="mt-auto border-t border-white/10 pt-6">
-                 <p className="text-xs text-white/50">© 2024 プロフェッショナル清掃サービス</p>
-              </div>
-            </motion.div>
-          </>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+            </motion.nav>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
