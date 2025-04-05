@@ -52,7 +52,7 @@ export default function Header() {
                 }`}
               >
                 <Image
-                  src="/images/logo.png"
+                  src="/images/JTロゴ.png"
                   alt="Professional Cleaning Service"
                   width={200}
                   height={60}
@@ -63,39 +63,42 @@ export default function Header() {
             </motion.div>
           </Link>
 
-          {/* 電話問い合わせ */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className={`hidden md:flex items-center gap-2 ${
-              isScrolled ? 'text-slate-800' : 'text-white'
-            }`}
-          >
-            <div className="relative group">
+          {/* 電話問い合わせ - デスクトップ */}
+          <AnimatePresence>
+            {isScrolled && (
               <motion.div
-                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 opacity-70 blur-sm group-hover:opacity-100 transition-all duration-300"
-                animate={{
-                  scale: [1, 1.05, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <a
-                href="tel:04-7185-0805"
-                className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-white/95 text-slate-800 hover:bg-white transition-all duration-300"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="hidden md:flex items-center gap-2"
               >
-                <i className="fas fa-phone-volume text-emerald-600 text-xl animate-bounce" />
-                <div>
-                  <div className="text-xs font-medium text-emerald-600">お気軽にお電話ください</div>
-                  <div className="text-lg font-bold tracking-wider">04-7185-0805</div>
+                <div className="relative group">
+                  <motion.div
+                    className="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 opacity-70 blur-sm group-hover:opacity-100 transition-all duration-300"
+                    animate={{
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <a
+                    href="tel:04-7185-0805"
+                    className="relative flex items-center gap-2 px-4 py-2 rounded-lg bg-white/95 text-slate-800 hover:bg-white transition-all duration-300"
+                  >
+                    <i className="fas fa-phone-volume text-emerald-600 text-xl animate-bounce" />
+                    <div>
+                      <div className="text-xs font-medium text-emerald-600">お気軽にお電話ください</div>
+                      <div className="text-lg font-bold tracking-wider">04-7185-0805</div>
+                    </div>
+                  </a>
                 </div>
-              </a>
-            </div>
-          </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* ハンバーガーメニュー */}
           <button
