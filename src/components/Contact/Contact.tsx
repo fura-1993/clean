@@ -54,6 +54,12 @@ export default function Contact() {
   });
   const [status, setStatus] = useState<{ type: 'idle' | 'loading' | 'success' | 'error'; message: string }>({ type: 'idle', message: '' });
 
+  const MAX_FILES = 5;
+  const MAX_TOTAL_SIZE_MB = 20;
+  const MAX_TOTAL_SIZE_BYTES = MAX_TOTAL_SIZE_MB * 1024 * 1024;
+  const MAX_INDIVIDUAL_SIZE_MB = 50; // Keep individual limit as a fallback/clarity
+  const MAX_INDIVIDUAL_SIZE_BYTES = MAX_INDIVIDUAL_SIZE_MB * 1024 * 1024;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
@@ -65,24 +71,35 @@ export default function Contact() {
 
     const newFiles = Array.from(selectedFiles);
     const currentFiles = formData.files;
-    const combinedFiles = [...currentFiles, ...newFiles];
-
-    if (combinedFiles.length > 10) {
-      setStatus({ type: 'error', message: '添付できるファイルは10個までです。' });
-      e.target.value = '';
-      return;
-    }
-
+    
+    // Check individual file size first
     for (const file of newFiles) {
-      if (file.size > 50 * 1024 * 1024) { // 50MB in bytes
-        setStatus({ type: 'error', message: `ファイルサイズが50MBを超えています: ${file.name}` });
-        e.target.value = '';
+      if (file.size > MAX_INDIVIDUAL_SIZE_BYTES) {
+        setStatus({ type: 'error', message: `ファイルサイズが${MAX_INDIVIDUAL_SIZE_MB}MBを超えています: ${file.name}` });
+        e.target.value = ''; // Clear the input
         return;
       }
     }
 
+    // Check total file count
+    const combinedFiles = [...currentFiles, ...newFiles];
+    if (combinedFiles.length > MAX_FILES) {
+      setStatus({ type: 'error', message: `添付できるファイルは${MAX_FILES}個までです。` });
+      e.target.value = ''; // Clear the input
+      return;
+    }
+
+    // Check total file size
+    const totalSize = combinedFiles.reduce((sum, file) => sum + file.size, 0);
+    if (totalSize > MAX_TOTAL_SIZE_BYTES) {
+        setStatus({ type: 'error', message: `添付ファイルの合計サイズは${MAX_TOTAL_SIZE_MB}MBまでです。` });
+        e.target.value = ''; // Clear the input
+        return;
+    }
+
     setFormData(prevState => ({ ...prevState, files: combinedFiles }));
-    e.target.value = '';
+    // Clear the input value to allow selecting the same file again after removing it
+    e.target.value = ''; 
   };
 
   const removeFile = (indexToRemove: number) => {
@@ -311,7 +328,7 @@ export default function Contact() {
             {/* File Upload */}
             <motion.div variants={itemVariants} className="relative group">
               <label htmlFor="file" className="flex items-center text-lg font-medium text-slate-300 mb-2">
-                <i className="fas fa-paperclip mr-2 text-emerald-400/70"></i>ファイル添付 (最大10個)
+                <i className="fas fa-paperclip mr-2 text-emerald-400/70"></i>ファイル添付 (最大{MAX_FILES}個, 合計{MAX_TOTAL_SIZE_MB}MBまで)
               </label>
               <div className="relative">
                 <input
@@ -322,18 +339,18 @@ export default function Contact() {
                   onChange={handleFileChange}
                   accept=".jpg,.jpeg,.png,.pdf,.xls,.xlsx,.doc,.docx,.txt"
                   className="hidden"
-                  disabled={status.type === 'loading'}
+                  disabled={status.type === 'loading' || formData.files.length >= MAX_FILES}
                 />
                 <div className="flex items-center gap-4 mb-2">
                   <button
                     type="button"
                     onClick={() => document.getElementById('file')?.click()}
-                    disabled={formData.files.length >= 10 || status.type === 'loading'}
+                    disabled={formData.files.length >= MAX_FILES || status.type === 'loading'}
                     className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-white hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     ファイルを追加
                   </button>
-                  <span className="text-sm text-slate-400">{formData.files.length} / 10 個選択中</span>
+                  <span className="text-sm text-slate-400">{formData.files.length} / {MAX_FILES} 個選択中</span>
                 </div>
                 {formData.files.length > 0 && (
                   <div className="mt-2 space-y-2">
@@ -354,7 +371,7 @@ export default function Contact() {
                   </div>
                 )}
                 <p className="mt-2 text-sm text-slate-400">
-                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (各50MBまで)
+                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (各{MAX_INDIVIDUAL_SIZE_MB}MB, 合計{MAX_TOTAL_SIZE_MB}MBまで)
                 </p>
               </div>
             </motion.div>

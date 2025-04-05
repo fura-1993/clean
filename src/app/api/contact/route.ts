@@ -14,6 +14,11 @@ interface ContactFormData {
   message: string;
 }
 
+const MAX_FILES = 5;
+const MAX_TOTAL_SIZE_MB = 20;
+const MAX_TOTAL_SIZE_BYTES = MAX_TOTAL_SIZE_MB * 1024 * 1024;
+const MAX_INDIVIDUAL_SIZE_BYTES = 50 * 1024 * 1024; // Keep individual check as safety
+
 export async function POST(req: NextRequest): Promise<NextResponse> {
   if (req.method !== 'POST') {
     return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
@@ -24,20 +29,30 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     const fields: Partial<ContactFormData> = {};
     const files: File[] = [];
+    let currentTotalSize = 0;
 
     for (const [key, value] of formData.entries()) {
       if (value instanceof File) {
-        // Check file size before adding
-        if (value.size > 50 * 1024 * 1024) {
-          return NextResponse.json({ error: `ファイルサイズが50MBを超えています: ${value.name}` }, { status: 413 });
+        // Check individual file size
+        if (value.size > MAX_INDIVIDUAL_SIZE_BYTES) {
+            return NextResponse.json({ error: `ファイルサイズが50MBを超えています: ${value.name}` }, { status: 413 });
         }
-        if (files.length < 10) {
-          files.push(value);
-        } else {
-          // Stop adding files if limit is reached (should also be handled by frontend)
-          console.warn('Maximum file count (10) reached. Ignoring extra files.');
-          break; // Stop processing further files if limit exceeded
+        // Check total file count
+        if (files.length >= MAX_FILES) {
+            console.warn(`Maximum file count (${MAX_FILES}) reached on server. Ignoring extra file: ${value.name}`);
+            continue; // Skip adding this file
         }
+        // Check total size
+        if (currentTotalSize + value.size > MAX_TOTAL_SIZE_BYTES) {
+            console.warn(`Maximum total size (${MAX_TOTAL_SIZE_MB}MB) exceeded on server. Ignoring file: ${value.name}`);
+            // Optionally, you could return an error here, but frontend should prevent it.
+            // For now, we just skip adding this file.
+            continue; 
+        }
+
+        files.push(value);
+        currentTotalSize += value.size;
+
       } else {
         // Assign fields, handling potential multiple values if needed (though unlikely for text fields here)
         if (key in fields) {
