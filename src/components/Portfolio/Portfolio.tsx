@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 // ビフォーアフターの写真セットの型定義
 type BeforeAfterSet = {
@@ -12,58 +15,60 @@ type BeforeAfterSet = {
   category: string;
 };
 
-// ダミーデータ - 後で実際の画像に差し替え
-const portfolioItems: BeforeAfterSet[] = [
-  {
-    id: 1,
-    title: '飲食店カーペット洗浄',
-    description: '長年の汚れが蓄積したカーペットを専用洗剤と高性能機器で洗浄',
-    beforeImage: '/images/絨毯清掃作業風景.png', // 既存の画像を使用
-    afterImage: '/images/絨毯清掃作業風景.png', // 既存の画像を使用（実際はビフォーアフターの写真に差し替え）
-    category: '絨毯清掃'
-  },
-  {
-    id: 2,
-    title: 'オフィスビル外壁洗浄',
-    description: '高圧洗浄機で外壁の長年の汚れを除去し美観を回復',
-    beforeImage: '/images/高圧洗浄作業風景.png', // 既存の画像を使用
-    afterImage: '/images/高圧洗浄作業風景.png', // 既存の画像を使用（実際はビフォーアフターの写真に差し替え）
-    category: '高圧洗浄'
-  },
-  {
-    id: 3,
-    title: '商業施設床タイル洗浄',
-    description: '専門洗剤と洗浄機で頑固な汚れを除去し清潔感を回復',
-    beforeImage: '/images/タイル洗浄作業風景.png', // 既存の画像を使用
-    afterImage: '/images/タイル洗浄作業風景.png', // 既存の画像を使用（実際はビフォーアフターの写真に差し替え）
-    category: 'タイル洗浄'
-  }
-];
-
-// アニメーション用のバリアント
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { 
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1]
-    }
-  }
-};
-
 export default function Portfolio() {
+  const { t } = useLanguage();
+  
+  // ダミーデータ - 後で実際の画像に差し替え
+  const portfolioItems: BeforeAfterSet[] = [
+    {
+      id: 1,
+      title: t('carpetCleaningCase'),
+      description: t('carpetCleaningCaseDesc'),
+      beforeImage: '/images/絨毯清掃作業風景.png', // 既存の画像を使用
+      afterImage: '/images/絨毯清掃作業風景.png', // 既存の画像を使用（実際はビフォーアフターの写真に差し替え）
+      category: t('carpetCleaningShort')
+    },
+    {
+      id: 2,
+      title: t('exteriorCleaningCase'),
+      description: t('exteriorCleaningCaseDesc'),
+      beforeImage: '/images/高圧洗浄作業風景.png', // 既存の画像を使用
+      afterImage: '/images/高圧洗浄作業風景.png', // 既存の画像を使用（実際はビフォーアフターの写真に差し替え）
+      category: t('highPressureShort')
+    },
+    {
+      id: 3,
+      title: t('tileCleaningCase'),
+      description: t('tileCleaningCaseDesc'),
+      beforeImage: '/images/タイル洗浄作業風景.png', // 既存の画像を使用
+      afterImage: '/images/タイル洗浄作業風景.png', // 既存の画像を使用（実際はビフォーアフターの写真に差し替え）
+      category: t('tileCleaningShort')
+    }
+  ];
+
+  // アニメーション用のバリアント
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  };
+
   return (
     <section 
       id="portfolio" 
@@ -99,10 +104,10 @@ export default function Portfolio() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400 tracking-tight" style={{ textShadow: '0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.4)' }}>
-            実績
+            {t('portfolio')}
           </h2>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
-            プロの技術で生まれ変わるビフォーアフター。実際の清掃事例をご紹介します。
+            {t('portfolioDescription')}
           </p>
         </motion.div>
 
@@ -133,11 +138,11 @@ export default function Portfolio() {
                 <div className="relative rounded-xl overflow-hidden bg-slate-800/90 backdrop-blur-xl border border-slate-700/50 aspect-[4/3] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-emerald-500/10 z-10 transition-opacity duration-500"></div>
                   <div className="absolute top-0 left-0 z-20 m-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-md border border-slate-700/50 text-white/90 text-sm font-medium">
-                    Before
+                    {t('before')}
                   </div>
                   <Image
                     src={item.beforeImage}
-                    alt={`${item.title} ビフォー`}
+                    alt={`${item.title} ${t('beforeImage')}`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -149,11 +154,11 @@ export default function Portfolio() {
                 <div className="relative rounded-xl overflow-hidden bg-slate-800/90 backdrop-blur-xl border border-slate-700/50 aspect-[4/3] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-emerald-500/20 z-10 transition-opacity duration-500"></div>
                   <div className="absolute top-0 left-0 z-20 m-4 bg-emerald-900/80 backdrop-blur-md px-3 py-1.5 rounded-md border border-emerald-600/50 text-emerald-300 text-sm font-medium">
-                    After
+                    {t('after')}
                   </div>
                   <Image
                     src={item.afterImage}
-                    alt={`${item.title} アフター`}
+                    alt={`${item.title} ${t('afterImage')}`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"

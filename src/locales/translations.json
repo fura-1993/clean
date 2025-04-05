@@ -102,7 +102,18 @@
     "emailAddress": "メールアドレス",
     "companyDescription": "最先端技術と熟練の技で、あらゆる空間をクリーンに。お客様の快適な環境づくりをサポートします。",
     "siteTitle": "JT プロフェッショナルクリーニングサービス",
-    "siteDescription": "最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に。プロフェッショナルな清掃サービスを提供します。"
+    "siteDescription": "最新の技術と熟練の技で、あらゆる空間を清潔で快適な環境に。プロフェッショナルな清掃サービスを提供します。",
+    "portfolioDescription": "プロの技術で生まれ変わるビフォーアフター。実際の清掃事例をご紹介します。",
+    "before": "Before",
+    "after": "After",
+    "beforeImage": "ビフォー",
+    "afterImage": "アフター",
+    "carpetCleaningCase": "飲食店カーペット洗浄",
+    "carpetCleaningCaseDesc": "長年の汚れが蓄積したカーペットを専用洗剤と高性能機器で洗浄",
+    "exteriorCleaningCase": "オフィスビル外壁洗浄",
+    "exteriorCleaningCaseDesc": "高圧洗浄機で外壁の長年の汚れを除去し美観を回復",
+    "tileCleaningCase": "商業施設床タイル洗浄",
+    "tileCleaningCaseDesc": "専門洗剤と洗浄機で頑固な汚れを除去し清潔感を回復"
   },
   "en": {
     "contact": "Contact Us",
@@ -207,6 +218,17 @@
     "emailAddress": "Email Address",
     "companyDescription": "With cutting-edge technology and skilled expertise, we clean every space. Supporting comfortable environments for our customers.",
     "siteTitle": "JT Professional Cleaning Service",
-    "siteDescription": "With the latest technology and skilled expertise, we create clean and comfortable environments for any space. Professional cleaning services at your service."
+    "siteDescription": "With the latest technology and skilled expertise, we create clean and comfortable environments for any space. Professional cleaning services at your service.",
+    "portfolioDescription": "Before and after transformations with professional techniques. View our actual cleaning cases.",
+    "before": "Before",
+    "after": "After",
+    "beforeImage": "Before Image",
+    "afterImage": "After Image",
+    "carpetCleaningCase": "Restaurant Carpet Cleaning",
+    "carpetCleaningCaseDesc": "Cleaning carpets with accumulated years of dirt using specialized detergents and high-performance equipment",
+    "exteriorCleaningCase": "Office Building Exterior Cleaning",
+    "exteriorCleaningCaseDesc": "Restoring aesthetic appeal by removing years of dirt from exterior walls with high-pressure cleaning",
+    "tileCleaningCase": "Commercial Facility Floor Tile Cleaning",
+    "tileCleaningCaseDesc": "Removing stubborn stains with specialized detergents and cleaning machines to restore a clean atmosphere"
   }
 } 
