@@ -88,26 +88,26 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <motion.div
-                className="absolute -inset-3 bg-gradient-to-r from-yellow-400/30 via-yellow-300/40 to-yellow-400/30 rounded-full blur-xl"
+                className="absolute -inset-2.5 bg-gradient-to-r from-yellow-400/20 via-yellow-300/30 to-yellow-400/20 rounded-full blur-lg"
                 animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 180, 360],
-                  opacity: [0.3, 0.5, 0.3],
+                  scale: [1, 1.15, 1],
+                  rotate: [0, 90, 180],
+                  opacity: [0.2, 0.4, 0.2],
                 }}
                 transition={{
-                  duration: 8,
+                  duration: 10,
                   repeat: Infinity,
                   ease: "linear"
                 }}
               />
-              <div className="relative bg-blue-950/50 backdrop-blur-md px-8 py-3 rounded-full border border-white/10">
+              <div className="relative bg-blue-900/60 backdrop-blur-sm px-6 py-2.5 rounded-full border border-white/15 shadow-md">
                 <motion.span 
-                  className="text-lg font-medium bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent"
+                  className="text-base font-medium bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-200 bg-clip-text text-transparent tracking-wider"
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
                   transition={{
-                    duration: 5,
+                    duration: 6,
                     repeat: Infinity,
                     ease: "linear"
                   }}
