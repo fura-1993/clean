@@ -50,10 +50,9 @@ export default function Contact() {
     email: '', 
     selectedService: '',
     message: '',
-    file: null as File | null
+    files: [] as File[]
   });
   const [status, setStatus] = useState<{ type: 'idle' | 'loading' | 'success' | 'error'; message: string }>({ type: 'idle', message: '' });
-  const [fileName, setFileName] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -61,19 +60,36 @@ export default function Contact() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+    const selectedFiles = e.target.files;
+    if (!selectedFiles) return;
+
+    const newFiles = Array.from(selectedFiles);
+    const currentFiles = formData.files;
+    const combinedFiles = [...currentFiles, ...newFiles];
+
+    if (combinedFiles.length > 10) {
+      setStatus({ type: 'error', message: '添付できるファイルは10個までです。' });
+      e.target.value = '';
+      return;
+    }
+
+    for (const file of newFiles) {
       if (file.size > 50 * 1024 * 1024) { // 50MB in bytes
-        setStatus({ type: 'error', message: 'ファイルサイズは50MB以下にしてください。' });
+        setStatus({ type: 'error', message: `ファイルサイズが50MBを超えています: ${file.name}` });
         e.target.value = '';
         return;
       }
-      setFormData(prevState => ({ ...prevState, file }));
-      setFileName(file.name);
-    } else {
-      setFormData(prevState => ({ ...prevState, file: null }));
-      setFileName('');
     }
+
+    setFormData(prevState => ({ ...prevState, files: combinedFiles }));
+    e.target.value = '';
+  };
+
+  const removeFile = (indexToRemove: number) => {
+    setFormData(prevState => ({ 
+      ...prevState, 
+      files: prevState.files.filter((_, index) => index !== indexToRemove)
+    }));
   };
 
   const handleServiceSelect = (serviceId: string) => {
@@ -90,9 +106,9 @@ export default function Contact() {
       formDataToSend.append('email', formData.email);
       formDataToSend.append('selectedService', formData.selectedService);
       formDataToSend.append('message', formData.message);
-      if (formData.file) {
-        formDataToSend.append('file', formData.file);
-      }
+      formData.files.forEach((file, index) => {
+        formDataToSend.append(`file`, file);
+      });
 
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -103,8 +119,7 @@ export default function Contact() {
 
       if (response.ok) {
         setStatus({ type: 'success', message: result.message });
-        setFormData({ name: '', email: '', selectedService: '', message: '', file: null }); // Clear form
-        setFileName('');
+        setFormData({ name: '', email: '', selectedService: '', message: '', files: [] });
       } else {
         setStatus({ type: 'error', message: result.error || '送信に失敗しました。' });
       }
@@ -296,47 +311,50 @@ export default function Contact() {
             {/* File Upload */}
             <motion.div variants={itemVariants} className="relative group">
               <label htmlFor="file" className="flex items-center text-lg font-medium text-slate-300 mb-2">
-                <i className="fas fa-paperclip mr-2 text-emerald-400/70"></i>ファイル添付
+                <i className="fas fa-paperclip mr-2 text-emerald-400/70"></i>ファイル添付 (最大10個)
               </label>
               <div className="relative">
                 <input
                   type="file"
                   id="file"
                   name="file"
+                  multiple
                   onChange={handleFileChange}
                   accept=".jpg,.jpeg,.png,.pdf,.xls,.xlsx,.doc,.docx,.txt"
                   className="hidden"
                   disabled={status.type === 'loading'}
                 />
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mb-2">
                   <button
                     type="button"
                     onClick={() => document.getElementById('file')?.click()}
-                    className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-white hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition-all duration-300"
+                    disabled={formData.files.length >= 10 || status.type === 'loading'}
+                    className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-white hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    ファイルを選択
+                    ファイルを追加
                   </button>
-                  {fileName && (
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/30 border border-slate-600/30">
-                      <span className="text-slate-300 text-sm truncate max-w-xs">{fileName}</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setFormData(prevState => ({ ...prevState, file: null }));
-                          setFileName('');
-                          if (document.getElementById('file')) {
-                            (document.getElementById('file') as HTMLInputElement).value = '';
-                          }
-                        }}
-                        className="text-slate-400 hover:text-slate-300"
-                      >
-                        <i className="fas fa-times"></i>
-                      </button>
-                    </div>
-                  )}
+                  <span className="text-sm text-slate-400">{formData.files.length} / 10 個選択中</span>
                 </div>
+                {formData.files.length > 0 && (
+                  <div className="mt-2 space-y-2">
+                    {formData.files.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between gap-2 px-3 py-1.5 rounded-lg bg-slate-800/30 border border-slate-600/30">
+                        <span className="text-slate-300 text-sm truncate max-w-xs" title={file.name}>{file.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeFile(index)}
+                          disabled={status.type === 'loading'}
+                          className="text-slate-400 hover:text-red-400 text-xs disabled:opacity-50"
+                          aria-label={`Remove ${file.name}`}
+                        >
+                          <i className="fas fa-times"></i>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <p className="mt-2 text-sm text-slate-400">
-                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (最大50MB)
+                  対応ファイル: JPEG, PNG, PDF, Excel, Word, テキスト等 (各50MBまで)
                 </p>
               </div>
             </motion.div>
