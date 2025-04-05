@@ -186,9 +186,9 @@ export default function Contact() {
           <p className="text-lg text-emerald-400/80 mt-2">24時間以内に担当者よりご連絡させていただきます。</p>
         </motion.div>
 
-        {/* Service Selection Cards */}
+        {/* Service Selection Cards - Adjusted Width and Centering */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+          className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -198,61 +198,37 @@ export default function Contact() {
             <motion.button
               key={service.id}
               onClick={() => handleServiceSelect(service.id)}
-              className={`relative group p-6 rounded-xl border transition-all duration-300 ${
+              className={`relative p-4 sm:p-6 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-emerald-500 w-full h-full flex flex-col items-center justify-center text-center shadow-lg group ${
                 formData.selectedService === service.id
-                  ? 'bg-emerald-900/30 border-emerald-400'
-                  : 'bg-slate-800/40 border-emerald-500/20 hover:bg-slate-800/60 hover:border-emerald-500/40'
+                  ? 'bg-emerald-600/30 border-emerald-500 text-white'
+                  : 'bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-700/50 hover:border-slate-600'
               }`}
               variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -4 }}
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Hover Glow Effect */}
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_center,${
-                formData.selectedService === service.id 
-                  ? 'rgba(52,211,153,0.2)' 
-                  : 'rgba(52,211,153,0.1)'
-              }_0%,transparent_70%)]`} />
-              
-              {/* Selection Indicator */}
-              <div className={`absolute top-4 right-4 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                formData.selectedService === service.id
-                  ? 'border-emerald-400 bg-emerald-400'
-                  : 'border-emerald-500/40 group-hover:border-emerald-500/60'
-              }`}>
-                <div className={`absolute inset-0 rounded-full transition-transform duration-300 ${
-                  formData.selectedService === service.id
-                    ? 'scale-100'
-                    : 'scale-0'
-                }`}>
+              {/* Checkmark for selected state */}
+              <AnimatePresence>
+                {formData.selectedService === service.id && (
                   <motion.div
-                    className="absolute inset-0 rounded-full bg-emerald-300"
-                    initial={false}
-                    animate={formData.selectedService === service.id ? { scale: [0.8, 1.2, 1] } : { scale: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </div>
-
-              <div className={`text-4xl mb-4 transition-colors duration-300 ${
-                formData.selectedService === service.id
-                  ? 'text-emerald-400'
-                  : 'text-emerald-500/70 group-hover:text-emerald-400/80'
-              }`}>
-                <i className={service.icon}></i>
-              </div>
-              <h3 className={`text-xl font-semibold mb-2 transition-colors duration-300 ${
-                formData.selectedService === service.id
-                  ? 'text-emerald-300'
-                  : 'text-emerald-400/80 group-hover:text-emerald-300'
-              }`}>
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    className="absolute top-2 right-2 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center"
+                  >
+                    <i className="fas fa-check text-white text-xs"></i>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+              {/* Icon */}
+              <i className={`${service.icon} text-3xl mb-3 ${formData.selectedService === service.id ? 'text-emerald-300' : 'text-emerald-400/80 group-hover:text-emerald-400'} transition-colors duration-300`}></i>
+              {/* Title */}
+              <h3 className="text-md sm:text-lg font-semibold mb-1 ${formData.selectedService === service.id ? 'text-white' : 'text-slate-200 group-hover:text-white'} transition-colors duration-300">
                 {service.title}
               </h3>
-              <p className={`text-sm transition-colors duration-300 ${
-                formData.selectedService === service.id
-                  ? 'text-slate-300'
-                  : 'text-slate-400 group-hover:text-slate-300'
-              }`}>
+              {/* Description */}
+              <p className={`text-xs sm:text-sm ${formData.selectedService === service.id ? 'text-emerald-100' : 'text-slate-400 group-hover:text-slate-300'} transition-colors duration-300`}>
                 {service.description}
               </p>
             </motion.button>
