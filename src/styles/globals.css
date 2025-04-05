@@ -105,8 +105,34 @@
 [data-aos] {
   pointer-events: none;
 }
-[data-aos].aos-animate {
-  pointer-events: auto;
+
+/* Contact Form Animations */
+@keyframes bgGridMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: -120px 120px; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Generate particle animations */
+.particle {
+  @apply absolute w-1 h-1 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-100;
+}
+
+@for $i from 0 to 20 {
+  @keyframes particle-#{$i} {
+    0% {
+      transform: scale(0) translate(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) translate(calc(random(100) * 1px - 50px), calc(random(100) * -1px - 50px));
+      opacity: 0;
+    }
+  }
 }
 
 /* Custom Animations */

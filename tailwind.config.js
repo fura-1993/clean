@@ -37,6 +37,28 @@ module.exports = {
           xl: '1280px',
         },
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      animation: {
+        'bgGridMove': 'bgGridMove 30s linear infinite',
+        'shimmer': 'shimmer 2s linear infinite',
+      },
+      keyframes: {
+        bgGridMove: {
+          '0%': { backgroundPosition: '0% 0%' },
+          '100%': { backgroundPosition: '-120px 120px' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+      },
+      backgroundSize: {
+        'shimmer': '200% 100%',
+      },
     },
   },
   plugins: [],

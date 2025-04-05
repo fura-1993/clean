@@ -103,17 +103,8 @@ export default function Contact() {
               <path d='M30-1.5 V61.5 M-1.5 30 H61.5' stroke='hsla(158, 82%, 57%, 0.03)' strokeWidth='1'/>
             </pattern>
           </defs>
-          <rect width='100%' height='100%' fill='url(#contactGrid)' style={{ animation: 'bgGridMove 30s linear infinite'}} />
+          <rect width='100%' height='100%' fill='url(#contactGrid)' className="animate-bgGridMove" />
         </svg>
-         <style jsx global>{`
-          @keyframes bgGridMove {
-            0% { background-position: 0% 0%; }
-            100% { background-position: -120px 120px; }
-          }
-          rect[fill='url(#contactGrid)'] {
-            animation: bgGridMove 30s linear infinite;
-          }
-        `}</style>
       </div>
 
       {/* Top Edge Glow */}
@@ -155,15 +146,11 @@ export default function Contact() {
               whileTap={{ scale: 0.98 }}
             >
               {/* Hover Glow Effect */}
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
-                style={{ 
-                  background: `radial-gradient(circle at center, ${
-                    formData.selectedService === service.id 
-                      ? 'rgba(52, 211, 153, 0.2)' 
-                      : 'rgba(52, 211, 153, 0.1)'
-                  } 0%, transparent 70%)` 
-                }}
-              />
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_center,${
+                formData.selectedService === service.id 
+                  ? 'rgba(52,211,153,0.2)' 
+                  : 'rgba(52,211,153,0.1)'
+              }_0%,transparent_70%)]`} />
               
               {/* Selection Indicator */}
               <div className={`absolute top-4 right-4 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
@@ -311,12 +298,7 @@ export default function Contact() {
                 
                 {/* Animated Border */}
                 <div className="absolute inset-0.5 rounded-xl opacity-0 group-hover:opacity-100">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400"
-                       style={{
-                         backgroundSize: '200% 100%',
-                         animation: 'shimmer 2s linear infinite',
-                       }}
-                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 animate-shimmer" />
                 </div>
 
                 {/* Particle Effects on Hover */}
@@ -325,14 +307,12 @@ export default function Contact() {
                   {Array.from({ length: 20 }).map((_, i) => (
                     <div
                       key={i}
-                      className="absolute w-1 h-1 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-100"
+                      className={`particle animate-[particle-${i}_1s_ease_infinite]`}
                       style={{
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
-                        transform: 'scale(0)',
-                        animation: `particle-${i} 1s ease infinite`,
                       }}
-                    ></div>
+                    />
                   ))}
                 </div>
 
@@ -358,26 +338,6 @@ export default function Contact() {
           </form>
         </motion.div>
       </div>
-
-      {/* Add shimmer animation */}
-      <style jsx global>{`
-        @keyframes shimmer {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-        ${Array.from({ length: 20 }).map((_, i) => `
-          @keyframes particle-${i} {
-            0% {
-              transform: scale(0) translate(0, 0);
-              opacity: 1;
-            }
-            100% {
-              transform: scale(1) translate(${Math.random() * 100 - 50}px, ${Math.random() * -100 - 50}px);
-              opacity: 0;
-            }
-          }
-        `).join('\n')}
-      `}</style>
     </section>
   )
 } 
