@@ -99,13 +99,25 @@ export default function Footer() {
           <div className="lg:col-span-3">
              <h3 className="text-md font-semibold text-emerald-400 tracking-wider uppercase mb-4">{t('contact')}</h3>
              <div className="space-y-3 text-sm">
-                <p className="flex items-center">
-                   <i className="fas fa-map-marker-alt mr-3 text-emerald-500/70 w-4 text-center"></i>
-                   {t('address')}
+                <p className="flex items-start">
+                   <i className="fas fa-building mr-3 text-emerald-500/70 w-4 text-center pt-1"></i>
+                   <span className="font-medium text-slate-300">{t('companyName')}</span>
+                </p>
+                <p className="flex items-start">
+                   <i className="fas fa-map-marker-alt mr-3 text-emerald-500/70 w-4 text-center pt-1"></i>
+                   <span>{t('companyAddress')}</span>
+                </p>
+                <p className="flex items-start">
+                   <i className="fas fa-calendar-day mr-3 text-emerald-500/70 w-4 text-center pt-1"></i>
+                   <span>{t('establishedDate')}</span>
                 </p>
                 <p className="flex items-center">
                    <i className="fas fa-phone-alt mr-3 text-emerald-500/70 w-4 text-center"></i>
-                   <a href="tel:04-7185-0805" className="hover:text-emerald-300 transition-colors">04-7185-0805</a>
+                   <a href="tel:04-7185-0805" className="hover:text-emerald-300 transition-colors">{t('phoneNumber')}</a>
+                </p>
+                <p className="flex items-center">
+                   <i className="fas fa-fax mr-3 text-emerald-500/70 w-4 text-center"></i>
+                   <span>{t('faxNumber')}</span>
                 </p>
                 <p className="flex items-center">
                    <i className="fas fa-envelope mr-3 text-emerald-500/70 w-4 text-center"></i>

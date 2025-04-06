@@ -113,7 +113,12 @@
     "exteriorCleaningCase": "オフィスビル外壁洗浄",
     "exteriorCleaningCaseDesc": "高圧洗浄機で外壁の長年の汚れを除去し美観を回復",
     "tileCleaningCase": "商業施設床タイル洗浄",
-    "tileCleaningCaseDesc": "専門洗剤と洗浄機で頑固な汚れを除去し清潔感を回復"
+    "tileCleaningCaseDesc": "専門洗剤と洗浄機で頑固な汚れを除去し清潔感を回復",
+    "companyName": "株式会社JATRACK",
+    "companyAddress": "〒270-1176 千葉県我孫子市柴崎台3丁目10-3 2F-B",
+    "establishedDate": "設立: 2022年1月11日",
+    "phoneNumber": "電話: 04-7185-0805",
+    "faxNumber": "FAX: 04-7185-0806"
   },
   "en": {
     "contact": "Contact Us",
@@ -229,6 +234,11 @@
     "exteriorCleaningCase": "Office Building Exterior Cleaning",
     "exteriorCleaningCaseDesc": "Restoring aesthetic appeal by removing years of dirt from exterior walls with high-pressure cleaning",
     "tileCleaningCase": "Commercial Facility Floor Tile Cleaning",
-    "tileCleaningCaseDesc": "Removing stubborn stains with specialized detergents and cleaning machines to restore a clean atmosphere"
+    "tileCleaningCaseDesc": "Removing stubborn stains with specialized detergents and cleaning machines to restore a clean atmosphere",
+    "companyName": "JATRACK Corporation",
+    "companyAddress": "3-10-3 Shibasaki-dai, Abiko-shi, Chiba, 270-1176, Japan 2F-B",
+    "establishedDate": "Established: January 11, 2022",
+    "phoneNumber": "Tel: 04-7185-0805",
+    "faxNumber": "Fax: 04-7185-0806"
   }
 } 
