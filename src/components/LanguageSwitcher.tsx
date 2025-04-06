@@ -36,20 +36,67 @@ const LanguageSwitcher: React.FC = () => {
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* メインボタン - コンパクト化 */}
-      <button
+      {/* メインボタン - 目立つように強化 */}
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center justify-center w-8 h-8 rounded-full bg-slate-800/60 border border-slate-700/30 text-white hover:bg-slate-700/70 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 group transition-all duration-300"
+        className="relative flex items-center justify-center w-10 h-10 rounded-full bg-slate-800/70 border border-emerald-500/40 text-white hover:bg-slate-700/80 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 group transition-all duration-300"
         aria-label={t('language')}
         title={language === 'ja' ? '日本語' : 'English'}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        animate={{ 
+          boxShadow: isOpen 
+            ? ["0 0 10px rgba(52, 211, 153, 0.7)"] 
+            : ["0 0 5px rgba(52, 211, 153, 0.3)", "0 0 12px rgba(52, 211, 153, 0.5)", "0 0 5px rgba(52, 211, 153, 0.3)"] 
+        }}
+        transition={{ 
+          boxShadow: { 
+            duration: 2, 
+            repeat: isOpen ? 0 : Infinity,
+            ease: "easeInOut" 
+          }
+        }}
       >
-        <span className="text-sm">
-          {language === 'ja' ? '🇯🇵' : '🇺🇸'}
-        </span>
+        {/* 回転するアウターリング */}
+        <motion.div 
+          className="absolute inset-[-2px] rounded-full border border-emerald-400/30"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
         
-        {/* 微妙なホバーエフェクト */}
-        <div className="absolute inset-0 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/10 transition-colors duration-300 pointer-events-none"></div>
-      </button>
+        {/* 脈動する内側のリング */}
+        <motion.div 
+          className="absolute inset-[-1px] rounded-full border-2 border-emerald-400/20"
+          animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
+        
+        {/* 国旗アイコン */}
+        <motion.span 
+          className="text-base z-10"
+          animate={{ 
+            y: [0, -1, 0, 1, 0],
+          }}
+          transition={{ 
+            y: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+          }}
+        >
+          {language === 'ja' ? '🇯🇵' : '🇺🇸'}
+        </motion.span>
+        
+        {/* 強化されたホバーエフェクト */}
+        <div className="absolute inset-0 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/20 transition-colors duration-300 pointer-events-none group-hover:shadow-[0_0_15px_rgba(52,211,153,0.5)]"></div>
+        
+        {/* アクティブインジケーター - ドロップダウンが開いている時 */}
+        {isOpen && (
+          <motion.div 
+            className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-emerald-400 rounded-full" 
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+          />
+        )}
+      </motion.button>
 
       {/* ドロップダウンメニュー - 位置調整 */}
       <AnimatePresence>
