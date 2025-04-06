@@ -186,7 +186,7 @@ export default function Header() {
               </button>
 
               {/* 言語切り替えボタン - 小さめのサイズで常に表示 */}
-              <div className="ml-2">
+              <div className="ml-6">
                 <div className="language-switcher-container">
                   <LanguageSwitcher />
                 </div>
